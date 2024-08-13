@@ -1,3 +1,6 @@
+# Assigns Managers to Director and updates UI according to signals from Director
+# and responds to Player inputs
+
 extends CanvasLayer
 
 
