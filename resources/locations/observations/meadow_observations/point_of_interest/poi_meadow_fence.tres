@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Observation" load_steps=3 format=3 uid="uid://cg0l0hi8ou8bi"]
+
+[ext_resource type="Script" path="res://resources/locations/observations/observations.gd" id="1_3xrco"]
+[ext_resource type="Resource" uid="uid://w0i4wfx14ubr" path="res://resources/locations/observations/observation_types/point_of_interest.tres" id="1_4s2lr"]
+
+[resource]
+script = ExtResource("1_3xrco")
+observation_type = ExtResource("1_4s2lr")
+observation_mesage = "A weathered old fence post stands as a silent sentinel, its rough surface home to various lichens and moss. Birds often use it as a convenient perch to survey the meadow."
+has_bonus = false

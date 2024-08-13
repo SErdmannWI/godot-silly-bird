@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="FoodType" load_steps=2 format=3 uid="uid://dqnoql6mircbi"]
+
+[ext_resource type="Script" path="res://scenes/bird_program/global_bird_variables/food_types/food_types.gd" id="1_1mmny"]
+
+[resource]
+script = ExtResource("1_1mmny")
+name = "Fruits"
+desc = "Sweet and juicy fruits that offer vitamins and hydration."

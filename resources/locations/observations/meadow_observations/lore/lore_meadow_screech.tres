@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Observation" load_steps=3 format=3 uid="uid://c28nspdui5v0j"]
+
+[ext_resource type="Script" path="res://resources/locations/observations/observations.gd" id="1_k6tut"]
+[ext_resource type="Resource" uid="uid://bl1eixj3atuqd" path="res://resources/locations/observations/observation_types/lore.tres" id="1_ofsc6"]
+
+[resource]
+script = ExtResource("1_k6tut")
+observation_type = ExtResource("1_ofsc6")
+observation_mesage = "You hear a far off screech. It sounds like a terrified creature calling for help. You continue to listen but don't hear anything more."
+has_bonus = false

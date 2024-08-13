@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://bwt6pg68fjdu7"]
+
+[ext_resource type="Texture2D" uid="uid://4fascfd8phk3" path="res://resources/icons/item_icons/icon_temp_nest_medium.png" id="1_d5awe"]
+[ext_resource type="Resource" uid="uid://jfyop1ydcug8" path="res://resources/item_types/nesting_item.tres" id="1_j0d7g"]
+[ext_resource type="Script" path="res://resources/items/item.gd" id="1_qh86t"]
+
+[resource]
+script = ExtResource("1_qh86t")
+item_name = "Nesting Material (medium)"
+item_icon = ExtResource("1_d5awe")
+item_type = ExtResource("1_j0d7g")
+item_desc = "A collection of nesting materials."
+item_amount = 3
+item_value = 3

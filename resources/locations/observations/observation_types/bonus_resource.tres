@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="ObservationType" load_steps=2 format=3 uid="uid://cavrgb6h4x24t"]
+
+[ext_resource type="Script" path="res://resources/locations/observations/observation_types/observation_type.gd" id="1_sdx4e"]
+
+[resource]
+script = ExtResource("1_sdx4e")
+type_name = "Bonus Resource"

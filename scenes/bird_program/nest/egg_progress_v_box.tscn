@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjcau2ypakigl"]
+
+[ext_resource type="Script" path="res://scenes/bird_program/nest/egg_progress_v_box.gd" id="1_kgng7"]
+
+[node name="EggProgressVBox" type="VBoxContainer"]
+script = ExtResource("1_kgng7")
+
+[node name="EggProgressLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Egg 1 Progress"
+
+[node name="EggProgressBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+value = 65.0

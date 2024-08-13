@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Location" load_steps=5 format=3 uid="uid://b7f0ywougm7gh"]
+
+[ext_resource type="Script" path="res://resources/location.gd" id="1_33hl5"]
+[ext_resource type="Texture2D" uid="uid://8uemwk7qbnv1" path="res://assets/png/background/woodsA.jpg" id="1_f8pe7"]
+[ext_resource type="Resource" uid="uid://c73w82aaeo3qe" path="res://scenes/bird_program/global_bird_variables/food_types/insects.tres" id="1_yxmkq"]
+[ext_resource type="Resource" uid="uid://dygsfaucsmnb2" path="res://scenes/bird_program/global_bird_variables/food_types/nectar.tres" id="2_qf50u"]
+
+[resource]
+script = ExtResource("1_33hl5")
+location_name = "Woods"
+location_desc = "A small wooded area with plenty of tall trees above a leaf carpted floor. Nesting material is here in abundance, as well as a good supply of insects and nectar."
+background = ExtResource("1_f8pe7")
+location_id = "Woods"
+food_types = Array[Resource("res://scenes/bird_program/global_bird_variables/food_types/food_types.gd")]([ExtResource("1_yxmkq"), ExtResource("2_qf50u")])
+birds = Array[String](["Crow", "Robin"])
+threats = Array[String](["Hawk", "Owl"])
+threat_level = "Medium"
+observations = Array[Resource("res://resources/locations/observations/observations.gd")]([])
+food_difficulty = 1.6
+nest_material_needed = 1

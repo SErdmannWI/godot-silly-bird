@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="Location" load_steps=15 format=3 uid="uid://cyvyprxwive75"]
+
+[ext_resource type="Texture2D" uid="uid://di72jgaur0noa" path="res://assets/png/background/meadowA.jpg" id="1_hypk6"]
+[ext_resource type="Resource" uid="uid://c73w82aaeo3qe" path="res://scenes/bird_program/global_bird_variables/food_types/insects.tres" id="1_tdnan"]
+[ext_resource type="Script" path="res://resources/location.gd" id="1_xdeuo"]
+[ext_resource type="Resource" uid="uid://d08vsowxwpe6m" path="res://scenes/bird_program/global_bird_variables/food_types/seeds.tres" id="2_jo31o"]
+[ext_resource type="Resource" uid="uid://buydya6efy1pm" path="res://resources/locations/observations/meadow_observations/alert/alert_meadow_falcon.tres" id="3_dmkle"]
+[ext_resource type="Resource" uid="uid://bn7iwoturaeq" path="res://resources/locations/observations/meadow_observations/alert/alert_meadow_snake.tres" id="4_qqhw1"]
+[ext_resource type="Resource" uid="uid://bceuk1ghig2ye" path="res://resources/locations/observations/meadow_observations/bonus/bonus_meadow_coin.tres" id="5_0ctd7"]
+[ext_resource type="Resource" uid="uid://dlxfqy42ni4ho" path="res://resources/locations/observations/meadow_observations/bonus/bonus_meadow_nesting.tres" id="6_tbdgh"]
+[ext_resource type="Resource" uid="uid://c28nspdui5v0j" path="res://resources/locations/observations/meadow_observations/lore/lore_meadow_screech.tres" id="7_e4lm1"]
+[ext_resource type="Resource" uid="uid://78naq1vylfjm" path="res://resources/locations/observations/meadow_observations/lore/lore_meadow_upset.tres" id="8_2728o"]
+[ext_resource type="Resource" uid="uid://cb84gno5mn3sj" path="res://resources/locations/observations/meadow_observations/lore/lore_meadow_animal.tres" id="9_je6lg"]
+[ext_resource type="Resource" uid="uid://bx4lwgfg0oih8" path="res://resources/locations/observations/meadow_observations/point_of_interest/poi_meadow_bees.tres" id="10_dawag"]
+[ext_resource type="Resource" uid="uid://b3hudt2d55p28" path="res://resources/locations/observations/meadow_observations/point_of_interest/poi_meadow_stream.tres" id="11_1svgg"]
+[ext_resource type="Resource" uid="uid://cg0l0hi8ou8bi" path="res://resources/locations/observations/meadow_observations/point_of_interest/poi_meadow_fence.tres" id="12_ta25e"]
+
+[resource]
+script = ExtResource("1_xdeuo")
+location_name = "Meadow"
+location_desc = "A lush, open field of swaying grasses and wildflowers, teeming with insects and foraging opportunity for seeds. Small amounts of nesting material is available."
+background = ExtResource("1_hypk6")
+location_id = "meadow"
+food_types = Array[Resource("res://scenes/bird_program/global_bird_variables/food_types/food_types.gd")]([ExtResource("1_tdnan"), ExtResource("2_jo31o")])
+birds = Array[String](["Cardinal", "Blue Jay"])
+threats = Array[String](["Hawk", "Falcon", "Snake", "Raccoon"])
+threat_level = "Low"
+observations = Array[Resource("res://resources/locations/observations/observations.gd")]([ExtResource("3_dmkle"), ExtResource("4_qqhw1"), ExtResource("5_0ctd7"), ExtResource("6_tbdgh"), ExtResource("7_e4lm1"), ExtResource("8_2728o"), ExtResource("9_je6lg"), ExtResource("10_dawag"), ExtResource("11_1svgg"), ExtResource("12_ta25e")])
+food_difficulty = 1.2
+nest_material_needed = 10

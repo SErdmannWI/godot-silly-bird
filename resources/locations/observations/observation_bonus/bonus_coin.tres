@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ObservationBonus" load_steps=3 format=3 uid="uid://dxxdr4jgl3s10"]
+
+[ext_resource type="Script" path="res://resources/locations/observation_bonus.gd" id="1_apf6r"]
+[ext_resource type="Resource" uid="uid://dseho0eo1ckoh" path="res://resources/items/item_type_valuables/item_valuable_coin.tres" id="1_nk8sb"]
+
+[resource]
+script = ExtResource("1_apf6r")
+bonus_item = ExtResource("1_nk8sb")

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cssb27opisnub"]
+
+[ext_resource type="Texture2D" uid="uid://bjyowt5f8lsmt" path="res://assets/png/nests/egg.png" id="1_mrkpw"]
+[ext_resource type="Script" path="res://scenes/bird_program/nest/egg_texture_rect.gd" id="2_r0mne"]
+
+[node name="EggTextureRect" type="TextureRect"]
+offset_left = 150.0
+offset_top = 150.0
+offset_right = 190.0
+offset_bottom = 190.0
+tooltip_text = "Egg Picture"
+texture = ExtResource("1_mrkpw")
+script = ExtResource("2_r0mne")

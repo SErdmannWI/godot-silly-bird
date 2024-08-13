@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmymmir23ifca"]
+
+[ext_resource type="Theme" uid="uid://b4pk64xxu7km4" path="res://themes/bird_ui_meter_labels.tres" id="1_4dekf"]
+[ext_resource type="Script" path="res://scenes/bird_program/inventory/item_type_v_box.gd" id="1_cbvs4"]
+
+[node name="ItemTypeVBox" type="VBoxContainer"]
+alignment = 1
+script = ExtResource("1_cbvs4")
+
+[node name="ItemTypeHeader" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("1_4dekf")
+
+[node name="ItemGridContainer" type="GridContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+columns = 5

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Observation" load_steps=3 format=3 uid="uid://bn7iwoturaeq"]
+
+[ext_resource type="Script" path="res://resources/locations/observations/observations.gd" id="1_cckdp"]
+[ext_resource type="Resource" uid="uid://jny1txuq2hwt" path="res://resources/locations/observations/observation_types/alert.tres" id="1_gu4se"]
+
+[resource]
+script = ExtResource("1_cckdp")
+observation_type = ExtResource("1_gu4se")
+observation_mesage = "You start to peck at some insects on the ground and notice something slithering in the grass to your right. It's a SNAKE!!!"
+has_bonus = false

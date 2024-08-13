@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Observation" load_steps=3 format=3 uid="uid://bx4lwgfg0oih8"]
+
+[ext_resource type="Resource" uid="uid://w0i4wfx14ubr" path="res://resources/locations/observations/observation_types/point_of_interest.tres" id="1_j20b0"]
+[ext_resource type="Script" path="res://resources/locations/observations/observations.gd" id="1_ufn08"]
+
+[resource]
+script = ExtResource("1_ufn08")
+observation_type = ExtResource("1_j20b0")
+observation_mesage = "A patch of vibrant wildflowers sways gently in the breeze, their colorful petals attracting a variety of bees and butterflies. The air hums with the sound of busy pollinators at work."
+has_bonus = false

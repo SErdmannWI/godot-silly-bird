@@ -1,0 +1,17 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://b4pk64xxu7km4"]
+
+[ext_resource type="FontFile" uid="uid://ciabdf7cy36d0" path="res://assets/font/PixelfySans/PixelifySans-Medium.ttf" id="1_ar20k"]
+[ext_resource type="FontFile" uid="uid://t1vsmuvolfpp" path="res://assets/font/Dosis/Dosis-Light.ttf" id="2_1oax4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4hmec"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0so5n"]
+bg_color = Color(0.176471, 0.654902, 0.823529, 1)
+
+[resource]
+Label/font_sizes/font_size = 40
+Label/fonts/font = ExtResource("1_ar20k")
+ProgressBar/font_sizes/font_size = 50
+ProgressBar/fonts/font = ExtResource("2_1oax4")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_4hmec")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_0so5n")

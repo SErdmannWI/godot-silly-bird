@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="BirdBehavior" load_steps=2 format=3 uid="uid://cvgbtyqnheod"]
+
+[ext_resource type="Script" path="res://scenes/bird_program/global_bird_variables/behaviors/bird_behavior.gd" id="1_qk00a"]
+
+[resource]
+script = ExtResource("1_qk00a")
+name = "Ravenous"
+desc = "This bird is hungrier and more active than most. It may get aggressive if its food need is not met."

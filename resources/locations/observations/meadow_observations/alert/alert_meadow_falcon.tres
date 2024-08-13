@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Observation" load_steps=3 format=3 uid="uid://buydya6efy1pm"]
+
+[ext_resource type="Resource" uid="uid://jny1txuq2hwt" path="res://resources/locations/observations/observation_types/alert.tres" id="1_1r1dx"]
+[ext_resource type="Script" path="res://resources/locations/observations/observations.gd" id="1_pyxq8"]
+
+[resource]
+script = ExtResource("1_pyxq8")
+observation_type = ExtResource("1_1r1dx")
+observation_mesage = "You land on a small shrub when you notice a rapid shadow moving across the ground. A falcon is swooping down at you!"
+has_bonus = false

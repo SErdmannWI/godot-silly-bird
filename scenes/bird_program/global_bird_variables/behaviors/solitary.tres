@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="BirdBehavior" load_steps=2 format=3 uid="uid://cpvxt51rbt1f5"]
+
+[ext_resource type="Script" path="res://scenes/bird_program/global_bird_variables/behaviors/bird_behavior.gd" id="1_5wdqa"]
+
+[resource]
+script = ExtResource("1_5wdqa")
+name = "Solitary"
+desc = "This bird preferThis bird has a lower social need than others and enjoys time away from other birds. Will get annoyed if overstimulated."

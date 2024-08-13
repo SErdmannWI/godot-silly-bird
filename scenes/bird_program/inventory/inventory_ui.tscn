@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbffhbv62jyxd"]
+
+[ext_resource type="Script" path="res://scenes/bird_program/inventory/inventory_ui.gd" id="1_8gnlh"]
+[ext_resource type="PackedScene" uid="uid://f3fcwnpfljxb" path="res://scenes/bird_program/inventory/item_slot.tscn" id="2_k426h"]
+[ext_resource type="PackedScene" uid="uid://cmymmir23ifca" path="res://scenes/bird_program/inventory/item_type_v_box.tscn" id="2_p0jle"]
+
+[node name="InventoryUI" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -439.0
+offset_bottom = -250.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8gnlh")
+item_type_vbox = ExtResource("2_p0jle")
+item_slot_scene = ExtResource("2_k426h")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="InventoryHeaderLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Inventory"
+horizontal_alignment = 1
+
+[node name="CloseButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Close"
+
+[node name="InventoryGridHBox" type="HBoxContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1

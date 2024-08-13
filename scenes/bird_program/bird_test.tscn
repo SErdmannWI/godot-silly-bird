@@ -1,0 +1,196 @@
+[gd_scene load_steps=10 format=3 uid="uid://b8pmridvu2l7p"]
+
+[ext_resource type="Texture2D" uid="uid://di72jgaur0noa" path="res://assets/png/background/meadowA.jpg" id="1_db28x"]
+[ext_resource type="Theme" uid="uid://b4pk64xxu7km4" path="res://themes/bird_ui_meter_labels.tres" id="2_tnf2q"]
+[ext_resource type="Script" path="res://scenes/bird_program/HungerProgressBar.gd" id="3_sakxg"]
+[ext_resource type="Script" path="res://scenes/bird_program/SocialProgressBar.gd" id="4_5dvwk"]
+[ext_resource type="Theme" uid="uid://dr5it8gvg87uo" path="res://themes/bird_menu_button_1.tres" id="4_b8hq3"]
+[ext_resource type="Script" path="res://scenes/bird_program/EnergyProgressBar.gd" id="5_whxkp"]
+[ext_resource type="Script" path="res://scenes/bird_program/BirdStatus.gd" id="6_8iflq"]
+[ext_resource type="Script" path="res://scenes/bird_program/BirdMood.gd" id="7_i7s78"]
+[ext_resource type="Script" path="res://scenes/bird_program/DebugOptionButton.gd" id="9_hjte2"]
+
+[node name="BirdTest" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(945.5, 535)
+scale = Vector2(1.41367, 1.197)
+texture = ExtResource("1_db28x")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="BirdMeterCenterContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -390.0
+offset_right = 391.0
+offset_bottom = 571.0
+grow_horizontal = 2
+size_flags_vertical = 3
+theme_override_constants/margin_top = 20
+
+[node name="Panel" type="Panel" parent="CanvasLayer/BirdMeterCenterContainer"]
+layout_mode = 2
+
+[node name="BirdMeterVBox" type="VBoxContainer" parent="CanvasLayer/BirdMeterCenterContainer"]
+layout_mode = 2
+theme = ExtResource("2_tnf2q")
+
+[node name="HungerLabel" type="Label" parent="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox"]
+layout_mode = 2
+text = "Bird Hunger"
+horizontal_alignment = 1
+
+[node name="HungerProgressBar" type="ProgressBar" parent="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox"]
+layout_mode = 2
+value = 100.0
+script = ExtResource("3_sakxg")
+
+[node name="SocialLabel" type="Label" parent="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox"]
+layout_mode = 2
+text = "Bird Social
+"
+horizontal_alignment = 1
+
+[node name="SocialProgressBar" type="ProgressBar" parent="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox"]
+layout_mode = 2
+value = 100.0
+script = ExtResource("4_5dvwk")
+
+[node name="EnergyLabel" type="Label" parent="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox"]
+layout_mode = 2
+text = "Bird Energy
+"
+horizontal_alignment = 1
+
+[node name="EnergyProgressBar" type="ProgressBar" parent="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox"]
+layout_mode = 2
+value = 100.0
+script = ExtResource("5_whxkp")
+
+[node name="Spacer" type="Control" parent="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BirdStatusHBox" type="HBoxContainer" parent="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox"]
+layout_mode = 2
+
+[node name="BirdStatusLabel" type="Label" parent="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox/BirdStatusHBox"]
+layout_mode = 2
+text = "Bird Status: "
+
+[node name="Spacer" type="Control" parent="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox/BirdStatusHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BirdStatus" type="Label" parent="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox/BirdStatusHBox"]
+layout_mode = 2
+text = "SLEEPING"
+script = ExtResource("6_8iflq")
+
+[node name="BirdMoodHBox" type="HBoxContainer" parent="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox"]
+layout_mode = 2
+
+[node name="BirdMoodLabel" type="Label" parent="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox/BirdMoodHBox"]
+layout_mode = 2
+text = "Bird Status: "
+
+[node name="Spacer" type="Control" parent="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox/BirdMoodHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BirdMood" type="Label" parent="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox/BirdMoodHBox"]
+layout_mode = 2
+text = "SLEEPING"
+script = ExtResource("7_i7s78")
+
+[node name="ButtonMarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 100
+
+[node name="ButtonHBox" type="HBoxContainer" parent="CanvasLayer/ButtonMarginContainer"]
+layout_mode = 2
+theme = ExtResource("4_b8hq3")
+theme_override_constants/separation = 30
+
+[node name="FeedBirdButton" type="Button" parent="CanvasLayer/ButtonMarginContainer/ButtonHBox"]
+layout_mode = 2
+text = "Feed Bird"
+
+[node name="InteractBirdButton" type="Button" parent="CanvasLayer/ButtonMarginContainer/ButtonHBox"]
+layout_mode = 2
+text = "Interact with Bird
+"
+
+[node name="SleepBirdButton" type="Button" parent="CanvasLayer/ButtonMarginContainer/ButtonHBox"]
+layout_mode = 2
+toggle_mode = true
+text = "Let Bird Sleep
+"
+
+[node name="DebugMarginContainer" type="MarginContainer" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+
+[node name="DebugOptionButton" type="OptionButton" parent="CanvasLayer/DebugMarginContainer"]
+layout_mode = 2
+toggle_mode = false
+item_count = 7
+popup/item_0/text = "-10 Hunger"
+popup/item_0/id = 0
+popup/item_1/text = "-100 Hunger"
+popup/item_1/id = 1
+popup/item_2/text = "-10 Social"
+popup/item_2/id = 2
+popup/item_3/text = "-100 Social"
+popup/item_3/id = 3
+popup/item_4/text = "-10 Energy"
+popup/item_4/id = 4
+popup/item_5/text = "-100 Energy"
+popup/item_5/id = 5
+popup/item_6/text = "Refill All"
+popup/item_6/id = 6
+script = ExtResource("9_hjte2")
+
+[node name="HungerTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="SocialTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="EnergyTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="high_hunger" from="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox/HungerProgressBar" to="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox/BirdMoodHBox/BirdMood" method="on_high_hunger"]
+[connection signal="satiated" from="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox/HungerProgressBar" to="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox/BirdMoodHBox/BirdMood" method="on_satisfied_hunger"]
+[connection signal="fulfilled" from="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox/SocialProgressBar" to="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox/BirdMoodHBox/BirdMood" method="on_not_lonely"]
+[connection signal="lonely" from="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox/SocialProgressBar" to="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox/BirdMoodHBox/BirdMood" method="on_lonely"]
+[connection signal="low_energy" from="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox/EnergyProgressBar" to="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox/BirdMoodHBox/BirdMood" method="on_sleepy"]
+[connection signal="optimal_energy" from="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox/EnergyProgressBar" to="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox/BirdMoodHBox/BirdMood" method="on_not_sleepy"]
+[connection signal="pressed" from="CanvasLayer/ButtonMarginContainer/ButtonHBox/FeedBirdButton" to="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox/HungerProgressBar" method="increment_hunger_need"]
+[connection signal="pressed" from="CanvasLayer/ButtonMarginContainer/ButtonHBox/InteractBirdButton" to="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox/SocialProgressBar" method="increment_social_need"]
+[connection signal="pressed" from="CanvasLayer/ButtonMarginContainer/ButtonHBox/SleepBirdButton" to="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox/HungerProgressBar" method="on_sleep_toggle"]
+[connection signal="pressed" from="CanvasLayer/ButtonMarginContainer/ButtonHBox/SleepBirdButton" to="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox/SocialProgressBar" method="on_sleep_toggle"]
+[connection signal="pressed" from="CanvasLayer/ButtonMarginContainer/ButtonHBox/SleepBirdButton" to="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox/EnergyProgressBar" method="on_sleep_toggle"]
+[connection signal="pressed" from="CanvasLayer/ButtonMarginContainer/ButtonHBox/SleepBirdButton" to="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox/BirdStatusHBox/BirdStatus" method="on_sleep_toggle"]
+[connection signal="change_energy" from="CanvasLayer/DebugMarginContainer/DebugOptionButton" to="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox/EnergyProgressBar" method="on_debug_signal"]
+[connection signal="change_hunger" from="CanvasLayer/DebugMarginContainer/DebugOptionButton" to="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox/HungerProgressBar" method="on_debug_signal"]
+[connection signal="change_social" from="CanvasLayer/DebugMarginContainer/DebugOptionButton" to="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox/SocialProgressBar" method="on_debug_signal"]
+[connection signal="item_selected" from="CanvasLayer/DebugMarginContainer/DebugOptionButton" to="CanvasLayer/DebugMarginContainer/DebugOptionButton" method="on_item_selected"]
+[connection signal="timeout" from="HungerTimer" to="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox/HungerProgressBar" method="on_hunger_timer_timout"]
+[connection signal="timeout" from="SocialTimer" to="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox/SocialProgressBar" method="on_social_timer_timeout"]
+[connection signal="timeout" from="EnergyTimer" to="CanvasLayer/BirdMeterCenterContainer/BirdMeterVBox/EnergyProgressBar" method="on_energy_timer_timeout"]

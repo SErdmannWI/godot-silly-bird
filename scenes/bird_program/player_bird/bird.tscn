@@ -1,0 +1,125 @@
+[gd_scene load_steps=4 format=3 uid="uid://bw5jffmugd80"]
+
+[ext_resource type="Texture2D" uid="uid://bygcjk3wy4suq" path="res://assets/png/birds/mourning_dove.png" id="2_ov36c"]
+
+[sub_resource type="GDScript" id="GDScript_7sh6k"]
+script/source = "class_name BirdCharacter
+extends CharacterBody2D
+
+@export var bird_name: String
+@export var bird_id: String
+@export var bird_image: Texture
+@export var bird_age: int
+@export var bird_level: int
+@export var bird_experience: int
+@export var bird_behavior: BirdBehavior
+@export var food_type: FoodType
+@export var hunger: int
+@export var energy: int
+@export var social: int
+@export var mood: String
+
+# Needs Timers
+@onready var hunger_timer: Timer = %HungerTimer
+@onready var energy_timer: Timer = %EnergyTimer
+@onready var social_timer: Timer = %SocialTimer
+
+# Bird status
+var is_awake: bool
+
+# Each Bird Behavior will have a mood boolean if that behavior is not satisfied
+# is_happy is true only if all other moods are false
+var is_happy: bool
+# is_angry will become true if two or more moods is true
+var is_angry: bool
+
+var is_hungry: bool
+var is_sleepy: bool
+var is_lonely: bool
+# Behavior specific
+var is_ravenous: bool
+var is_annoyed: bool
+var is_bored: bool
+
+
+# Set timers and check mood
+func _ready():
+	_set_timers()
+	_mood_check()
+
+
+# Sets timers based on behaviors and autostarts
+func _set_timers() -> void:
+	hunger_timer.wait_time = BirdGlobals.HUNGER_TIME
+	energy_timer.wait_time = BirdGlobals.ENERGY_TIME
+	social_timer.wait_time = BirdGlobals.SOCIAL_TIME
+	
+	match bird_behavior.name:
+		BirdGlobals.BEHAVIOR_RAVENOUS:
+			hunger_timer.wait_time = BirdGlobals.RAVENOUS_HUNGER_TIME
+		BirdGlobals.BEHAVIOR_PLAYFUL:
+			energy_timer.wait_time = BirdGlobals.PLAYFUL_ENERGY_TIME
+		BirdGlobals.BEHAVIOR_SOLITARY:
+			social_timer.wait_time = BirdGlobals.SOLITARY_SOCIAL_TIME
+	
+	hunger_timer.autostart = true
+	energy_timer.autostart = true
+	social_timer.autostart = true
+	
+
+# First, check anger, then check each of the behavior-specific moods, then normal moods
+# returns mood: String
+func _mood_check() -> String:
+	_anger_check()
+	if is_angry:
+		mood = BirdGlobals.MOOD_ANGRY
+	elif is_ravenous:
+		mood = BirdGlobals.MOOD_RAVENOUS
+	elif is_annoyed:
+		mood = BirdGlobals.MOOD_ANNOYED
+	elif is_bored:
+		mood = BirdGlobals.MOOD_BORED
+	elif is_hungry:
+		mood = BirdGlobals.MOOD_HUNGRY
+	elif is_sleepy:
+		mood = BirdGlobals.MOOD_SLEEPY
+	elif is_lonely:
+		mood = BirdGlobals.MOOD_LONELY
+	else:
+		mood = BirdGlobals.MOOD_HAPPY
+	
+	return mood
+
+
+func _anger_check() -> void:
+	var bad_moods: Array = [is_hungry, is_ravenous, is_annoyed, is_lonely, is_bored, is_sleepy]
+	var active_moods: int = 0
+	
+	for mood in bad_moods:
+		if mood:
+			active_moods += 1
+	
+	is_angry = active_moods >= 2
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_61ifh"]
+size = Vector2(120, 100)
+
+[node name="Bird" type="CharacterBody2D"]
+script = SubResource("GDScript_7sh6k")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ov36c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(10, -1)
+shape = SubResource("RectangleShape2D_61ifh")
+
+[node name="HungerTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+
+[node name="EnergyTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+
+[node name="SocialTimer" type="Timer" parent="."]
+unique_name_in_owner = true

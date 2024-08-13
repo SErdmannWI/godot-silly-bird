@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="FoodType" load_steps=2 format=3 uid="uid://d08vsowxwpe6m"]
+
+[ext_resource type="Script" path="res://scenes/bird_program/global_bird_variables/food_types/food_types.gd" id="1_m2txb"]
+
+[resource]
+script = ExtResource("1_m2txb")
+name = "Seeds"
+desc = "Nutrient-rich seeds that provide essential fats and proteins."

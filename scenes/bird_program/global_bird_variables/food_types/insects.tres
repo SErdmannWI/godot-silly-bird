@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="FoodType" load_steps=2 format=3 uid="uid://c73w82aaeo3qe"]
+
+[ext_resource type="Script" path="res://scenes/bird_program/global_bird_variables/food_types/food_types.gd" id="1_3n3pj"]
+
+[resource]
+script = ExtResource("1_3n3pj")
+name = "Insects"
+desc = "A high-protein diet consisting of various insects or worms."

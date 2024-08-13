@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dvcljnh2ff80t"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_facw0"]
+
+[resource]
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_facw0")

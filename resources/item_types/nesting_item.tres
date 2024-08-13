@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ItemType" load_steps=2 format=3 uid="uid://jfyop1ydcug8"]
+
+[ext_resource type="Script" path="res://resources/item_types/item_type.gd" id="1_hljag"]
+
+[resource]
+script = ExtResource("1_hljag")
+type_name = "Nesting"
+amount = 0

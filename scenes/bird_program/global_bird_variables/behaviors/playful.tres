@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="BirdBehavior" load_steps=2 format=3 uid="uid://1uv6o83liuwc"]
+
+[ext_resource type="Script" path="res://scenes/bird_program/global_bird_variables/behaviors/bird_behavior.gd" id="1_rjgtk"]
+
+[resource]
+script = ExtResource("1_rjgtk")
+name = "Playful"
+desc = "This bird is high-energy and needs to be stimulated through play. Will act out if it's in a bad mood."

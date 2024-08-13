@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://d2clt6uroaw0s"]
+
+[ext_resource type="Script" path="res://resources/items/item.gd" id="1_e6jpq"]
+[ext_resource type="Texture2D" uid="uid://b64snpxmx8med" path="res://resources/icons/item_icons/icon_temp_nest_small.png" id="1_xc4sg"]
+[ext_resource type="Resource" uid="uid://jfyop1ydcug8" path="res://resources/item_types/nesting_item.tres" id="2_6rfav"]
+
+[resource]
+script = ExtResource("1_e6jpq")
+item_name = "Nesting Material (small)"
+item_icon = ExtResource("1_xc4sg")
+item_type = ExtResource("2_6rfav")
+item_desc = "A single bit of nesting material"
+item_amount = 1
+item_value = 1

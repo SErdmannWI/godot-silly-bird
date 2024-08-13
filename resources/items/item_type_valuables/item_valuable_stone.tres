@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://cjd00jl8wmfjs"]
+
+[ext_resource type="Script" path="res://resources/items/item.gd" id="1_2phrk"]
+[ext_resource type="Texture2D" uid="uid://dci2f7k4w3k65" path="res://resources/icons/item_icons/icon_temp_stone.png" id="1_hahn6"]
+[ext_resource type="Resource" uid="uid://bf1ie2m14rq18" path="res://resources/item_types/valuable_item.tres" id="1_pkx8h"]
+
+[resource]
+script = ExtResource("1_2phrk")
+item_name = "Stone"
+item_icon = ExtResource("1_hahn6")
+item_type = ExtResource("1_pkx8h")
+item_desc = "A small stone."
+item_amount = 1
+item_value = 1

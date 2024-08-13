@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="BirdBehavior" load_steps=2 format=3 uid="uid://c11lnahu3adjc"]
+
+[ext_resource type="Script" path="res://scenes/bird_program/global_bird_variables/behaviors/bird_behavior.gd" id="1_pyuw8"]
+
+[resource]
+script = ExtResource("1_pyuw8")
+name = "Aggressive"
+desc = "This bird will actively defend itself against predators. Will pick fights with other birds if in a bad mood."

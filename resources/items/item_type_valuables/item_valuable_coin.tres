@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://dseho0eo1ckoh"]
+
+[ext_resource type="Texture2D" uid="uid://dffno573mkb2k" path="res://resources/icons/item_icons/icon_temp_coin.png" id="1_0wps3"]
+[ext_resource type="Script" path="res://resources/items/item.gd" id="1_neavl"]
+[ext_resource type="Resource" uid="uid://bf1ie2m14rq18" path="res://resources/item_types/valuable_item.tres" id="1_ust5u"]
+
+[resource]
+script = ExtResource("1_neavl")
+item_name = "Coin"
+item_icon = ExtResource("1_0wps3")
+item_type = ExtResource("1_ust5u")
+item_desc = "A thin, round, shiny object."
+item_amount = 1
+item_value = 3

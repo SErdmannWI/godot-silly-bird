@@ -1,0 +1,229 @@
+[gd_scene load_steps=8 format=3 uid="uid://crdb2ijpotvjf"]
+
+[ext_resource type="Texture2D" uid="uid://di72jgaur0noa" path="res://assets/png/background/meadowA.jpg" id="1_fjrea"]
+[ext_resource type="Theme" uid="uid://ddx7epkk7n3gj" path="res://themes/bird_menu_header.tres" id="2_jcd53"]
+[ext_resource type="Texture2D" uid="uid://bygcjk3wy4suq" path="res://assets/png/birds/mourning_dove.png" id="3_wydpl"]
+[ext_resource type="FontFile" uid="uid://bodo74755t1f5" path="res://assets/font/PixelfySans/PixelifySans-Regular.ttf" id="3_xd0kx"]
+[ext_resource type="Texture2D" uid="uid://c4y8edvnymx68" path="res://icon.svg" id="4_hny7y"]
+[ext_resource type="FontFile" uid="uid://b25h1g0ys2a2s" path="res://assets/font/PixelfySans/PixelifySans-SemiBold.ttf" id="6_7uubj"]
+[ext_resource type="Theme" uid="uid://dr5it8gvg87uo" path="res://themes/bird_menu_button_1.tres" id="7_nrrjf"]
+
+[node name="BirdCreator" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(944.5, 533.5)
+scale = Vector2(1.4036, 1.20236)
+texture = ExtResource("1_fjrea")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HeaderMarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 15
+
+[node name="HeaderVBox" type="VBoxContainer" parent="CanvasLayer/HeaderMarginContainer"]
+layout_mode = 2
+theme = ExtResource("2_jcd53")
+
+[node name="Label" type="Label" parent="CanvasLayer/HeaderMarginContainer/HeaderVBox"]
+layout_mode = 2
+text = "Create A Bird"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="CanvasLayer/HeaderMarginContainer/HeaderVBox"]
+layout_mode = 2
+text = "Use the menu below to create your own Bird!"
+horizontal_alignment = 1
+
+[node name="ImageMarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -215.0
+offset_right = 406.0
+offset_bottom = 333.0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("2_jcd53")
+theme_override_constants/margin_left = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ImageMarginContainer"]
+layout_mode = 2
+
+[node name="ItemList" type="ItemList" parent="CanvasLayer/ImageMarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_xd0kx")
+theme_override_font_sizes/font_size = 26
+max_text_lines = 2
+auto_height = true
+item_count = 4
+item_0/text = "Mourning Dove"
+item_0/icon = ExtResource("3_wydpl")
+item_1/text = "Cardinal"
+item_1/icon = ExtResource("4_hny7y")
+item_2/text = "Red-Winged Blackbird"
+item_2/icon = ExtResource("4_hny7y")
+item_3/text = "American Crow"
+item_3/icon = ExtResource("4_hny7y")
+
+[node name="CenterMarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -424.0
+offset_top = -176.0
+offset_right = 424.0
+offset_bottom = 176.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterPanel" type="Panel" parent="CanvasLayer/CenterMarginContainer"]
+layout_mode = 2
+
+[node name="CenterVBox" type="VBoxContainer" parent="CanvasLayer/CenterMarginContainer"]
+layout_mode = 2
+theme = ExtResource("2_jcd53")
+
+[node name="CenterHeader" type="Label" parent="CanvasLayer/CenterMarginContainer/CenterVBox"]
+layout_mode = 2
+text = "Choose your bird's characteristics
+"
+
+[node name="NameHBox" type="HBoxContainer" parent="CanvasLayer/CenterMarginContainer/CenterVBox"]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="CanvasLayer/CenterMarginContainer/CenterVBox/NameHBox"]
+layout_mode = 2
+text = "Name: "
+
+[node name="NameTextEdit" type="TextEdit" parent="CanvasLayer/CenterMarginContainer/CenterVBox/NameHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.61
+theme_override_fonts/font = ExtResource("6_7uubj")
+theme_override_font_sizes/font_size = 30
+placeholder_text = "Enter your bird's name"
+
+[node name="NameSpacer" type="Control" parent="CanvasLayer/CenterMarginContainer/CenterVBox/NameHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AgeHBox" type="HBoxContainer" parent="CanvasLayer/CenterMarginContainer/CenterVBox"]
+layout_mode = 2
+
+[node name="AgeLabel" type="Label" parent="CanvasLayer/CenterMarginContainer/CenterVBox/AgeHBox"]
+layout_mode = 2
+text = "Age: "
+
+[node name="TextEdit" type="TextEdit" parent="CanvasLayer/CenterMarginContainer/CenterVBox/AgeHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.25
+theme_override_fonts/font = ExtResource("6_7uubj")
+theme_override_font_sizes/font_size = 30
+placeholder_text = "Age"
+editable = false
+
+[node name="AgeButtonVBox" type="VBoxContainer" parent="CanvasLayer/CenterMarginContainer/CenterVBox/AgeHBox"]
+layout_mode = 2
+
+[node name="IncreaseAgeButton" type="Button" parent="CanvasLayer/CenterMarginContainer/CenterVBox/AgeHBox/AgeButtonVBox"]
+layout_mode = 2
+theme = ExtResource("7_nrrjf")
+text = "+"
+
+[node name="DecreaseAgeButton" type="Button" parent="CanvasLayer/CenterMarginContainer/CenterVBox/AgeHBox/AgeButtonVBox"]
+layout_mode = 2
+theme = ExtResource("7_nrrjf")
+text = "-"
+
+[node name="AgeSpacer" type="Control" parent="CanvasLayer/CenterMarginContainer/CenterVBox/AgeHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FoodTypeHBox" type="HBoxContainer" parent="CanvasLayer/CenterMarginContainer/CenterVBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="FoodTypeLabel" type="Label" parent="CanvasLayer/CenterMarginContainer/CenterVBox/FoodTypeHBox"]
+layout_mode = 2
+text = "Food Type: "
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/CenterMarginContainer/CenterVBox/FoodTypeHBox"]
+layout_mode = 2
+
+[node name="FoodTypeList" type="ItemList" parent="CanvasLayer/CenterMarginContainer/CenterVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+auto_height = true
+item_count = 5
+max_columns = 5
+icon_scale = 0.75
+item_0/text = "Seeds"
+item_0/icon = ExtResource("4_hny7y")
+item_1/text = "Insects"
+item_1/icon = ExtResource("4_hny7y")
+item_2/text = "Fruits"
+item_2/icon = ExtResource("4_hny7y")
+item_3/text = "Nectar"
+item_3/icon = ExtResource("4_hny7y")
+item_4/text = "Fish"
+item_4/icon = ExtResource("4_hny7y")
+
+[node name="BehaviorHBox" type="HBoxContainer" parent="CanvasLayer/CenterMarginContainer/CenterVBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="BehaviorLabel" type="Label" parent="CanvasLayer/CenterMarginContainer/CenterVBox/BehaviorHBox"]
+layout_mode = 2
+text = "Behavior:"
+
+[node name="PersonalityList" type="ItemList" parent="CanvasLayer/CenterMarginContainer/CenterVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+auto_height = true
+item_count = 4
+max_columns = 4
+icon_scale = 0.75
+item_0/text = "Playful"
+item_0/icon = ExtResource("4_hny7y")
+item_1/text = "Solitary"
+item_1/icon = ExtResource("4_hny7y")
+item_2/text = "Aggressive"
+item_2/icon = ExtResource("4_hny7y")
+item_3/text = "Ravenous"
+item_3/icon = ExtResource("4_hny7y")
+
+[node name="SubmitButtonMarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -81.0
+offset_right = 50.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 175
+
+[node name="CreateBirdButton" type="Button" parent="CanvasLayer/SubmitButtonMarginContainer"]
+layout_mode = 2
+theme = ExtResource("7_nrrjf")
+text = "Create Bird!"
+
+[node name="CreateBirdConfirmation" type="ConfirmationDialog" parent="."]
+title = "Confrim Bird"
+initial_position = 4
+size = Vector2i(280, 100)
+visible = true
+dialog_text = "Are you ready to create your bird?"

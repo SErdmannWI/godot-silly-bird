@@ -1,0 +1,103 @@
+[gd_scene load_steps=2 format=3 uid="uid://dln4ukt0fr5j6"]
+
+[ext_resource type="Script" path="res://scenes/bird_program/inventory/select_nesting_ui.gd" id="1_ykrwr"]
+
+[node name="SelectNestingUI" type="PanelContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -474.5
+offset_top = -311.0
+offset_right = 474.5
+offset_bottom = 311.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_ykrwr")
+
+[node name="NestingUIVBox" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NestingUIVBox"]
+layout_mode = 2
+
+[node name="NestingUIHBox" type="HBoxContainer" parent="NestingUIVBox/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="NestingUIHeaderLabel" type="Label" parent="NestingUIVBox/VBoxContainer/NestingUIHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Available Nesting Material"
+horizontal_alignment = 1
+
+[node name="CloseButton" type="Button" parent="NestingUIVBox/VBoxContainer/NestingUIHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Close"
+
+[node name="Instructions Label" type="Label" parent="NestingUIVBox/VBoxContainer"]
+layout_mode = 2
+text = "Hold SHIFT to select multiple items until amount needed is reached."
+horizontal_alignment = 1
+
+[node name="NestingUILowerHeader" type="HBoxContainer" parent="NestingUIVBox"]
+layout_mode = 2
+
+[node name="AmountNeededLabel" type="Label" parent="NestingUIVBox/NestingUILowerHeader"]
+layout_mode = 2
+text = "Amount Needed: "
+
+[node name="AmountNeeded" type="Label" parent="NestingUIVBox/NestingUILowerHeader"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "XX"
+
+[node name="Control" type="Control" parent="NestingUIVBox/NestingUILowerHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TooManyItemsLabel" type="Label" parent="NestingUIVBox/NestingUILowerHeader"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.0196078, 0.243137, 1)
+text = "Too many items selected!"
+
+[node name="Control2" type="Control" parent="NestingUIVBox/NestingUILowerHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Amount SelectedLabel" type="Label" parent="NestingUIVBox/NestingUILowerHeader"]
+layout_mode = 2
+text = "Amount Selected"
+
+[node name="AmountSelected" type="Label" parent="NestingUIVBox/NestingUILowerHeader"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "XX"
+
+[node name="SelectNestingItemList" type="ItemList" parent="NestingUIVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+select_mode = 1
+
+[node name="BuildNestButton" type="Button" parent="NestingUIVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "Build Nest!"
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+title = "Confirm Nest Materials Used"
+initial_position = 2
+size = Vector2i(532, 360)
+dialog_text = "Are you sure you want to use the following items to build the nest?"
+
+[connection signal="multi_selected" from="NestingUIVBox/SelectNestingItemList" to="." method="_on_item_selected"]
+[connection signal="pressed" from="NestingUIVBox/BuildNestButton" to="." method="_on_build_nest_button_pressed"]

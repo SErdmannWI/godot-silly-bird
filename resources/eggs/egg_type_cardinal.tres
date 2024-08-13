@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EggType" load_steps=3 format=3 uid="uid://bh7f5v24y7s8p"]
+
+[ext_resource type="Texture2D" uid="uid://bjyowt5f8lsmt" path="res://assets/png/nests/egg.png" id="1_bf358"]
+[ext_resource type="Script" path="res://resources/eggs/egg_type.gd" id="1_m58jp"]
+
+[resource]
+script = ExtResource("1_m58jp")
+type_name = "Cardinal"
+image = ExtResource("1_bf358")
+incubation_time = 100

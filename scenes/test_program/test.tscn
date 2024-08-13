@@ -1,0 +1,423 @@
+[gd_scene load_steps=9 format=3 uid="uid://cbnpjeodbloev"]
+
+[ext_resource type="Script" path="res://scenes/test_program/test.gd" id="1_m3wmv"]
+[ext_resource type="Texture2D" uid="uid://bufw1vol2f8gr" path="res://assets/png/background/purple.png" id="2_h76je"]
+[ext_resource type="Theme" uid="uid://bm2xtmv4o3wx4" path="res://themes/header_label.tres" id="3_1r062"]
+[ext_resource type="Theme" uid="uid://dmm35pqedsnbv" path="res://themes/general_label.tres" id="4_bqvvi"]
+[ext_resource type="Theme" uid="uid://dvcljnh2ff80t" path="res://themes/ui_info_box.tres" id="5_7rqo3"]
+[ext_resource type="FontFile" uid="uid://cpcj7fvn01g51" path="res://assets/font/Roboto/Roboto-BoldItalic.ttf" id="6_xxwsn"]
+[ext_resource type="FontFile" uid="uid://djs4ui3lcar8p" path="res://assets/font/Space_Mono/SpaceMono-BoldItalic.ttf" id="7_cole5"]
+
+[sub_resource type="Theme" id="Theme_0vq6p"]
+Button/styles/focus = null
+Button/styles/pressed = null
+
+[node name="Test" type="Node2D"]
+script = ExtResource("1_m3wmv")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(979.5, 545.5)
+scale = Vector2(7.91016, 4.47266)
+texture = ExtResource("2_h76je")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HeaderContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="HeaderVBox" type="VBoxContainer" parent="CanvasLayer/HeaderContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/HeaderContainer/HeaderVBox"]
+layout_mode = 2
+theme = ExtResource("3_1r062")
+text = "Spring Boot Program
+"
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+offset_left = 100.0
+offset_top = 100.0
+offset_right = 422.0
+offset_bottom = 341.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_bqvvi")
+text = "New Entry:"
+horizontal_alignment = 1
+
+[node name="ResponseMessageLabel" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme = ExtResource("5_7rqo3")
+theme_override_colors/font_color = Color(1, 0.164706, 0.337255, 1)
+theme_override_fonts/font = ExtResource("6_xxwsn")
+text = "Request Response Area"
+horizontal_alignment = 1
+
+[node name="NameEdit" type="TextEdit" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "<Enter a name>"
+
+[node name="IDEdit" type="TextEdit" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "<Enter an ID>"
+
+[node name="SubmitButton" type="Button" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Submit"
+
+[node name="CenterMarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.5
+offset_top = 100.0
+offset_right = 150.5
+offset_bottom = 336.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("4_bqvvi")
+
+[node name="Panel" type="Panel" parent="CanvasLayer/CenterMarginContainer"]
+layout_mode = 2
+
+[node name="ResultsMarginContainer" type="MarginContainer" parent="CanvasLayer/CenterMarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterMarginContainer/ResultsMarginContainer"]
+layout_mode = 2
+
+[node name="ResultsHeader" type="Label" parent="CanvasLayer/CenterMarginContainer/ResultsMarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="GetAllButton" type="Button" parent="CanvasLayer/CenterMarginContainer/ResultsMarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Get All Entries"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/CenterMarginContainer/ResultsMarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LastEntryButton" type="Button" parent="CanvasLayer/CenterMarginContainer/ResultsMarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "<"
+
+[node name="Spacer" type="Control" parent="CanvasLayer/CenterMarginContainer/ResultsMarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NextEntryButton" type="Button" parent="CanvasLayer/CenterMarginContainer/ResultsMarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = ">"
+
+[node name="TotalResultsHBox" type="HBoxContainer" parent="CanvasLayer/CenterMarginContainer/ResultsMarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TotalResultsLabel" type="Label" parent="CanvasLayer/CenterMarginContainer/ResultsMarginContainer/VBoxContainer/TotalResultsHBox"]
+layout_mode = 2
+text = "Total Results: "
+
+[node name="ResultsNumber" type="Label" parent="CanvasLayer/CenterMarginContainer/ResultsMarginContainer/VBoxContainer/TotalResultsHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/CenterMarginContainer/ResultsMarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="EntryNumberLabel" type="Label" parent="CanvasLayer/CenterMarginContainer/ResultsMarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Entry Number: "
+
+[node name="EntryNumber" type="Label" parent="CanvasLayer/CenterMarginContainer/ResultsMarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="NameHBox" type="HBoxContainer" parent="CanvasLayer/CenterMarginContainer/ResultsMarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="CanvasLayer/CenterMarginContainer/ResultsMarginContainer/VBoxContainer/NameHBox"]
+layout_mode = 2
+text = "Name: "
+
+[node name="Name" type="Label" parent="CanvasLayer/CenterMarginContainer/ResultsMarginContainer/VBoxContainer/NameHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="IDHBox2" type="HBoxContainer" parent="CanvasLayer/CenterMarginContainer/ResultsMarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="IDLabel" type="Label" parent="CanvasLayer/CenterMarginContainer/ResultsMarginContainer/VBoxContainer/IDHBox2"]
+layout_mode = 2
+text = "ID: "
+
+[node name="ID" type="Label" parent="CanvasLayer/CenterMarginContainer/ResultsMarginContainer/VBoxContainer/IDHBox2"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ClearButton" type="Button" parent="CanvasLayer/CenterMarginContainer/ResultsMarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Clear
+"
+
+[node name="Button" type="Button" parent="CanvasLayer/CenterMarginContainer/ResultsMarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_0vq6p")
+text = "Delete All Entries"
+
+[node name="GetByIDMarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -463.0
+offset_top = 84.0
+offset_right = -141.0
+offset_bottom = 325.0
+grow_horizontal = 0
+
+[node name="GetByIDVBox" type="VBoxContainer" parent="CanvasLayer/GetByIDMarginContainer"]
+layout_mode = 2
+theme = ExtResource("4_bqvvi")
+theme_override_constants/separation = 10
+
+[node name="GetByIDHeader" type="Label" parent="CanvasLayer/GetByIDMarginContainer/GetByIDVBox"]
+layout_mode = 2
+text = "Modify Entry By ID"
+horizontal_alignment = 1
+
+[node name="GetByIDInstruction" type="Label" parent="CanvasLayer/GetByIDMarginContainer/GetByIDVBox"]
+layout_mode = 2
+text = "Enter an ID below:"
+horizontal_alignment = 1
+
+[node name="ModifyEntryMessage" type="Label" parent="CanvasLayer/GetByIDMarginContainer/GetByIDVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="TextEdit" type="TextEdit" parent="CanvasLayer/GetByIDMarginContainer/GetByIDVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_cole5")
+theme_override_font_sizes/font_size = 22
+placeholder_text = "<Enter an ID>"
+
+[node name="OptionButton" type="OptionButton" parent="CanvasLayer/GetByIDMarginContainer/GetByIDVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+item_count = 3
+selected = 0
+popup/item_0/text = "Choose an Action"
+popup/item_0/id = 0
+popup/item_0/disabled = true
+popup/item_1/text = "Get Record"
+popup/item_1/id = 1
+popup/item_2/text = "Delete Record"
+popup/item_2/id = 2
+
+[node name="SelectOptionPrompt" type="Label" parent="CanvasLayer/GetByIDMarginContainer/GetByIDVBox"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.164706, 0.337255, 1)
+theme_override_font_sizes/font_size = 20
+text = "Please choose an operation"
+
+[node name="SubmitButton" type="Button" parent="CanvasLayer/GetByIDMarginContainer/GetByIDVBox"]
+layout_mode = 2
+text = "Submit
+"
+
+[node name="GetByIDResultMarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -545.0
+offset_top = -86.0
+offset_right = -95.0
+offset_bottom = 114.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("3_1r062")
+
+[node name="Panel" type="Panel" parent="CanvasLayer/GetByIDResultMarginContainer"]
+layout_mode = 2
+
+[node name="GetByIDInnerMarginContainer" type="MarginContainer" parent="CanvasLayer/GetByIDResultMarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="GetByIDResultHBox" type="VBoxContainer" parent="CanvasLayer/GetByIDResultMarginContainer/GetByIDInnerMarginContainer"]
+layout_mode = 2
+
+[node name="GetByIDResultsHeader" type="Label" parent="CanvasLayer/GetByIDResultMarginContainer/GetByIDInnerMarginContainer/GetByIDResultHBox"]
+layout_mode = 2
+text = "Results:"
+horizontal_alignment = 1
+
+[node name="ResultsResponseMessage" type="Label" parent="CanvasLayer/GetByIDResultMarginContainer/GetByIDInnerMarginContainer/GetByIDResultHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="EntryNameHBox" type="HBoxContainer" parent="CanvasLayer/GetByIDResultMarginContainer/GetByIDInnerMarginContainer/GetByIDResultHBox"]
+layout_mode = 2
+
+[node name="EntryNameLabel" type="Label" parent="CanvasLayer/GetByIDResultMarginContainer/GetByIDInnerMarginContainer/GetByIDResultHBox/EntryNameHBox"]
+layout_mode = 2
+text = "Entry Name: "
+
+[node name="EntryName" type="Label" parent="CanvasLayer/GetByIDResultMarginContainer/GetByIDInnerMarginContainer/GetByIDResultHBox/EntryNameHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="NameLineEdit" type="LineEdit" parent="CanvasLayer/GetByIDResultMarginContainer/GetByIDInnerMarginContainer/GetByIDResultHBox/EntryNameHBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="EntryIDHBox" type="HBoxContainer" parent="CanvasLayer/GetByIDResultMarginContainer/GetByIDInnerMarginContainer/GetByIDResultHBox"]
+layout_mode = 2
+
+[node name="EntryIDLabel" type="Label" parent="CanvasLayer/GetByIDResultMarginContainer/GetByIDInnerMarginContainer/GetByIDResultHBox/EntryIDHBox"]
+layout_mode = 2
+text = "Entry ID: "
+
+[node name="EntryID" type="Label" parent="CanvasLayer/GetByIDResultMarginContainer/GetByIDInnerMarginContainer/GetByIDResultHBox/EntryIDHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="EditButtonContainer" type="HBoxContainer" parent="CanvasLayer/GetByIDResultMarginContainer/GetByIDInnerMarginContainer/GetByIDResultHBox"]
+layout_mode = 2
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="Control2" type="Control" parent="CanvasLayer/GetByIDResultMarginContainer/GetByIDInnerMarginContainer/GetByIDResultHBox/EditButtonContainer"]
+layout_mode = 2
+
+[node name="EditButton" type="Button" parent="CanvasLayer/GetByIDResultMarginContainer/GetByIDInnerMarginContainer/GetByIDResultHBox/EditButtonContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Edit"
+
+[node name="EditSubmitButton" type="Button" parent="CanvasLayer/GetByIDResultMarginContainer/GetByIDInnerMarginContainer/GetByIDResultHBox/EditButtonContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Submit
+"
+
+[node name="Control" type="Control" parent="CanvasLayer/GetByIDResultMarginContainer/GetByIDInnerMarginContainer/GetByIDResultHBox/EditButtonContainer"]
+layout_mode = 2
+
+[node name="NewEntryOuterMarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 100.0
+offset_top = -86.0
+offset_right = 550.0
+offset_bottom = 114.0
+grow_vertical = 2
+theme = ExtResource("3_1r062")
+
+[node name="Panel" type="Panel" parent="CanvasLayer/NewEntryOuterMarginContainer"]
+layout_mode = 2
+
+[node name="NewEntryInnerMarginContainer" type="MarginContainer" parent="CanvasLayer/NewEntryOuterMarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="NewEntryVBox" type="VBoxContainer" parent="CanvasLayer/NewEntryOuterMarginContainer/NewEntryInnerMarginContainer"]
+layout_mode = 2
+
+[node name="NewEntryHeaderLabel" type="Label" parent="CanvasLayer/NewEntryOuterMarginContainer/NewEntryInnerMarginContainer/NewEntryVBox"]
+layout_mode = 2
+text = "New Entry"
+horizontal_alignment = 1
+
+[node name="NewEntryNameHBox" type="HBoxContainer" parent="CanvasLayer/NewEntryOuterMarginContainer/NewEntryInnerMarginContainer/NewEntryVBox"]
+layout_mode = 2
+
+[node name="NewEntryNameLabel" type="Label" parent="CanvasLayer/NewEntryOuterMarginContainer/NewEntryInnerMarginContainer/NewEntryVBox/NewEntryNameHBox"]
+layout_mode = 2
+text = "Entry Name: "
+
+[node name="NewEntryName" type="Label" parent="CanvasLayer/NewEntryOuterMarginContainer/NewEntryInnerMarginContainer/NewEntryVBox/NewEntryNameHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="NewEntryIDHBox" type="HBoxContainer" parent="CanvasLayer/NewEntryOuterMarginContainer/NewEntryInnerMarginContainer/NewEntryVBox"]
+layout_mode = 2
+
+[node name="NewEntryIDLabel" type="Label" parent="CanvasLayer/NewEntryOuterMarginContainer/NewEntryInnerMarginContainer/NewEntryVBox/NewEntryIDHBox"]
+layout_mode = 2
+text = "Entry ID: "
+
+[node name="NewEntryID" type="Label" parent="CanvasLayer/NewEntryOuterMarginContainer/NewEntryInnerMarginContainer/NewEntryVBox/NewEntryIDHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="GetAllRequest" type="HTTPRequest" parent="."]
+unique_name_in_owner = true
+
+[node name="PostRequest" type="HTTPRequest" parent="."]
+unique_name_in_owner = true
+
+[node name="GetRequest" type="HTTPRequest" parent="."]
+unique_name_in_owner = true
+
+[node name="DeleteRequest" type="HTTPRequest" parent="."]
+unique_name_in_owner = true
+
+[node name="PutRequest" type="HTTPRequest" parent="."]
+unique_name_in_owner = true
+
+[node name="DeleteAllPopup" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DeleteAllPopup"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="DeleteAllPopup/VBoxContainer"]
+layout_mode = 2
+text = "Are you sure you want to delete all entires?"
+
+[connection signal="pressed" from="CanvasLayer/MarginContainer/VBoxContainer/SubmitButton" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/CenterMarginContainer/ResultsMarginContainer/VBoxContainer/GetAllButton" to="." method="_on_get_all_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/CenterMarginContainer/ResultsMarginContainer/VBoxContainer/HBoxContainer2/LastEntryButton" to="." method="_on_last_entry_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/CenterMarginContainer/ResultsMarginContainer/VBoxContainer/HBoxContainer2/NextEntryButton" to="." method="_on_next_entry_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/CenterMarginContainer/ResultsMarginContainer/VBoxContainer/ClearButton" to="." method="_on_clear_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/CenterMarginContainer/ResultsMarginContainer/VBoxContainer/Button" to="." method="_on__delete_all_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/GetByIDMarginContainer/GetByIDVBox/SubmitButton" to="." method="_on_submit_button_pressed"]
+[connection signal="confirmed" from="DeleteAllPopup" to="." method="_on_delete_all_popup_confirmed"]

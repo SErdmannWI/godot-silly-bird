@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="ItemType" load_steps=2 format=3 uid="uid://bf1ie2m14rq18"]
+
+[ext_resource type="Script" path="res://resources/item_types/item_type.gd" id="1_oaip2"]
+
+[resource]
+script = ExtResource("1_oaip2")
+type_name = "Valuable"

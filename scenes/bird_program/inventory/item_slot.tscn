@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://f3fcwnpfljxb"]
+
+[ext_resource type="Script" path="res://scenes/bird_program/inventory/item_slot.gd" id="1_kruhu"]
+
+[node name="ItemSlot" type="PanelContainer"]
+script = ExtResource("1_kruhu")
+
+[node name="ItemIcon" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 2

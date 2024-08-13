@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Observation" load_steps=3 format=3 uid="uid://78naq1vylfjm"]
+
+[ext_resource type="Script" path="res://resources/locations/observations/observations.gd" id="1_cohvi"]
+[ext_resource type="Resource" uid="uid://bl1eixj3atuqd" path="res://resources/locations/observations/observation_types/lore.tres" id="1_f8p60"]
+
+[resource]
+script = ExtResource("1_cohvi")
+observation_type = ExtResource("1_f8p60")
+observation_mesage = "You land next to a mourning dove on the ground near some seeds. The other bird seems preoccupied with something. It makes an upset sounding coo before abruptly fluttering away."
+has_bonus = false

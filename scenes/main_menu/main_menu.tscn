@@ -1,0 +1,172 @@
+[gd_scene load_steps=7 format=3 uid="uid://k6ofq764kgq6"]
+
+[ext_resource type="Script" path="res://scenes/main_menu/main_menu.gd" id="1_ec12h"]
+[ext_resource type="Texture2D" uid="uid://dduomxypgmn7w" path="res://assets/png/background/blue.png" id="1_rwu1b"]
+[ext_resource type="FontFile" uid="uid://crsnrdp7cob51" path="res://assets/font/Dosis/Dosis-Medium.ttf" id="3_e8ey0"]
+[ext_resource type="Theme" uid="uid://biehj8bgwb343" path="res://themes/main_menu_buttons.tres" id="5_e8upw"]
+[ext_resource type="Script" path="res://scenes/main_menu/LoginPopup.gd" id="8_6nty2"]
+[ext_resource type="Script" path="res://scenes/main_menu/QuitPopup.gd" id="9_hcrhi"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_ec12h")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(959.5, 545)
+scale = Vector2(7.68359, 4.39063)
+texture = ExtResource("1_rwu1b")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HeaderMarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 10
+
+[node name="HeaderVBox" type="VBoxContainer" parent="CanvasLayer/HeaderMarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/HeaderMarginContainer/HeaderVBox"]
+layout_mode = 2
+text = "Main Menu"
+
+[node name="LoginMarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="LoginVBox" type="VBoxContainer" parent="CanvasLayer/LoginMarginContainer"]
+layout_mode = 2
+
+[node name="LinkButton" type="LinkButton" parent="CanvasLayer/LoginMarginContainer/LoginVBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_e8ey0")
+theme_override_font_sizes/font_size = 25
+text = "User Login"
+
+[node name="OptionsCenterContainer" type="CenterContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -172.5
+offset_top = -103.0
+offset_right = 172.5
+offset_bottom = 103.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OptionsVBox" type="VBoxContainer" parent="CanvasLayer/OptionsCenterContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="BirdProgramButton" type="Button" parent="CanvasLayer/OptionsCenterContainer/OptionsVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("5_e8upw")
+text = "Bird Program"
+
+[node name="TestProgramButton" type="Button" parent="CanvasLayer/OptionsCenterContainer/OptionsVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("5_e8upw")
+text = "Test Program"
+
+[node name="SettingsButton" type="Button" parent="CanvasLayer/OptionsCenterContainer/OptionsVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("5_e8upw")
+text = "Settings"
+
+[node name="QuitButton" type="Button" parent="CanvasLayer/OptionsCenterContainer/OptionsVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("5_e8upw")
+text = "Quit
+"
+
+[node name="LoginPopup" type="Popup" parent="."]
+unique_name_in_owner = true
+initial_position = 1
+size = Vector2i(555, 101)
+script = ExtResource("8_6nty2")
+
+[node name="LoginPopupMarginContainer" type="MarginContainer" parent="LoginPopup"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="LoginPopupVBox" type="VBoxContainer" parent="LoginPopup/LoginPopupMarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="LoginPopup/LoginPopupMarginContainer/LoginPopupVBox"]
+layout_mode = 2
+text = "Login function not yet implemented."
+
+[node name="LoginPopupHBox" type="HBoxContainer" parent="LoginPopup/LoginPopupMarginContainer/LoginPopupVBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="ConfirmButton" type="Button" parent="LoginPopup/LoginPopupMarginContainer/LoginPopupVBox/LoginPopupHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Ok"
+
+[node name="QuitPopup" type="Popup" parent="."]
+unique_name_in_owner = true
+initial_position = 1
+size = Vector2i(266, 100)
+script = ExtResource("9_hcrhi")
+
+[node name="QuitPopupMarginContainer" type="MarginContainer" parent="QuitPopup"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="QuitPopupVBox" type="VBoxContainer" parent="QuitPopup/QuitPopupMarginContainer"]
+layout_mode = 2
+
+[node name="QuitPromptLabel" type="Label" parent="QuitPopup/QuitPopupMarginContainer/QuitPopupVBox"]
+layout_mode = 2
+text = "Are you sure you want to quit?"
+
+[node name="QuitPopupHBox" type="HBoxContainer" parent="QuitPopup/QuitPopupMarginContainer/QuitPopupVBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="ConfrimQuitButton" type="Button" parent="QuitPopup/QuitPopupMarginContainer/QuitPopupVBox/QuitPopupHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Ok"
+
+[node name="Spacer" type="Control" parent="QuitPopup/QuitPopupMarginContainer/QuitPopupVBox/QuitPopupHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CancelButton" type="Button" parent="QuitPopup/QuitPopupMarginContainer/QuitPopupVBox/QuitPopupHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Cancel"
+
+[connection signal="pressed" from="CanvasLayer/LoginMarginContainer/LoginVBox/LinkButton" to="." method="_on_login_link_clicked"]
+[connection signal="pressed" from="LoginPopup/LoginPopupMarginContainer/LoginPopupVBox/LoginPopupHBox/ConfirmButton" to="LoginPopup" method="_on_confirm_button_pressed"]

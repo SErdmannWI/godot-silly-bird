@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Location" load_steps=5 format=3 uid="uid://q1r0di5502rw"]
+
+[ext_resource type="Script" path="res://resources/location.gd" id="1_4vrsg"]
+[ext_resource type="Resource" uid="uid://3apos3sdayqg" path="res://scenes/bird_program/global_bird_variables/food_types/fish.tres" id="1_nqxbl"]
+[ext_resource type="Texture2D" uid="uid://dbsg24li8a8xf" path="res://assets/png/background/marshA.jpg" id="1_vs173"]
+[ext_resource type="Resource" uid="uid://c73w82aaeo3qe" path="res://scenes/bird_program/global_bird_variables/food_types/insects.tres" id="2_uosrc"]
+
+[resource]
+script = ExtResource("1_4vrsg")
+location_name = "Marsh"
+location_desc = "An expanse of shallow water dotted with clusters of tall reeds and cattails. Fish and insects can be found in abundance here, with limited nesting material available."
+background = ExtResource("1_vs173")
+location_id = "Marsh"
+food_types = Array[Resource("res://scenes/bird_program/global_bird_variables/food_types/food_types.gd")]([ExtResource("1_nqxbl"), ExtResource("2_uosrc")])
+birds = Array[String](["Duck", "Goose"])
+threats = Array[String](["Hawk", "Snake", "Gulls"])
+threat_level = "Low"
+observations = Array[Resource("res://resources/locations/observations/observations.gd")]([])
+food_difficulty = 1.5
+nest_material_needed = 0

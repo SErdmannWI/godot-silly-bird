@@ -1,0 +1,570 @@
+[gd_scene load_steps=12 format=3 uid="uid://kupl5pu2322o"]
+
+[ext_resource type="Script" path="res://scenes/bird_program/day_ui.gd" id="1_c3l3p"]
+[ext_resource type="Texture2D" uid="uid://di72jgaur0noa" path="res://assets/png/background/meadow.jpg" id="1_rnn5j"]
+[ext_resource type="Theme" uid="uid://b4pk64xxu7km4" path="res://themes/bird_ui_meter_labels.tres" id="2_v5pcf"]
+[ext_resource type="Theme" uid="uid://dr5it8gvg87uo" path="res://themes/bird_menu_button_1.tres" id="3_4sl2f"]
+[ext_resource type="Texture2D" uid="uid://dk6vgqjfo0rbt" path="res://resources/icons/labels/icon_temp_nesting.png" id="4_esy5i"]
+[ext_resource type="Texture2D" uid="uid://c4y8edvnymx68" path="res://icon.svg" id="4_wdxf0"]
+[ext_resource type="Texture2D" uid="uid://dpturqym82la3" path="res://resources/icons/labels/icon_temp_valuables.png" id="5_duw5o"]
+[ext_resource type="Texture2D" uid="uid://bygcjk3wy4suq" path="res://assets/png/mourning_dove.png" id="5_mste3"]
+[ext_resource type="Texture2D" uid="uid://b6ohib6554nlr" path="res://resources/icons/labels/icon_temp_misc.png" id="6_62rnw"]
+[ext_resource type="PackedScene" uid="uid://bbffhbv62jyxd" path="res://scenes/bird_program/inventory/inventory_ui.tscn" id="10_l5w3s"]
+[ext_resource type="Script" path="res://scenes/bird_program/item_debug_popup.gd" id="11_7vgt6"]
+
+[node name="Day" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("1_c3l3p")
+
+[node name="Background" type="Sprite2D" parent="CanvasLayer"]
+unique_name_in_owner = true
+position = Vector2(945.5, 535)
+scale = Vector2(1.41367, 1.197)
+texture = ExtResource("1_rnn5j")
+
+[node name="PlayerBirdMarginContainer" type="MarginContainer" parent="CanvasLayer"]
+offset_right = 532.0
+offset_bottom = 673.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+
+[node name="Panel" type="Panel" parent="CanvasLayer/PlayerBirdMarginContainer"]
+layout_mode = 2
+
+[node name="PlayerBirdInnerMarginContainer" type="MarginContainer" parent="CanvasLayer/PlayerBirdMarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="PlayerBirdVBox" type="VBoxContainer" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer"]
+layout_mode = 2
+theme = ExtResource("2_v5pcf")
+
+[node name="DateHeaderLabel" type="Label" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Day X"
+horizontal_alignment = 1
+
+[node name="BirdImageHBox" type="HBoxContainer" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="LeftInventoryVBox" type="VBoxContainer" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdImageHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LeftInventoryHBox" type="HBoxContainer" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdImageHBox/LeftInventoryVBox"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdImageHBox/LeftInventoryVBox/LeftInventoryHBox"]
+layout_mode = 2
+tooltip_text = "Nesting Material"
+texture = ExtResource("4_esy5i")
+expand_mode = 2
+
+[node name="Spacer" type="Control" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdImageHBox/LeftInventoryVBox/LeftInventoryHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NestMatLabel" type="Label" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdImageHBox/LeftInventoryVBox/LeftInventoryHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+
+[node name="LeftInventoryHBox2" type="HBoxContainer" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdImageHBox/LeftInventoryVBox"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdImageHBox/LeftInventoryVBox/LeftInventoryHBox2"]
+layout_mode = 2
+tooltip_text = "Valuables"
+texture = ExtResource("5_duw5o")
+expand_mode = 2
+
+[node name="Spacer" type="Control" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdImageHBox/LeftInventoryVBox/LeftInventoryHBox2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ValuablesLabel" type="Label" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdImageHBox/LeftInventoryVBox/LeftInventoryHBox2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+
+[node name="LeftInventoryHBox3" type="HBoxContainer" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdImageHBox/LeftInventoryVBox"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdImageHBox/LeftInventoryVBox/LeftInventoryHBox3"]
+layout_mode = 2
+tooltip_text = "Miscellaneous Items"
+texture = ExtResource("6_62rnw")
+expand_mode = 2
+
+[node name="Spacer" type="Control" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdImageHBox/LeftInventoryVBox/LeftInventoryHBox3"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MiscItemsLabel" type="Label" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdImageHBox/LeftInventoryVBox/LeftInventoryHBox3"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+
+[node name="PlayerImage" type="TextureRect" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdImageHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("5_mste3")
+stretch_mode = 4
+
+[node name="RightInventoryVBox" type="VBoxContainer" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdImageHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="RightInventoryHBox" type="HBoxContainer" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdImageHBox/RightInventoryVBox"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdImageHBox/RightInventoryVBox/RightInventoryHBox"]
+layout_mode = 2
+texture = ExtResource("4_wdxf0")
+expand_mode = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdImageHBox/RightInventoryVBox/RightInventoryHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdImageHBox/RightInventoryVBox/RightInventoryHBox"]
+layout_mode = 2
+text = "XX
+"
+
+[node name="RightInventoryHBox2" type="HBoxContainer" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdImageHBox/RightInventoryVBox"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdImageHBox/RightInventoryVBox/RightInventoryHBox2"]
+layout_mode = 2
+texture = ExtResource("4_wdxf0")
+expand_mode = 2
+
+[node name="Spacer" type="Control" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdImageHBox/RightInventoryVBox/RightInventoryHBox2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdImageHBox/RightInventoryVBox/RightInventoryHBox2"]
+layout_mode = 2
+text = "XX"
+
+[node name="RightInventoryHBox3" type="HBoxContainer" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdImageHBox/RightInventoryVBox"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdImageHBox/RightInventoryVBox/RightInventoryHBox3"]
+layout_mode = 2
+texture = ExtResource("4_wdxf0")
+expand_mode = 2
+
+[node name="Spacer" type="Control" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdImageHBox/RightInventoryVBox/RightInventoryHBox3"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdImageHBox/RightInventoryVBox/RightInventoryHBox3"]
+layout_mode = 2
+text = "XX"
+
+[node name="BirdNameHBox" type="HBoxContainer" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="BirdNameLabel" type="Label" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdNameHBox"]
+layout_mode = 2
+text = "Bird Name:"
+
+[node name="Spacer" type="Control" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdNameHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BirdName" type="Label" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdNameHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Silly Bird"
+
+[node name="BirdLevelHBox" type="HBoxContainer" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="BirdLevelLabel" type="Label" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdLevelHBox"]
+layout_mode = 2
+text = "Bird Level:"
+
+[node name="Spacer" type="Control" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdLevelHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BirdLevel" type="Label" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdLevelHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "10"
+
+[node name="FoodTypeHBox" type="HBoxContainer" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="FoodTypeLabel" type="Label" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/FoodTypeHBox"]
+layout_mode = 2
+text = "Food Type:"
+
+[node name="Spacer" type="Control" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/FoodTypeHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FoodType" type="Label" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/FoodTypeHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Seeds"
+
+[node name="BehaviorHBox" type="HBoxContainer" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="BehaviorLabel" type="Label" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BehaviorHBox"]
+layout_mode = 2
+text = "Behavior:"
+
+[node name="Spacer" type="Control" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BehaviorHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Behavior" type="Label" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BehaviorHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Playful"
+
+[node name="BirdStatusHBox" type="HBoxContainer" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="BirdStatusLabel" type="Label" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdStatusHBox"]
+layout_mode = 2
+text = "Bird Status:"
+
+[node name="Spacer" type="Control" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdStatusHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BirdStatus" type="Label" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdStatusHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "AWAKE"
+
+[node name="BirdMoodHBox" type="HBoxContainer" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="BirdMoodLabel" type="Label" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdMoodHBox"]
+layout_mode = 2
+text = "Bird Mood:"
+
+[node name="Spacer" type="Control" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdMoodHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BirdMood" type="Label" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/BirdMoodHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Happy"
+
+[node name="NeststatusHBox" type="HBoxContainer" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="NestStausLabel" type="Label" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/NeststatusHBox"]
+layout_mode = 2
+text = "Nest Status:"
+
+[node name="Spacer" type="Control" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/NeststatusHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NestStatus" type="Label" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox/NeststatusHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "No Nest
+"
+
+[node name="ActionButton" type="OptionButton" parent="CanvasLayer/PlayerBirdMarginContainer/PlayerBirdInnerMarginContainer/PlayerBirdVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("3_4sl2f")
+alignment = 1
+item_count = 7
+selected = 0
+popup/item_0/text = "Actions"
+popup/item_0/id = 0
+popup/item_0/disabled = true
+popup/item_1/text = "Explore the Area"
+popup/item_1/id = 1
+popup/item_2/text = "Get Food"
+popup/item_2/id = 2
+popup/item_3/text = "Build Nest"
+popup/item_3/id = 3
+popup/item_4/text = "Lay Eggs"
+popup/item_4/id = 5
+popup/item_5/text = "Repair Nest"
+popup/item_5/id = 6
+popup/item_6/text = "Go to Sleep (end day)"
+popup/item_6/id = 9
+
+[node name="LocationInfoMarginContainer" type="MarginContainer" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BirdMeterMarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -594.0
+offset_bottom = 600.0
+grow_horizontal = 0
+size_flags_vertical = 3
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+
+[node name="Panel" type="Panel" parent="CanvasLayer/BirdMeterMarginContainer"]
+layout_mode = 2
+
+[node name="BirdMeterInnerMarginContainer" type="MarginContainer" parent="CanvasLayer/BirdMeterMarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="BirdMeterVBox" type="VBoxContainer" parent="CanvasLayer/BirdMeterMarginContainer/BirdMeterInnerMarginContainer"]
+layout_mode = 2
+theme = ExtResource("2_v5pcf")
+
+[node name="HungerLabel" type="Label" parent="CanvasLayer/BirdMeterMarginContainer/BirdMeterInnerMarginContainer/BirdMeterVBox"]
+layout_mode = 2
+text = "Bird Hunger"
+horizontal_alignment = 1
+
+[node name="HungerProgressBar" type="ProgressBar" parent="CanvasLayer/BirdMeterMarginContainer/BirdMeterInnerMarginContainer/BirdMeterVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+value = 100.0
+
+[node name="SocialLabel" type="Label" parent="CanvasLayer/BirdMeterMarginContainer/BirdMeterInnerMarginContainer/BirdMeterVBox"]
+layout_mode = 2
+text = "Bird Social
+"
+horizontal_alignment = 1
+
+[node name="SocialProgressBar" type="ProgressBar" parent="CanvasLayer/BirdMeterMarginContainer/BirdMeterInnerMarginContainer/BirdMeterVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+value = 100.0
+
+[node name="EnergyLabel" type="Label" parent="CanvasLayer/BirdMeterMarginContainer/BirdMeterInnerMarginContainer/BirdMeterVBox"]
+layout_mode = 2
+text = "Bird Energy
+"
+horizontal_alignment = 1
+
+[node name="EnergyProgressBar" type="ProgressBar" parent="CanvasLayer/BirdMeterMarginContainer/BirdMeterInnerMarginContainer/BirdMeterVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+value = 100.0
+
+[node name="Spacer" type="Control" parent="CanvasLayer/BirdMeterMarginContainer/BirdMeterInnerMarginContainer/BirdMeterVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BirdLocationHBox" type="HBoxContainer" parent="CanvasLayer/BirdMeterMarginContainer/BirdMeterInnerMarginContainer/BirdMeterVBox"]
+layout_mode = 2
+
+[node name="BirdLocationLabel" type="Label" parent="CanvasLayer/BirdMeterMarginContainer/BirdMeterInnerMarginContainer/BirdMeterVBox/BirdLocationHBox"]
+layout_mode = 2
+text = "Location: "
+
+[node name="Spacer" type="Control" parent="CanvasLayer/BirdMeterMarginContainer/BirdMeterInnerMarginContainer/BirdMeterVBox/BirdLocationHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BirdLocation" type="Label" parent="CanvasLayer/BirdMeterMarginContainer/BirdMeterInnerMarginContainer/BirdMeterVBox/BirdLocationHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Meadow"
+
+[node name="LocationFoodHBox" type="HBoxContainer" parent="CanvasLayer/BirdMeterMarginContainer/BirdMeterInnerMarginContainer/BirdMeterVBox"]
+layout_mode = 2
+
+[node name="LocationFoodLabel" type="Label" parent="CanvasLayer/BirdMeterMarginContainer/BirdMeterInnerMarginContainer/BirdMeterVBox/LocationFoodHBox"]
+layout_mode = 2
+text = "Local Food:"
+
+[node name="Spacer" type="Control" parent="CanvasLayer/BirdMeterMarginContainer/BirdMeterInnerMarginContainer/BirdMeterVBox/LocationFoodHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LocationFood" type="Label" parent="CanvasLayer/BirdMeterMarginContainer/BirdMeterInnerMarginContainer/BirdMeterVBox/LocationFoodHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Seeds, Insects"
+
+[node name="LocationThreatHBox" type="HBoxContainer" parent="CanvasLayer/BirdMeterMarginContainer/BirdMeterInnerMarginContainer/BirdMeterVBox"]
+layout_mode = 2
+
+[node name="LocationThreatLabel" type="Label" parent="CanvasLayer/BirdMeterMarginContainer/BirdMeterInnerMarginContainer/BirdMeterVBox/LocationThreatHBox"]
+layout_mode = 2
+text = "Threat Level:"
+
+[node name="Spacer" type="Control" parent="CanvasLayer/BirdMeterMarginContainer/BirdMeterInnerMarginContainer/BirdMeterVBox/LocationThreatHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LocationThreat" type="Label" parent="CanvasLayer/BirdMeterMarginContainer/BirdMeterInnerMarginContainer/BirdMeterVBox/LocationThreatHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Medium"
+
+[node name="LocationButton" type="OptionButton" parent="CanvasLayer/BirdMeterMarginContainer/BirdMeterInnerMarginContainer/BirdMeterVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("3_4sl2f")
+alignment = 1
+item_count = 1
+selected = 0
+popup/item_0/text = "Choose a Location"
+popup/item_0/id = 0
+popup/item_0/disabled = true
+
+[node name="MessageMarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -960.0
+offset_top = -80.0
+offset_right = 960.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="CanvasLayer/MessageMarginContainer"]
+layout_mode = 2
+
+[node name="MessageInnerMarginContainer" type="MarginContainer" parent="CanvasLayer/MessageMarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MessageMarginContainer/MessageInnerMarginContainer"]
+layout_mode = 2
+theme = ExtResource("2_v5pcf")
+
+[node name="MessageTypeLabel" type="Label" parent="CanvasLayer/MessageMarginContainer/MessageInnerMarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Message:"
+
+[node name="MessageLabel" type="Label" parent="CanvasLayer/MessageMarginContainer/MessageInnerMarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "This contains dynamic info about the environment."
+autowrap_mode = 2
+
+[node name="ButtonMarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -89.0
+offset_right = 69.0
+offset_bottom = 105.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 30
+
+[node name="ButtonHBox" type="HBoxContainer" parent="CanvasLayer/ButtonMarginContainer"]
+layout_mode = 2
+theme = ExtResource("3_4sl2f")
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="HideButton" type="Button" parent="CanvasLayer/ButtonMarginContainer/ButtonHBox"]
+layout_mode = 2
+toggle_mode = true
+text = "Hide!"
+
+[node name="DebugMarginContainer" type="MarginContainer" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="DebugOptionButton" type="OptionButton" parent="CanvasLayer/DebugMarginContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+item_count = 5
+selected = 0
+popup/item_0/text = "Options"
+popup/item_0/id = 0
+popup/item_0/disabled = true
+popup/item_1/text = "Get Random Item"
+popup/item_1/id = 1
+popup/item_2/text = "Clear Nesting"
+popup/item_2/id = 2
+popup/item_3/text = "Clear Valuables"
+popup/item_3/id = 3
+popup/item_4/text = "Nothing"
+popup/item_4/id = 4
+
+[node name="EndDayConfirmation" type="ConfirmationDialog" parent="CanvasLayer"]
+unique_name_in_owner = true
+title = "End Day?"
+initial_position = 1
+size = Vector2i(391, 100)
+dialog_text = "Are you sure you want to sleep and end the day?"
+
+[node name="EndDaySummary" type="AcceptDialog" parent="CanvasLayer"]
+unique_name_in_owner = true
+title = "Day Summary"
+initial_position = 1
+ok_button_text = "Next Day"
+
+[node name="InventoryUI" parent="CanvasLayer" instance=ExtResource("10_l5w3s")]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.5
+offset_top = -17.5
+offset_right = 64.5
+offset_bottom = 17.5
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ItemDebugPopup" type="Popup" parent="CanvasLayer"]
+unique_name_in_owner = true
+initial_position = 1
+size = Vector2i(180, 100)
+script = ExtResource("11_7vgt6")
+
+[node name="ItemDebugVBox" type="VBoxContainer" parent="CanvasLayer/ItemDebugPopup"]
+unique_name_in_owner = true
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="CanvasLayer/ItemDebugPopup/ItemDebugVBox"]
+layout_mode = 2
+text = "Choose an Item to Add:"
+
+[connection signal="item_selected" from="CanvasLayer/DebugMarginContainer/DebugOptionButton" to="CanvasLayer" method="_on_debug_item_selected"]

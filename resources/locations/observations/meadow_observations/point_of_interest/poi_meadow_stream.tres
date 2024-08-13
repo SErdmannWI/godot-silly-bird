@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Observation" load_steps=3 format=3 uid="uid://b3hudt2d55p28"]
+
+[ext_resource type="Script" path="res://resources/locations/observations/observations.gd" id="1_wnh5g"]
+[ext_resource type="Resource" uid="uid://w0i4wfx14ubr" path="res://resources/locations/observations/observation_types/point_of_interest.tres" id="1_ych8g"]
+
+[resource]
+script = ExtResource("1_wnh5g")
+observation_type = ExtResource("1_ych8g")
+observation_mesage = "A small stream meanders through the meadow, its crystal-clear water reflecting the sky above. The babbling brook provides a soothing soundtrack to the surrounding grassland"
+has_bonus = false

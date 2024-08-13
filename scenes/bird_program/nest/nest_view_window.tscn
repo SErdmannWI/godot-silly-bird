@@ -1,0 +1,227 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1p4d5lo5t44c"]
+
+[ext_resource type="Script" path="res://scenes/bird_program/nest/nest_view_window.gd" id="1_kipor"]
+[ext_resource type="Texture2D" uid="uid://dduomxypgmn7w" path="res://assets/png/background/blue.png" id="1_n8gso"]
+[ext_resource type="Texture2D" uid="uid://c847jwgle85tx" path="res://assets/png/nests/nest1.jpg" id="1_xe5qn"]
+
+[node name="NestViewWindow" type="Window"]
+title = "Nest View"
+initial_position = 2
+size = Vector2i(720, 480)
+script = ExtResource("1_kipor")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Background" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_n8gso")
+
+[node name="MainVBox" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -120.5
+offset_right = 120.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="HeaderHBox" type="HBoxContainer" parent="CanvasLayer/MainVBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="NestLocationLabel" type="Label" parent="CanvasLayer/MainVBox/HeaderHBox"]
+layout_mode = 2
+text = "Nest Location:"
+
+[node name="NestLocation" type="Label" parent="CanvasLayer/MainVBox/HeaderHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Location Name"
+
+[node name="NestTypeLabel" type="Label" parent="CanvasLayer/MainVBox/HeaderHBox"]
+layout_mode = 2
+text = "Nest Type:"
+
+[node name="NestType" type="Label" parent="CanvasLayer/MainVBox/HeaderHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Bowl Nest
+"
+
+[node name="HealthBarHeaderHBox" type="HBoxContainer" parent="CanvasLayer/MainVBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="NestStatusLabel" type="Label" parent="CanvasLayer/MainVBox/HealthBarHeaderHBox"]
+layout_mode = 2
+text = "Nest Status:"
+
+[node name="NestStatus" type="Label" parent="CanvasLayer/MainVBox/HealthBarHeaderHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Healthy, holding Eggs"
+
+[node name="NestHealthProgressBar" type="ProgressBar" parent="CanvasLayer/MainVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+value = 50.0
+
+[node name="NestGridContainer" type="GridContainer" parent="CanvasLayer/MainVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 3
+
+[node name="LeftVBox" type="VBoxContainer" parent="CanvasLayer/MainVBox/NestGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LayEggsButton" type="Button" parent="CanvasLayer/MainVBox/NestGridContainer/LeftVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Lay Eggs"
+
+[node name="SitOnEggsButton" type="Button" parent="CanvasLayer/MainVBox/NestGridContainer/LeftVBox"]
+layout_mode = 2
+text = "Sit on Eggs"
+
+[node name="RemoveEggButton" type="Button" parent="CanvasLayer/MainVBox/NestGridContainer/LeftVBox"]
+layout_mode = 2
+text = "Repair Nest"
+
+[node name="ExamineEggsButton" type="Button" parent="CanvasLayer/MainVBox/NestGridContainer/LeftVBox"]
+layout_mode = 2
+text = "Remove an Egg"
+
+[node name="RepairNestButton" type="Button" parent="CanvasLayer/MainVBox/NestGridContainer/LeftVBox"]
+layout_mode = 2
+text = "Examine Eggs"
+
+[node name="Button6" type="Button" parent="CanvasLayer/MainVBox/NestGridContainer/LeftVBox"]
+layout_mode = 2
+text = "Repair Nest"
+
+[node name="Button7" type="Button" parent="CanvasLayer/MainVBox/NestGridContainer/LeftVBox"]
+layout_mode = 2
+text = "Repair Nest"
+
+[node name="Button8" type="Button" parent="CanvasLayer/MainVBox/NestGridContainer/LeftVBox"]
+layout_mode = 2
+text = "Repair Nest"
+
+[node name="NestImageTextRect" type="TextureRect" parent="CanvasLayer/MainVBox/NestGridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("1_xe5qn")
+expand_mode = 2
+
+[node name="EggMarker11" type="Marker2D" parent="CanvasLayer/MainVBox/NestGridContainer/NestImageTextRect"]
+unique_name_in_owner = true
+position = Vector2(155, 160)
+
+[node name="EggMarker21" type="Marker2D" parent="CanvasLayer/MainVBox/NestGridContainer/NestImageTextRect"]
+unique_name_in_owner = true
+position = Vector2(130, 160)
+
+[node name="EggMarker22" type="Marker2D" parent="CanvasLayer/MainVBox/NestGridContainer/NestImageTextRect"]
+unique_name_in_owner = true
+position = Vector2(180, 160)
+
+[node name="EggMarker41" type="Marker2D" parent="CanvasLayer/MainVBox/NestGridContainer/NestImageTextRect"]
+unique_name_in_owner = true
+position = Vector2(168, 140)
+
+[node name="EggMarker42" type="Marker2D" parent="CanvasLayer/MainVBox/NestGridContainer/NestImageTextRect"]
+unique_name_in_owner = true
+position = Vector2(144, 140)
+
+[node name="EggMarker43" type="Marker2D" parent="CanvasLayer/MainVBox/NestGridContainer/NestImageTextRect"]
+unique_name_in_owner = true
+position = Vector2(144, 170)
+
+[node name="EggMarker44" type="Marker2D" parent="CanvasLayer/MainVBox/NestGridContainer/NestImageTextRect"]
+unique_name_in_owner = true
+position = Vector2(168, 170)
+
+[node name="EggMarker52" type="Marker2D" parent="CanvasLayer/MainVBox/NestGridContainer/NestImageTextRect"]
+unique_name_in_owner = true
+position = Vector2(136, 180)
+
+[node name="EggMarker53" type="Marker2D" parent="CanvasLayer/MainVBox/NestGridContainer/NestImageTextRect"]
+unique_name_in_owner = true
+position = Vector2(174, 180)
+
+[node name="EggMarker54" type="Marker2D" parent="CanvasLayer/MainVBox/NestGridContainer/NestImageTextRect"]
+unique_name_in_owner = true
+position = Vector2(174, 142)
+
+[node name="EggMarker55" type="Marker2D" parent="CanvasLayer/MainVBox/NestGridContainer/NestImageTextRect"]
+unique_name_in_owner = true
+position = Vector2(136, 142)
+
+[node name="EggMarker61" type="Marker2D" parent="CanvasLayer/MainVBox/NestGridContainer/NestImageTextRect"]
+unique_name_in_owner = true
+position = Vector2(130, 142)
+
+[node name="EggMarker62" type="Marker2D" parent="CanvasLayer/MainVBox/NestGridContainer/NestImageTextRect"]
+unique_name_in_owner = true
+position = Vector2(130, 174)
+
+[node name="EggMarker63" type="Marker2D" parent="CanvasLayer/MainVBox/NestGridContainer/NestImageTextRect"]
+unique_name_in_owner = true
+position = Vector2(155, 174)
+
+[node name="EggMarker64" type="Marker2D" parent="CanvasLayer/MainVBox/NestGridContainer/NestImageTextRect"]
+unique_name_in_owner = true
+position = Vector2(180, 174)
+
+[node name="EggMarker65" type="Marker2D" parent="CanvasLayer/MainVBox/NestGridContainer/NestImageTextRect"]
+unique_name_in_owner = true
+position = Vector2(180, 142)
+
+[node name="EggMarker66" type="Marker2D" parent="CanvasLayer/MainVBox/NestGridContainer/NestImageTextRect"]
+unique_name_in_owner = true
+position = Vector2(155, 142)
+
+[node name="EggProgressVBox" type="VBoxContainer" parent="CanvasLayer/MainVBox/NestGridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="FooterHBox" type="HBoxContainer" parent="CanvasLayer/MainVBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="NestLevelLabel" type="Label" parent="CanvasLayer/MainVBox/FooterHBox"]
+layout_mode = 2
+text = "Nest Level"
+
+[node name="NestLevel" type="Label" parent="CanvasLayer/MainVBox/FooterHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Lvl. 1"
+
+[node name="NestCapacityLabel" type="Label" parent="CanvasLayer/MainVBox/FooterHBox"]
+layout_mode = 2
+text = "Egg Capacity"
+
+[node name="NestCapacity" type="Label" parent="CanvasLayer/MainVBox/FooterHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "2 Eggs"
+
+[node name="Button2" type="Button" parent="CanvasLayer/MainVBox"]
+layout_mode = 2
+text = "Upgrade Nest (requires 99 material)"
+
+[connection signal="close_requested" from="." to="." method="_on_close_window_pressed"]
