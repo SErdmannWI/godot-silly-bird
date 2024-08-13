@@ -34,7 +34,6 @@ func _init() -> void:
 ############################ Bird Manager Functions ############################
 ################################################################################
 
-
 # Called by UI._director_setup
 func set_bird_manager(manager: BirdManager) -> void:
 	bird_manager = manager
@@ -57,9 +56,7 @@ func end_bird_day() -> void:
 	bird_manager.end_day()
 
 
-################################################################################
-############################ Bird Signal Functions #############################
-################################################################################
+############# Bird Signal Functions #############
 
 func connect_to_bird() -> void:
 	bird_manager.bird.hunger_changed.connect(_on_hunger_changed)
@@ -103,30 +100,7 @@ func _on_inventory_update() -> void:
 ############################ Nest Manager Functions ############################
 ################################################################################
 
-# Called by UI._director_setup
-func set_nest_manager(manager: NestManager) -> void:
-	nest_manager = manager
-
-
-func has_nest() -> bool:
-	return nest_manager.location_has_nest(current_location_name)
-
-
-func add_nest() -> void:
-	nest_manager.add_nest(current_location_name)
-
-
-func get_nest() -> Nest:
-	return nest_manager.get_nest(current_location_name)
-
-
-func get_nest_info() -> Dictionary:
-	return nest_manager.get_nest_info(current_location_name)
-
-
-func get_nest_by_location(location_name: String) -> Dictionary:
-	return nest_manager.get_nest_info(location_name)
-
+############# Nest Action Functions #############
 
 # TODO Use actual BirdType when implemented
 # Get egg type by using bird name
@@ -177,6 +151,35 @@ func repair_nest(amount: int) -> String:
 		return "%s does not have a nest built yet" % current_location_name
 	
 	return str(total_hp)
+
+
+############# Nest Info Functions #############
+
+# Called by UI._director_setup
+func set_nest_manager(manager: NestManager) -> void:
+	nest_manager = manager
+
+func has_nest() -> bool:
+	return nest_manager.location_has_nest(current_location_name)
+
+
+func add_nest() -> void:
+	nest_manager.add_nest(current_location_name)
+
+
+func get_nest() -> Nest:
+	return nest_manager.get_nest(current_location_name)
+
+
+func get_nest_info() -> Dictionary:
+	return nest_manager.get_nest_info(current_location_name)
+
+
+func get_nest_by_location(location_name: String) -> Dictionary:
+	return nest_manager.get_nest_info(location_name)
+
+
+############# Nest Signal Functions #############
 
 
 func _on_egg_info_updated(egg_info: Dictionary) -> void:

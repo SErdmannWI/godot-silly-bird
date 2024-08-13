@@ -32,6 +32,10 @@ func location_has_nest(location_name: String) -> bool:
 	return all_nests.has(location_name)
 
 
+################################################################################
+################################ Egg Functions #################################
+################################################################################
+
 # Check if nest exists. If it does, add eggs and return total eggs. Otherwise, return -1
 # If nest is at capacity, return -2
 func add_egg(location_name: String, bird_type: String) -> int:
@@ -58,6 +62,23 @@ func remove_egg(location_name, egg_id) -> int:
 	return nest.remove_egg(egg_id)
 
 
+func get_total_eggs(location_name: String) -> int:
+	if !all_nests.has(location_name):
+		return -1
+	
+	var current_nest: Nest = all_nests[location_name]
+	
+	return current_nest.get_total_eggs()
+
+
+func _on_egg_hatched(egg_id: String) -> void:
+	pass
+
+
+################################################################################
+############################### Nest Functions #################################
+################################################################################
+
 func damage_nest(location_name: String, amount: int) -> int:
 	if !all_nests.has(location_name):
 		return -1
@@ -75,20 +96,7 @@ func repair_nest(location_name: String, amount: int) -> int:
 	return nest.repair_nest(amount)
 
 
-func get_total_eggs(location_name: String) -> int:
-	if !all_nests.has(location_name):
-		return -1
-	
-	var current_nest: Nest = all_nests[location_name]
-	
-	return current_nest.get_total_eggs()
-
-
 func get_nest_info(location_name: String) -> Dictionary:
 	var current_nest: Nest = all_nests[location_name]
 	
 	return current_nest.get_nest_info()
-
-
-func _on_egg_hatched(egg_id: String) -> void:
-	pass

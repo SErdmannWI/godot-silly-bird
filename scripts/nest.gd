@@ -29,13 +29,17 @@ func _ready() -> void:
 	egg_hatched.connect(Director.on_egg_hatched)
 
 
-# Egg Functions
+################################################################################
+################################ Egg Functions #################################
+################################################################################
+
 func get_eggs() -> Dictionary:
 	return eggs
 
 
+# Gets type of Bird and location of Nest, assigns ID from unused ID number and location name
+# Signals- egg_hatched, egg_added -> Director
 func add_egg(egg_type: String, egg_location: String) -> void:
-	print("Current Eggs: " + str(eggs.keys()))
 	var egg_number: int
 	
 	if eggs.keys().is_empty():
@@ -50,7 +54,7 @@ func add_egg(egg_type: String, egg_location: String) -> void:
 				
 	var new_egg: Egg = EggFactory.create_egg(egg_type, egg_location, egg_number)
 	
-	new_egg.egg_hatched.connect(_on_egg_hatched)
+	new_egg.egg_hatched.connect(_on_egg_hatched) # -> Director
 	
 	eggs[new_egg.egg_id] = new_egg
 	
@@ -58,7 +62,7 @@ func add_egg(egg_type: String, egg_location: String) -> void:
 	
 	var egg_info: Dictionary = new_egg.get_egg_info()
 	
-	egg_added.emit(egg_info, get_total_eggs())
+	egg_added.emit(egg_info, get_total_eggs()) # -> Director
 
 
 func remove_egg(egg_id: String) -> int:
@@ -66,6 +70,29 @@ func remove_egg(egg_id: String) -> int:
 	
 	return get_total_eggs()
 
+
+func get_all_egg_info() -> Array[Dictionary]:
+	var all_eggs_info: Array[Dictionary] = []
+	
+	for egg in eggs:
+		all_eggs_info.append(eggs[egg].get_egg_info())
+	
+	return all_eggs_info
+
+
+func get_total_eggs() -> int:
+	return eggs.keys().size()
+
+
+func _on_egg_hatched(egg_id: String) -> void:
+	remove_egg(egg_id)
+	
+	egg_hatched.emit(egg_id, location_name)
+
+
+################################################################################
+############################### Nest Functions #################################
+################################################################################
 
 func repair_nest(amount: int) -> int:
 	if _hp + amount >= _hp_max:
@@ -95,15 +122,6 @@ func get_max_hp() -> int:
 	return _hp_max
 
 
-func get_all_egg_info() -> Array[Dictionary]:
-	var all_eggs_info: Array[Dictionary] = []
-	
-	for egg in eggs:
-		all_eggs_info.append(eggs[egg].get_egg_info())
-	
-	return all_eggs_info
-
-
 func get_nest_info() -> Dictionary:
 	var nest_info: Dictionary = {}
 	
@@ -118,16 +136,6 @@ func get_nest_info() -> Dictionary:
 	nest_info[NestGlobals.NEST_MAX_HP] = get_max_hp()
 	
 	return nest_info
-
-
-func get_total_eggs() -> int:
-	return eggs.keys().size()
-
-
-func _on_egg_hatched(egg_id: String) -> void:
-	remove_egg(egg_id)
-	
-	egg_hatched.emit(egg_id, location_name)
 
 
 func set_nest_capactiy(new_value: int) -> int:
