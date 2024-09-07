@@ -7,4 +7,4 @@
 script = ExtResource("1_r3or3")
 type_name = "Mourning Dove"
 image = ExtResource("1_5fqwc")
-incubation_time = 100
+incubation_time = 5

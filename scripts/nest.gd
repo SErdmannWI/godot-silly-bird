@@ -4,9 +4,9 @@
 class_name Nest
 extends Node
 
+# Signals UI changes to Director
 signal egg_added(egg_info: Dictionary, total_eggs: int)
-signal egg_removed(egg_info: Dictionary, total_eggs: int)
-signal egg_hatched(egg_id: String, location_name: String)
+
 
 var location_name: String
 var type: String = "Bowl Nest"
@@ -24,11 +24,6 @@ func _init(location: String) -> void:
 	location_name = location
 
 
-func _ready() -> void:
-	egg_added.connect(Director.on_egg_added)
-	egg_hatched.connect(Director.on_egg_hatched)
-
-
 ################################################################################
 ################################ Egg Functions #################################
 ################################################################################
@@ -38,8 +33,8 @@ func get_eggs() -> Dictionary:
 
 
 # Gets type of Bird and location of Nest, assigns ID from unused ID number and location name
-# Signals- egg_hatched, egg_added -> Director
-func add_egg(egg_type: String, egg_location: String) -> void:
+# Egg ID = Location name and position in the nest (egg_number) (e.g. first egg in Meandow = Meadow_0)
+func add_egg(egg_type: String, egg_location: String) -> Egg:
 	var egg_number: int
 	
 	if eggs.keys().is_empty():
@@ -48,27 +43,25 @@ func add_egg(egg_type: String, egg_location: String) -> void:
 	else:
 		for number in egg_numbers:
 			
+			# find first available sequentially
 			if !eggs.keys().has(egg_location + "_" + str(number)):
 				egg_number = number
 				break
-				
+	
+	# Create Egg, connect hatched signal
 	var new_egg: Egg = EggFactory.create_egg(egg_type, egg_location, egg_number)
-	
-	new_egg.egg_hatched.connect(_on_egg_hatched) # -> Director
-	
 	eggs[new_egg.egg_id] = new_egg
-	
 	add_child(new_egg)
 	
 	var egg_info: Dictionary = new_egg.get_egg_info()
-	
 	egg_added.emit(egg_info, get_total_eggs()) # -> Director
-
-
-func remove_egg(egg_id: String) -> int:
-	eggs.erase(egg_id)
 	
-	return get_total_eggs()
+	return new_egg
+
+
+# Called by NestManager as result of (hatched, broken)
+func remove_egg(egg_id: String) -> void:
+	eggs.erase(egg_id)
 
 
 func get_all_egg_info() -> Array[Dictionary]:
@@ -82,12 +75,6 @@ func get_all_egg_info() -> Array[Dictionary]:
 
 func get_total_eggs() -> int:
 	return eggs.keys().size()
-
-
-func _on_egg_hatched(egg_id: String) -> void:
-	remove_egg(egg_id)
-	
-	egg_hatched.emit(egg_id, location_name)
 
 
 ################################################################################

@@ -1,9 +1,12 @@
 class_name Egg
 extends Node
 
-signal egg_hatched(egg_id: String)
-signal egg_info_changed(egg_info: Dictionary)
-signal egg_progress(egg_info: Dictionary)
+# Functional signals connect to NestManager
+signal broken(egg_id: String)
+signal hatched(egg_id: String)
+# UI only signals connect to Director
+signal info_changed(egg_info: Dictionary)
+signal progress(egg_info: Dictionary)
 
 var egg_type: EggType
 var egg_id: String
@@ -38,9 +41,6 @@ func _ready() -> void:
 	incubation_timer = Timer.new()
 	incubation_timer.wait_time = 1
 	incubation_timer.timeout.connect(_on_incubation_timer_timeout)
-	
-	egg_info_changed.connect(Director._on_egg_info_updated)
-	egg_progress.connect(Director._on_egg_progress)
 	
 	add_child(incubation_timer)
 	
@@ -78,11 +78,11 @@ func _on_incubation_timer_timeout() -> void:
 		else:
 			incubation_timer.start()
 	
-	egg_progress.emit(get_simplified_info())
+	progress.emit(_get_simplified_info()) # -> Director
 
 
 func hatch_egg() -> void:
-	egg_hatched.emit(egg_id)
+	hatched.emit(_get_egg_info()) # -> NestManager
 	stop_incubating()
 
 
@@ -91,7 +91,7 @@ func hatch_egg() -> void:
 ################################################################################
 
 # Gets all egg info to update UI
-func get_egg_info() -> Dictionary:
+func _get_egg_info() -> Dictionary:
 	var egg_info: Dictionary = {}
 	
 	egg_info[EggGlobals.EGG_INFO_ID] = egg_id
@@ -107,16 +107,10 @@ func get_egg_info() -> Dictionary:
 
 
 # Gets egg_id and time_remaining to update ProgressBar in UI
-func get_simplified_info() -> Dictionary:
+func _get_simplified_info() -> Dictionary:
 	var egg_info: Dictionary = {}
 	
 	egg_info[EggGlobals.EGG_INFO_ID] = egg_id
 	egg_info[EggGlobals.EGG_INFO_INCUBATION_TIME_REMAINING] = egg_incubation_time_remaining
 	
 	return egg_info
-
-
-#func _get_egg_id(location_name: String, egg_number: int) -> String:
-	#var egg_id: String = location_name + str(egg_number)
-	#
-	#return egg_id

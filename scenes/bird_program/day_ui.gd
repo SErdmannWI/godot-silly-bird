@@ -78,14 +78,12 @@ func _ready():
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_MAXIMIZED)
 	_director_setup()
 	_load_location()
-	
 	_populate_location_button()
 	_get_all_observations()
-	
 	load_player_bird()
 	_connect_ui_elements()
 	
-	Director.on_start_day()
+	Director.start_day()
 
 
 ################################################################################
@@ -161,16 +159,21 @@ func _director_setup() -> void:
 	Director.set_inventory_manager(inventory_manager)
 	Director.set_day_cycle_manager(day_cycle_manager)
 	
+	# General signals
 	Director.location_changed.connect(_on_location_changed)
+	# Bird signals
 	Director.update_hunger.connect(_on_hunger_changed)
 	Director.update_social.connect(_on_social_changed)
 	Director.update_energy.connect(_on_energy_changed)
 	Director.update_mood.connect(_on_mood_changed)
 	Director.update_status.connect(_on_status_changed)
+	# Egg signals
 	Director.egg_info_changed.connect(_on_egg_info_updated)
 	Director.egg_added.connect(_on_egg_added)
-	Director.egg_removed.connect(_on_egg_removed)
 	Director.egg_progressed.connect(_on_egg_progress)
+	# Nest signals
+	Director.nest_info_changed.connect(_on_nest_updated)
+	Director.current_nest_info_changed.connect(_on_current_nest_updated)
 	
 	select_nesting_ui.items_used.connect(Director.on_items_used)
 
@@ -220,7 +223,7 @@ func _get_all_observations() -> void:
 ############################## Signal Functions ################################
 ################################################################################
 
-################################ Data Signals ##################################
+############################## Message Signals #################################
 
 func _display_observation_message(observation: Observation) -> void:
 	label_message_type.text = observation.observation_type.type_name + ":"
@@ -232,22 +235,7 @@ func _display_action_message(alert_type: String, alert_message: String) -> void:
 	label_message.text = alert_message
 
 
-func _on_nest_built():
-	#Manager.location_manager.current_location.has_player_nest = true
-	Director.add_nest()
-	#MainBird.nest = Nest.new(Manager.location_manager.current_location.location_name)
-	label_bird_nest_status.text = "Nest Built"
-	_display_action_message(GlobalMessages.ALERT_ACTION, GlobalMessages.MESSAGE_BUILT_NEST)
-
-
-func _on_end_day_confirmed() -> void:
-	popup_end_day_confirm.visible = false
-	#await MainBird.end_day()
-	Director.end_bird_day()
-	_get_updated_bird_data()
-	_end_of_day_summary()
-
-
+############################### Bird Signals ###################################
 func _on_hunger_changed(hunger: int) -> void:
 	progress_bar_hunger.value = hunger
 
@@ -268,21 +256,37 @@ func _on_status_changed(status: String) -> void:
 	label_bird_status.text = status
 
 
-func _on_location_changed():
-	_load_location()
+############################### Nest Signals ###################################
 
 
-func _on_inventory_update(item_type: String, amount: int) -> void:
-	match item_type:
-		
-		ItemGlobals.ITEM_TYPE_NESTING:
-			label_inv_nesting.text = str(amount)
-		
-		ItemGlobals.ITEM_TYPE_VALUABLE:
-			label_inv_valuables.text = str(amount)
-		
-		ItemGlobals.ITEM_TYPE_MISCELLANEOUS:
-			label_inv_misc.text = str(amount)
+func _on_nest_built():
+	#Manager.location_manager.current_location.has_player_nest = true
+	Director.add_nest()
+	#MainBird.nest = Nest.new(Manager.location_manager.current_location.location_name)
+	label_bird_nest_status.text = "Nest Built"
+	_display_action_message(GlobalMessages.ALERT_ACTION, GlobalMessages.MESSAGE_BUILT_NEST)
+
+
+# Display appropriate message based on status code
+func _on_nest_updated(nest_info: Dictionary, status_code: int) -> void:
+	if (status_code == GameGlobals.StatusCode.EGG_HATCHED):
+		var message: String = GlobalMessages.EGG_HATCHED % [nest_info[NestGlobals.NEST_LOCATION_NAME]]
+		_display_action_message(GlobalMessages.ALERT_MESSAGE, message)
+	elif (status_code == GameGlobals.StatusCode.EGG_BROKEN):
+		var message: String = GlobalMessages.EGG_BROKEN % [nest_info[NestGlobals.NEST_LOCATION_NAME]]
+		_display_action_message(GlobalMessages.ALERT_MESSAGE, message)
+
+
+# Nest is current one in view, so display updated message based on status code and update nest
+func _on_current_nest_updated(nest_info: Dictionary, status_code: int) -> void:
+	if (status_code == GameGlobals.StatusCode.EGG_HATCHED):
+		var message: String = GlobalMessages.EGG_HATCHED % [nest_info[NestGlobals.NEST_LOCATION_NAME]]
+		_display_action_message(GlobalMessages.ALERT_MESSAGE, message)
+	elif (status_code == GameGlobals.StatusCode.EGG_BROKEN):
+		var message: String = GlobalMessages.EGG_BROKEN % [nest_info[NestGlobals.NEST_LOCATION_NAME]]
+		_display_action_message(GlobalMessages.ALERT_MESSAGE, message)
+	
+	window_nest_view.load_nest(nest_info)
 
 
 func _on_egg_info_updated(egg_info: Dictionary, total_eggs: int) -> void:
@@ -297,8 +301,32 @@ func _on_egg_added(egg_info: Dictionary, total_eggs: int) -> void:
 	window_nest_view.place_new_egg(egg_info, total_eggs)
 
 
-func _on_egg_removed(egg_info: Dictionary, total_eggs: int) -> void:
-	pass
+############################### Location Signals ###################################
+
+func _on_location_changed():
+	_load_location()
+
+
+func _on_end_day_confirmed() -> void:
+	popup_end_day_confirm.visible = false
+	#await MainBird.end_day()
+	Director.end_bird_day()
+	_get_updated_bird_data()
+	_end_of_day_summary()
+
+
+func _on_inventory_update(item_type: String, amount: int) -> void:
+	match item_type:
+		
+		ItemGlobals.ITEM_TYPE_NESTING:
+			label_inv_nesting.text = str(amount)
+		
+		ItemGlobals.ITEM_TYPE_VALUABLE:
+			label_inv_valuables.text = str(amount)
+		
+		ItemGlobals.ITEM_TYPE_MISCELLANEOUS:
+			label_inv_misc.text = str(amount)
+
 
 ################################ Input Signals #################################
 
@@ -367,6 +395,9 @@ func _toggle_nest_building_ui() -> void:
 		select_nesting_ui.open(Director.get_all_nesting_items(), Director.get_nest_material_needed())
 
 
+# Gets a response code from Director and displays appropriate message
+# If invalid request, gets -1 if no nest is built, -2 if nest is full
+# If valid request, displays total eggs
 func _on_lay_eggs_pressed() -> void:
 	var response: Array = Director.lay_eggs()
 	

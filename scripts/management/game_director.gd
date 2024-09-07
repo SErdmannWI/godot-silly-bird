@@ -1,7 +1,8 @@
 # This class is responsible for directing and coordinating the various managers and sending info
 # back to the UI.
-# Signals which do not require additional processing (e.g. bird hunger drops) bypass Managers and
-# are reported directly to the Director
+# Signals which only affect UI components bypass Managers and are reported to the Director
+# Signals which require additional logic further down are first reported to their respective Manager
+# and then reported to the Director via the Manager.
 
 # Game Director
 extends Node
@@ -13,9 +14,10 @@ signal update_mood(mood: String)
 signal update_status(status: String)
 signal update_inventory(inventory: Inventory)
 signal location_changed(location: Location)
+signal nest_info_changed(nest_info: Dictionary, status_code: int)
+signal current_nest_info_changed(nest_info: Dictionary)
 signal egg_info_changed(egg_info: Dictionary, total_eggs: int)
 signal egg_added(egg_info: Dictionary, total_eggs: int)
-signal egg_removed(egg_info: Dictionary, total_eggs: int)
 signal egg_progressed(egg_info: Dictionary)
 
 var bird_manager: BirdManager
@@ -40,7 +42,7 @@ func set_bird_manager(manager: BirdManager) -> void:
 	connect_to_bird()
 
 
-func on_start_day() -> void:
+func start_day() -> void:
 	bird_manager.start_bird_day()
 
 
@@ -102,39 +104,35 @@ func _on_inventory_update() -> void:
 
 ############# Nest Action Functions #############
 
-# TODO Use actual BirdType when implemented
-# Get egg type by using bird name
+# Calls NestManager.add_egg. Checks if valid request. If not, send message to UI to be displayed.
+# If valid request, connect UI signals and send message to UI to be displayed.
 func lay_eggs() -> Array:
 	var egg_type = bird_manager.bird.bird_name
 	var response_code: int
 	var response_message: String
-	var total_eggs = nest_manager.add_egg(current_location_name, egg_type)
+	
+	# Array will contain [response_code, Egg] if valid request
+	var response: Array = nest_manager.add_egg(current_location_name, egg_type)
+	response_code = response[0]
 	
 	# Check for alt cases (no nest, nest at capacity, TODO nest too damaged)
-	if total_eggs == -1:
-		response_code = total_eggs
+	if response_code == GameGlobals.ResponseCode.NO_NEST:
 		response_message= "%s does not have a nest built yet" % current_location_name
 		
 		return [response_code, response_message]
 	
-	elif total_eggs == -2:
-		response_code = total_eggs
+	elif response_code == GameGlobals.ResponseCode.NEST_FULL:
 		response_message = "%s nest is at capacity! Upgrade nest capacity or wait for eggs to hatch before laying more" % current_location_name
 		
 		return [response_code, response_message]
 	
-	response_code = total_eggs
-	response_message = str(total_eggs)
+	# Connect new egg UI signals to Director
+	response[1].info_changed.connect(_on_egg_info_updated)
+	response[1].progress.connect(_on_egg_progress)
+	
+	response_message = str(response_code)
 	
 	return [response_code, response_message]
-
-
-func remove_eggs(egg_id: int) -> String:
-	var total_eggs = nest_manager.remove_egg(current_location_name, egg_id)
-	if total_eggs == -1:
-		return "%s does not have a nest built yet" % current_location_name
-	
-	return str(total_eggs)
 
 
 func damage_nest(amount: int) -> String:
@@ -158,13 +156,17 @@ func repair_nest(amount: int) -> String:
 # Called by UI._director_setup
 func set_nest_manager(manager: NestManager) -> void:
 	nest_manager = manager
+	manager.egg_hatched.connect(_on_egg_hatched)
+	manager.egg_broken.connect(_on_egg_broken)
 
 func has_nest() -> bool:
 	return nest_manager.location_has_nest(current_location_name)
 
 
 func add_nest() -> void:
-	nest_manager.add_nest(current_location_name)
+	var new_nest: Nest = nest_manager.add_nest(current_location_name)
+	new_nest.egg_added.connect(_on_egg_added)
+	new_nest.egg_hatched.connect(_on_egg_hatched)
 
 
 func get_nest() -> Nest:
@@ -181,26 +183,35 @@ func get_nest_by_location(location_name: String) -> Dictionary:
 
 ############# Nest Signal Functions #############
 
-
+# From Egg when health or image change
 func _on_egg_info_updated(egg_info: Dictionary) -> void:
 	var nest_total_eggs = nest_manager.get_total_eggs(current_location_name)
-	egg_info_changed.emit(egg_info, nest_total_eggs)
+	egg_info_changed.emit(egg_info, nest_total_eggs) # -> UI
 
-
+# From Egg when incubation progress changes
 func _on_egg_progress(egg_info: Dictionary) -> void:
-	egg_progressed.emit(egg_info)
+	egg_progressed.emit(egg_info) # -> UI
 
 
-func on_egg_added(egg_info: Dictionary, total_eggs: int) -> void:
-	egg_added.emit(egg_info, total_eggs)
+func _on_egg_added(egg_info: Dictionary, total_eggs: int) -> void:
+	egg_added.emit(egg_info, total_eggs) # -> UI
 
 
-func on_egg_removed(egg_info: Dictionary, total_eggs: int) -> void:
-	egg_removed.emit(egg_info, total_eggs)
+# Add XP to Player's bird
+# If nest is current nest, signal to UI to update current view. Otherwise, simply signal the change
+func _on_egg_hatched(nest_info: Dictionary) -> void:
+	if current_location_name == nest_info[NestGlobals.NEST_LOCATION_NAME]:
+		current_nest_info_changed.emit(nest_info, GameGlobals.StatusCode.EGG_HATCHED)
+	else:
+		nest_info_changed.emit(nest_info, GameGlobals.StatusCode.EGG_HATCHED)
 
 
-func on_egg_hatched(egg_id: String, location_name: String) -> void:
-	pass
+# Signal to UI to update nest
+func _on_egg_broken(nest_info: Dictionary) -> void:
+	if current_location_name == nest_info[NestGlobals.NEST_LOCATION_NAME]:
+		current_nest_info_changed.emit(nest_info, GameGlobals.StatusCode.EGG_BROKEN)
+	else:
+		nest_info_changed.emit(nest_info, GameGlobals.StatusCode.EGG_BROKEN)
 
 
 ################################################################################

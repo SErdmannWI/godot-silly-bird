@@ -37,6 +37,7 @@ FilePaths="*res://scripts/file_paths.gd"
 EggFactory="*res://resources/eggs/egg_factory.gd"
 EggGlobals="*res://resources/eggs/egg_globals.gd"
 NestGlobals="*res://scenes/bird_program/nest/nest_globals.gd"
+GameGlobals="*res://scripts/game_globals.gd"
 
 [display]
 

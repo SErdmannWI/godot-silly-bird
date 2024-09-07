@@ -97,9 +97,6 @@ func _set_egg_texture(_texture_path: String = FilePaths.IMAGE_EGG_DEFAULT) -> vo
 ################################################################################
 
 func load_nest(nest_info: Dictionary) -> void:
-	#nest_info[NestGlobals.NEST_UPGRADES] = upgrades
-	#nest_info[NestGlobals.NEST_EGGS] = get_all_egg_info().duplicate(true)
-	
 	label_nest_location.text = nest_info[NestGlobals.NEST_LOCATION_NAME]
 	label_nest_status.text = nest_info[NestGlobals.NEST_STATUS]
 	label_nest_type.text = nest_info[NestGlobals.NEST_TYPE]
@@ -239,11 +236,6 @@ func place_new_egg(egg_info: Dictionary, total_eggs: int) -> void:
 		
 		vbox_egg_progress.add_child(new_egg_progress_bar)
 		
-
-
-# Egg hatched or is broken
-func remove_egg(egg_info: Dictionary, total_eggs: int) -> void:
-	pass
 
 
 func on_egg_progress(egg_info: Dictionary) -> void:
