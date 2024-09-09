@@ -87,8 +87,8 @@ func _ready():
 	_load_location()
 	_populate_location_button()
 	_get_all_observations()
-	load_player_bird()
 	_connect_ui_elements()
+	_load_player_bird()
 	
 	
 	Director.start_new_day()
@@ -97,6 +97,34 @@ func _ready():
 ################################################################################
 ############################### Setup Functions ################################
 ################################################################################
+
+# Called from _ready. Sets the correct managers for the GameDirector
+# Connects Director's signals from updates
+func _director_setup() -> void:
+	Director.set_bird_manager(bird_manager)
+	Director.set_location_manager(location_manager)
+	Director.set_nest_manager(nest_manager)
+	Director.set_inventory_manager(inventory_manager)
+	Director.set_day_cycle_manager(day_cycle_manager)
+	Director.set_xp_manager(xp_manager)
+	
+	# General signals
+	Director.location_changed.connect(_on_location_changed)
+	# Bird signals
+	Director.update_hunger.connect(_on_hunger_changed)
+	Director.update_social.connect(_on_social_changed)
+	Director.update_energy.connect(_on_energy_changed)
+	Director.update_mood.connect(_on_mood_changed)
+	Director.update_status.connect(_on_status_changed)
+	# Egg signals
+	Director.egg_info_changed.connect(_on_egg_info_updated)
+	Director.egg_added.connect(_on_egg_added)
+	Director.egg_progressed.connect(_on_egg_progress)
+	# Nest signals
+	Director.nest_info_changed.connect(_on_nest_updated)
+	Director.current_nest_info_changed.connect(_on_current_nest_updated)
+	
+	select_nesting_ui.items_used.connect(Director.on_items_used)
 
 ################################### UI Setup ###################################
 
@@ -137,81 +165,6 @@ func _populate_location_button() -> void:
 		i += 1
 
 
-# Connects buttons and popups to given functions
-func _connect_ui_elements() -> void:
-	day_cycle_manager.increment_time.connect(_on_cycle_increment)
-	
-	button_interact_bird.connect("item_selected", _on_interact_pressed)
-	button_change_location.connect("item_selected", _on_change_location_pressed)
-	popup_end_day_confirm.connect("confirmed", _on_end_day_confirmed)
-	popup_end_day_summary.connect("confirmed", _start_next_day)
-	select_nesting_ui.connect("nest_built", _on_nest_built)
-	
-	window_nest_view.lay_eggs_pressed.connect(_on_lay_eggs_pressed)
-	
-	
-
-
-# Gets key press inputs and runs given function
-func _unhandled_input(event):
-	if event.is_action_released("Inventory"):
-		_toggle_inventory()
-		
-	elif event.is_action_pressed("DebugMenu"):
-		_toggle_debug_menu()
-
-################################ Backend Setup #################################
-
-# Called from _ready. Sets the correct managers for the GameDirector
-# Connects Director's signals from updates
-func _director_setup() -> void:
-	Director.set_bird_manager(bird_manager)
-	Director.set_location_manager(location_manager)
-	Director.set_nest_manager(nest_manager)
-	Director.set_inventory_manager(inventory_manager)
-	Director.set_day_cycle_manager(day_cycle_manager)
-	Director.set_xp_manager(xp_manager)
-	
-	# General signals
-	Director.location_changed.connect(_on_location_changed)
-	# Bird signals
-	Director.update_hunger.connect(_on_hunger_changed)
-	Director.update_social.connect(_on_social_changed)
-	Director.update_energy.connect(_on_energy_changed)
-	Director.update_mood.connect(_on_mood_changed)
-	Director.update_status.connect(_on_status_changed)
-	# Egg signals
-	Director.egg_info_changed.connect(_on_egg_info_updated)
-	Director.egg_added.connect(_on_egg_added)
-	Director.egg_progressed.connect(_on_egg_progress)
-	# Nest signals
-	Director.nest_info_changed.connect(_on_nest_updated)
-	Director.current_nest_info_changed.connect(_on_current_nest_updated)
-	
-	select_nesting_ui.items_used.connect(Director.on_items_used)
-
-
-# Updates UI with latest data from Bird
-func load_player_bird() -> void:
-	_get_updated_bird_data()
-	
-	label_date_header.text = "Day " + str(bird_data[BirdGlobals.BIRD_AGE_KEY])
-	image_player.texture = bird_data[BirdGlobals.BIRD_IMAGE_KEY]
-	label_bird_name.text = bird_data[BirdGlobals.BIRD_NAME_KEY]
-	label_bird_level.text = str(bird_data[BirdGlobals.BIRD_LEVEL_KEY])
-	label_bird_food_type.text = bird_data[BirdGlobals.BIRD_FOOD_TYPE_KEY]
-	label_bird_status.text = bird_data[BirdGlobals.BIRD_STATUS_KEY]
-	label_bird_mood.text = bird_data[BirdGlobals.BIRD_MOOD_KEY]
-	
-	# TODO Nest not yet implemented
-	label_bird_nest_status.text = "No Nest"
-
-
-# Gets latest bird data
-func _get_updated_bird_data() -> void:
-	bird_data = Director.get_bird_data()
-
-
 # Loads and randomizes all observations for each location
 func _get_all_observations() -> void:
 	#var all_locations: Array[Location] = Manager.location_manager.all_locations.duplicate(true)
@@ -232,27 +185,48 @@ func _get_all_observations() -> void:
 				print("Error! Unknown location")
 
 
-################################################################################
-############################## Signal Functions ################################
-################################################################################
-
-############################## Day Cycle Signals ###############################
-func _on_cycle_increment(cycles: int, time_of_day: int) -> void:
-	clock.on_time_incremented(cycles)
+# Connects buttons and popups to given functions
+func _connect_ui_elements() -> void:
+	day_cycle_manager.increment_time.connect(_on_cycle_increment)
 	
-	match time_of_day:
-		GameGlobals.DayNightCycle.MORNING:
-			label_time_of_day.text = GameGlobals.TIME_TEXT_MORNING
-		GameGlobals.DayNightCycle.DAY:
-			label_time_of_day.text = GameGlobals.TIME_TEXT_DAY
-		GameGlobals.DayNightCycle.EVENING:
-			label_time_of_day.text = GameGlobals.TIME_TEXT_EVENING
-		GameGlobals.DayNightCycle.NIGHT:
-			label_time_of_day.text = GameGlobals.TIME_TEXT_NIGHT
-		_:
-			label_time_of_day.text = "Unknown"
+	button_interact_bird.connect("item_selected", _on_interact_pressed)
+	button_change_location.connect("item_selected", _on_change_location_pressed)
+	popup_end_day_confirm.connect("confirmed", _on_end_day_confirmed)
+	popup_end_day_summary.connect("confirmed", _start_next_day)
+	select_nesting_ui.connect("nest_built", _on_nest_built)
+	
+	window_nest_view.lay_eggs_pressed.connect(_on_lay_eggs_pressed)
 
-############################## Message Signals #################################
+
+# Updates UI with latest data from Bird
+func _load_player_bird() -> void:
+	_get_updated_bird_data()
+	
+	label_date_header.text = "Day " + str(bird_data[BirdGlobals.BIRD_AGE_KEY])
+	image_player.texture = bird_data[BirdGlobals.BIRD_IMAGE_KEY]
+	label_bird_name.text = bird_data[BirdGlobals.BIRD_NAME_KEY]
+	label_bird_level.text = str(bird_data[BirdGlobals.BIRD_LEVEL_KEY])
+	label_bird_food_type.text = bird_data[BirdGlobals.BIRD_FOOD_TYPE_KEY]
+	label_bird_status.text = bird_data[BirdGlobals.BIRD_STATUS_KEY]
+	label_bird_mood.text = bird_data[BirdGlobals.BIRD_MOOD_KEY]
+	
+	# TODO Nest not yet implemented
+	label_bird_nest_status.text = "No Nest"
+
+
+# Gets latest bird data
+func _get_updated_bird_data() -> void:
+	bird_data = Director.get_bird_data()
+
+
+func _start_next_day() -> void:
+	Director.start_new_day()
+	_load_player_bird()
+
+
+################################################################################
+######################### Message and Alert Functions ##########################
+################################################################################
 
 func _display_observation_message(observation: Observation) -> void:
 	label_message_type.text = observation.observation_type.type_name + ":"
@@ -264,7 +238,10 @@ func _display_action_message(alert_type: String, alert_message: String) -> void:
 	label_message.text = alert_message
 
 
-############################### Bird Signals ###################################
+################################################################################
+############################### Bird Functions #################################
+################################################################################
+
 func _on_hunger_changed(hunger: int) -> void:
 	progress_bar_hunger.value = hunger
 
@@ -285,17 +262,38 @@ func _on_status_changed(status: String) -> void:
 	label_bird_status.text = status
 
 
-############################### Nest Signals ###################################
+################################################################################
+############################# Day Cycle Functions ##############################
+################################################################################
+
+func _on_cycle_increment(cycles: int, time_of_day: int) -> void:
+	clock.on_time_incremented(cycles)
+	
+	match time_of_day:
+		GameGlobals.DayNightCycle.MORNING:
+			label_time_of_day.text = GameGlobals.TIME_TEXT_MORNING
+		GameGlobals.DayNightCycle.DAY:
+			label_time_of_day.text = GameGlobals.TIME_TEXT_DAY
+		GameGlobals.DayNightCycle.EVENING:
+			label_time_of_day.text = GameGlobals.TIME_TEXT_EVENING
+		GameGlobals.DayNightCycle.NIGHT:
+			label_time_of_day.text = GameGlobals.TIME_TEXT_NIGHT
+		_:
+			label_time_of_day.text = "Unknown"
 
 
+################################################################################
+############################## Nest Functions ##################################
+################################################################################
+
+# Runs after nest_built signal from SelectNestingUI
 func _on_nest_built():
-	#Manager.location_manager.current_location.has_player_nest = true
 	Director.add_nest()
 	label_bird_nest_status.text = "Nest Built"
 	_display_action_message(GlobalMessages.ALERT_ACTION, GlobalMessages.MESSAGE_BUILT_NEST)
 
 
-# Display appropriate message based on status code
+# If nest updated is NOT the current nest being displayed, display appropriate message based on status code
 func _on_nest_updated(nest_info: Dictionary, status_code: int) -> void:
 	if (status_code == GameGlobals.StatusCode.EGG_HATCHED):
 		var message: String = GlobalMessages.EGG_HATCHED % [nest_info[NestGlobals.NEST_LOCATION_NAME]]
@@ -305,7 +303,7 @@ func _on_nest_updated(nest_info: Dictionary, status_code: int) -> void:
 		_display_action_message(GlobalMessages.ALERT_MESSAGE, message)
 
 
-# Nest is current one in view, so display updated message based on status code and update nest
+# If Nest is current one in view display updated message based on status code and update nest
 func _on_current_nest_updated(nest_info: Dictionary, status_code: int) -> void:
 	if (status_code == GameGlobals.StatusCode.EGG_HATCHED):
 		var message: String = GlobalMessages.EGG_HATCHED % [nest_info[NestGlobals.NEST_LOCATION_NAME]]
@@ -328,8 +326,9 @@ func _on_egg_progress(egg_progress: Dictionary) -> void:
 func _on_egg_added(egg_info: Dictionary, total_eggs: int) -> void:
 	window_nest_view.place_new_egg(egg_info, total_eggs)
 
-
-############################### Location Signals ###################################
+################################################################################
+############################ Location Functions ################################
+################################################################################
 
 func _on_location_changed():
 	_load_location()
@@ -343,6 +342,10 @@ func _on_end_day_confirmed() -> void:
 	_end_of_day_summary()
 
 
+################################################################################
+############################ Inventory Functions ###############################
+################################################################################
+
 func _on_inventory_update(item_type: String, amount: int) -> void:
 	match item_type:
 		
@@ -355,8 +358,9 @@ func _on_inventory_update(item_type: String, amount: int) -> void:
 		ItemGlobals.ITEM_TYPE_MISCELLANEOUS:
 			label_inv_misc.text = str(amount)
 
-
+################################################################################
 ################################ Input Signals #################################
+################################################################################
 
 # Opens/ closes inventory
 func _toggle_inventory():
@@ -463,8 +467,17 @@ func _on_sleep_pressed() -> void:
 	popup_end_day_confirm.visible = true
 
 
+# Gets key press inputs and runs given function
+func _unhandled_input(event):
+	if event.is_action_released("Inventory"):
+		_toggle_inventory()
+		
+	elif event.is_action_pressed("DebugMenu"):
+		_toggle_debug_menu()
+
+
 ################################################################################
-########################### Frontend Data Functions ############################
+######################## Observations and Discoveries ##########################
 ################################################################################
 
 # Gets next obesrvation from array
@@ -478,6 +491,10 @@ func get_location_observation():
 		"Woods":
 			pass
 
+
+################################################################################
+########################### Frontend Data Functions ############################
+################################################################################
 
 func _end_of_day_summary() -> void:
 	popup_end_day_summary.visible = true
@@ -497,10 +514,6 @@ func _generate_end_of_day_text() -> String:
 		"total_xp": bird_data[BirdGlobals.BIRD_TOTAL_EXPERIENCE_KEY],
 		"level": bird_data[BirdGlobals.BIRD_LEVEL_KEY]
 	})
-
-func _start_next_day() -> void:
-	Director.start_new_day()
-	load_player_bird()
 
 
 ################################################################################

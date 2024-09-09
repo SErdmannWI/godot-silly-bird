@@ -32,9 +32,6 @@ func _create_bird():
 # Gets key/value for each property of the bird and returns
 func get_bird_data() -> Dictionary:
 	var bird_data = {}
-	#
-	#daily_xp_gained: int
-#var total_xp: int
 	
 	bird_data[BirdGlobals.BIRD_NAME_KEY] = bird.bird_name
 	bird_data[BirdGlobals.BIRD_AGE_KEY] = bird.bird_age
@@ -55,19 +52,3 @@ func give_food() -> void:
 
 func add_xp_to_bird(xp_gained: int) -> int:
 	return bird.add_daily_xp(xp_gained)
-
-
-#func give_nest(nest: Nest) -> void:
-	#bird.nest = nest
-#
-#
-#func lay_eggs(amount: int) -> void:
-	#Director.add_eggs(amount)
-#
-#
-#func repair_nest(amount: int) -> void:
-	#Director.repair_nest(amount)
-#
-#
-#func can_build_nest(material_needed: int) -> bool:
-	#return bird.can_build_nest(material_needed)
