@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://kupl5pu2322o"]
+[gd_scene load_steps=23 format=3 uid="uid://kupl5pu2322o"]
 
 [ext_resource type="Script" path="res://scenes/bird_program/day_ui.gd" id="1_c3l3p"]
 [ext_resource type="Texture2D" uid="uid://8uemwk7qbnv1" path="res://assets/png/background/woodsA.jpg" id="2_cxhx1"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://b7m5elcs4gs7p" path="res://scenes/bird_program/clock.tscn" id="10_swchb"]
 [ext_resource type="Script" path="res://scenes/bird_program/item_debug_popup.gd" id="11_7vgt6"]
 [ext_resource type="PackedScene" uid="uid://dln4ukt0fr5j6" path="res://scenes/bird_program/inventory/select_nesting_ui.tscn" id="11_gcyxs"]
+[ext_resource type="PackedScene" uid="uid://dm4env55t3ljj" path="res://scenes/bird_program/thermometer.tscn" id="12_b2d2t"]
 [ext_resource type="Script" path="res://scripts/management/bird_manager.gd" id="13_5kwo3"]
 [ext_resource type="Script" path="res://scripts/management/nest_manager.gd" id="14_d0fwl"]
 [ext_resource type="Script" path="res://scripts/management/location_manager.gd" id="15_5px15"]
@@ -564,13 +565,14 @@ horizontal_alignment = 1
 [node name="TemperatureVBox" type="VBoxContainer" parent="CanvasLayer/ButtonMarginContainer/VBoxContainer/MetersHBox"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/ButtonMarginContainer/VBoxContainer/MetersHBox/TemperatureVBox"]
+[node name="Thermometer" parent="CanvasLayer/ButtonMarginContainer/VBoxContainer/MetersHBox/TemperatureVBox" instance=ExtResource("12_b2d2t")]
+unique_name_in_owner = true
 layout_mode = 2
-texture = ExtResource("4_wdxf0")
 
-[node name="Label" type="Label" parent="CanvasLayer/ButtonMarginContainer/VBoxContainer/MetersHBox/TemperatureVBox"]
+[node name="TemperatureLabel" type="Label" parent="CanvasLayer/ButtonMarginContainer/VBoxContainer/MetersHBox/TemperatureVBox"]
+unique_name_in_owner = true
 layout_mode = 2
-text = "Warm"
+text = "60F"
 horizontal_alignment = 1
 
 [node name="ButtonHBox" type="HBoxContainer" parent="CanvasLayer/ButtonMarginContainer/VBoxContainer"]

@@ -19,6 +19,7 @@ signal current_nest_info_changed(nest_info: Dictionary)
 signal egg_info_changed(egg_info: Dictionary, total_eggs: int)
 signal egg_added(egg_info: Dictionary, total_eggs: int)
 signal egg_progressed(egg_info: Dictionary)
+signal temperature_changed(current_temp: int)
 
 var bird_manager: BirdManager
 var inventory_manager: InventoryManager
@@ -317,4 +318,15 @@ func _xp_added(xp_code: int) -> void:
 
 func set_day_cycle_manager(manager: DayCycleManager) -> void:
 	day_cycle_manager = manager
+	day_cycle_manager.temperature_changed.connect(_temperature_changed)
+
+
+func get_current_temperature() -> int:
+	var current_temp = day_cycle_manager.get_current_temp()
+	
+	return current_temp
+
+
+func _temperature_changed(current_temp: int) -> void:
+	temperature_changed.emit(current_temp)
 

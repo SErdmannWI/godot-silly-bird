@@ -31,7 +31,11 @@ var bird_data: Dictionary = {}
 
 # Meters
 @onready var clock: TextureRect = %ClockfaceTextureRect
+@onready var thermometer: TextureRect = %Thermometer
+
 @onready var label_time_of_day: Label = %TimeOfDayLabel
+@onready var temperature_label: Label = %TemperatureLabel
+
 
 
 # Bird Meter Progress Bars
@@ -123,6 +127,8 @@ func _director_setup() -> void:
 	# Nest signals
 	Director.nest_info_changed.connect(_on_nest_updated)
 	Director.current_nest_info_changed.connect(_on_current_nest_updated)
+	# Day Cycle/ Weather signals
+	Director.temperature_changed.connect(_on_temperature_change)
 	
 	select_nesting_ui.items_used.connect(Director.on_items_used)
 
@@ -221,6 +227,8 @@ func _get_updated_bird_data() -> void:
 
 func _start_next_day() -> void:
 	Director.start_new_day()
+	var current_temp = Director.get_current_temperature()
+	_on_temperature_change(current_temp)
 	_load_player_bird()
 
 
@@ -280,6 +288,11 @@ func _on_cycle_increment(cycles: int, time_of_day: int) -> void:
 			label_time_of_day.text = GameGlobals.TIME_TEXT_NIGHT
 		_:
 			label_time_of_day.text = "Unknown"
+
+
+func _on_temperature_change(current_temp: int) -> void:
+	thermometer.on_temperature_changed(current_temp)
+	temperature_label.text = str(current_temp) + "F"
 
 
 ################################################################################

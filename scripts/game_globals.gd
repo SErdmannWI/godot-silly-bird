@@ -71,3 +71,28 @@ const XP_AMOUNT_GAINED: Dictionary = {
 	XpCodes.DISCOVERY_MADE : XP_VALUES_DISCOVERY_MADE
 }
 
+# Key is cycle time (1 - 300): Value is temperature
+const SUNNY_TEMPERATURE_DICTIONARY: Dictionary = {
+	# Morning
+	1: 50,
+	# Day
+	75: 60,
+	# Noon
+	150: 80,
+	# Peak Temp
+	175: 85,
+	# Evening
+	225: 60,
+	# Night
+	300: 50,
+	# Late Night
+	375: 40
+}
+
+# Key is type of weather: Value is given dictionary
+# TODO, incorporate seasons
+const TEMPERATURE_DICTIONARY: Dictionary = {
+	WEATHER_SUNNY: SUNNY_TEMPERATURE_DICTIONARY,
+
+}
+

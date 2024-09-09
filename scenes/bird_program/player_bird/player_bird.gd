@@ -265,7 +265,7 @@ func _apply_default_properties() -> void:
 	bird_name = BirdGlobals.BIRD_TYPE_MOURNING_DOVE
 	bird_id = "Test ID"
 	bird_image = preload(FilePaths.IMAGE_BIRD_MOURNING_DOVE)
-	bird_age = 0
+	bird_age = 1
 	total_xp = 0
 	bird_level = 0
 	bird_behavior = BirdGlobals.BEHAVIOR_PLAYFUL
