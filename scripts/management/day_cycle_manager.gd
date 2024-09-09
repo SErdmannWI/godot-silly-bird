@@ -3,22 +3,44 @@
 class_name DayCycleManager
 extends Node
 
-var _running_xp: int
+signal increment_time(cycles: int, time_of_day: int)
+
+var cycles: int
+var time_of_day: int
+var timer: Timer = Timer.new()
 
 
 func _ready() -> void:
-	_running_xp = 0
+	add_child(timer)
+	timer.stop()
+	timer.timeout.connect(_on_timer_timeout)
+	time_of_day = GameGlobals.DayNightCycle.MORNING
 
 
 func start_new_day() -> void:
-	_running_xp = 0
+	cycles = 0
+	timer.start(GameGlobals.TIME_CYCLE_INCREMENT)
 
 
-func get_running_xp() -> int:
-	return _running_xp
+func end_day() -> void:
+	print("Day Cycle Manager: ending day.")
+	timer.stop()
 
 
-func increment_xp(amount: int) -> int:
-	_running_xp += amount
+func _on_timer_timeout() -> void:
+	cycles += 1
+	_set_time_of_day()
+	increment_time.emit(cycles, time_of_day)
+
+
+func _set_time_of_day() -> int:
+	if cycles < 75:
+		time_of_day = GameGlobals.DayNightCycle.MORNING
+	elif cycles >= 75 && cycles <= 225:
+		time_of_day = GameGlobals.DayNightCycle.DAY
+	elif cycles > 225 && cycles <= 300:
+		time_of_day = GameGlobals.DayNightCycle.EVENING
+	else:
+		time_of_day = GameGlobals.DayNightCycle.NIGHT
 	
-	return _running_xp
+	return time_of_day

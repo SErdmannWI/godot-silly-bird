@@ -16,7 +16,8 @@ var bird_id: String
 var bird_image: Texture
 var bird_age: int
 var bird_level: int
-var bird_experience: int
+var daily_xp_gained: int
+var total_xp: int
 var bird_behavior: BirdBehavior
 var food_type: FoodType
 
@@ -25,9 +26,6 @@ var hunger: int
 var energy: int
 var social: int
 var mood: String
-
-# Daily stats
-var daily_experience: int
 
 # Bird status
 var is_awake: bool
@@ -70,10 +68,10 @@ func _ready():
 func start_day():
 	is_awake = true
 	bird_age += 1
-	daily_experience = 0
 	energy = 100
 	hunger = 100
 	social = 100
+	daily_xp_gained = 0
 	
 	_mood_check()
 	_start_timers()
@@ -81,7 +79,6 @@ func start_day():
 
 func end_day():
 	_stop_timers()
-	_apply_xp()
 
 func get_status() -> String:
 	if is_awake:
@@ -225,8 +222,11 @@ func _on_social_timer_timeout() -> void:
 	_mood_check()
 
 
-func _apply_xp() -> void:
-	bird_experience += daily_experience
+func add_daily_xp(xp_gained: int) -> int:
+	daily_xp_gained = xp_gained
+	total_xp += daily_xp_gained
+	
+	return total_xp
 
 
 # Utility methods
@@ -266,7 +266,7 @@ func _apply_default_properties() -> void:
 	bird_id = "Test ID"
 	bird_image = preload(FilePaths.IMAGE_BIRD_MOURNING_DOVE)
 	bird_age = 0
-	bird_experience = 0
+	total_xp = 0
 	bird_level = 0
 	bird_behavior = BirdGlobals.BEHAVIOR_PLAYFUL
 	food_type = BirdGlobals.FOOD_TYPE_FISH
@@ -282,7 +282,7 @@ func save_player_data() -> void:
 		"bird_id": bird_id,
 		"bird_age": bird_age,
 		"bird_level": bird_level,
-		"bird_experience": bird_experience,
+		"bird_experience": total_xp,
 		"hunger": hunger,
 		"energy": energy,
 		"social": social
@@ -298,7 +298,7 @@ func load_player_data(player_data: Dictionary) -> void:
 	bird_id = player_data["bird_id"]
 	bird_age = player_data["bird_age"]
 	bird_level = player_data["bird_level"]
-	bird_experience = player_data["bird_experience"]
+	total_xp = player_data["bird_experience"]
 	hunger = player_data["hunger"]
 	energy = player_data["energy"]
 	social = player_data["social"]

@@ -24,12 +24,29 @@ var bird_manager: BirdManager
 var inventory_manager: InventoryManager
 var location_manager: LocationManager
 var nest_manager: NestManager
-var day_cycle_manager = DayCycleManager
+var day_cycle_manager: DayCycleManager
+var xp_manager: XpManager
 
 var current_location_name: String
 
 func _init() -> void:
 	current_location_name = Locations.NAME_MEADOW
+
+
+################################################################################
+############################### Global Functions ###############################
+################################################################################
+
+func start_new_day() -> void:
+	get_tree().call_group(GameGlobals.GROUP_NAME_MANAGERS, GameGlobals.GROUP_METHOD_START_DAY)
+
+
+# Get Daily XP, add to Bird
+func on_end_of_day() -> void:
+	get_tree().call_group(GameGlobals.GROUP_NAME_MANAGERS, GameGlobals.GROUP_METHOD_END_DAY)
+	
+	var daily_xp_gained: int = xp_manager.get_xp_running_total()
+	bird_manager.add_xp_to_bird(daily_xp_gained)
 
 
 ################################################################################
@@ -40,10 +57,6 @@ func _init() -> void:
 func set_bird_manager(manager: BirdManager) -> void:
 	bird_manager = manager
 	connect_to_bird()
-
-
-func start_day() -> void:
-	bird_manager.start_bird_day()
 
 
 func get_bird_data() -> Dictionary:
@@ -166,7 +179,6 @@ func has_nest() -> bool:
 func add_nest() -> void:
 	var new_nest: Nest = nest_manager.add_nest(current_location_name)
 	new_nest.egg_added.connect(_on_egg_added)
-	new_nest.egg_hatched.connect(_on_egg_hatched)
 
 
 func get_nest() -> Nest:
@@ -201,9 +213,11 @@ func _on_egg_added(egg_info: Dictionary, total_eggs: int) -> void:
 # If nest is current nest, signal to UI to update current view. Otherwise, simply signal the change
 func _on_egg_hatched(nest_info: Dictionary) -> void:
 	if current_location_name == nest_info[NestGlobals.NEST_LOCATION_NAME]:
-		current_nest_info_changed.emit(nest_info, GameGlobals.StatusCode.EGG_HATCHED)
+		current_nest_info_changed.emit(nest_info, GameGlobals.StatusCode.EGG_HATCHED) # -> UI
 	else:
-		nest_info_changed.emit(nest_info, GameGlobals.StatusCode.EGG_HATCHED)
+		nest_info_changed.emit(nest_info, GameGlobals.StatusCode.EGG_HATCHED) # -> UI
+	
+	_xp_added(GameGlobals.XpCodes.EGG_HATCHED)
 
 
 # Signal to UI to update nest
@@ -283,8 +297,24 @@ func on_items_used(items_used: Array) -> void:
 
 
 ################################################################################
+############################# XP Manager Functions #############################
+################################################################################
+
+func set_xp_manager(manager: XpManager) -> void:
+	xp_manager = manager
+
+func _check_level() -> void:
+	pass
+
+# Called whenever a Player has earned xp from an action or event
+func _xp_added(xp_code: int) -> void:
+	xp_manager.increment_xp(GameGlobals.XP_AMOUNT_GAINED[xp_code])
+
+
+################################################################################
 ######################### Day Cycle Manager Functions ##########################
 ################################################################################
 
 func set_day_cycle_manager(manager: DayCycleManager) -> void:
 	day_cycle_manager = manager
+

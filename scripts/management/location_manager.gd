@@ -22,6 +22,14 @@ func _ready():
 	current_location = all_locations[0]
 
 
+func start_new_day() -> void:
+	pass
+
+
+func end_day() -> void:
+	print("Location Manager: ending day.")
+
+
 func change_location(location_name: String):
 	var new_location: Location = _get_location_by_name(location_name)
 	current_location = new_location

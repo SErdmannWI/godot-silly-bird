@@ -15,6 +15,17 @@ func _init() -> void:
 	all_nests = {}
 
 
+func start_new_day() -> void:
+	for nest: Nest in get_children():
+		nest.resume_all_incubation()
+
+
+func end_day() -> void:
+	print("Nest Manager: ending day.")
+	for nest: Nest in get_children():
+		nest.pause_all_incubation()
+
+
 # Build nest and add to Manager. Return nest to Director
 func add_nest(location_name: String) -> Nest:
 	
@@ -82,6 +93,7 @@ func get_total_eggs(location_name: String) -> int:
 func _on_egg_hatched(egg_id: String) -> void:
 	var location_name: String = egg_id.split("_")[0]
 	remove_egg(location_name, egg_id)
+	egg_hatched.emit(all_nests[location_name].get_nest_info()) # -> Director
 
 
 func _on_egg_broken(egg_id: String) -> void:

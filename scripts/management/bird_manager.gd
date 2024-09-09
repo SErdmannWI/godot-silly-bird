@@ -16,6 +16,15 @@ func _ready():
 	_create_bird()
 
 
+func start_new_day() -> void:
+	bird.start_day()
+
+
+# Called from group call to Managers
+func end_day() -> void:
+	bird.end_day()
+
+
 func _create_bird():
 	bird = PlayerBird.new()
 	add_child(bird)
@@ -23,6 +32,9 @@ func _create_bird():
 # Gets key/value for each property of the bird and returns
 func get_bird_data() -> Dictionary:
 	var bird_data = {}
+	#
+	#daily_xp_gained: int
+#var total_xp: int
 	
 	bird_data[BirdGlobals.BIRD_NAME_KEY] = bird.bird_name
 	bird_data[BirdGlobals.BIRD_AGE_KEY] = bird.bird_age
@@ -31,21 +43,18 @@ func get_bird_data() -> Dictionary:
 	bird_data[BirdGlobals.BIRD_LEVEL_KEY] = bird.bird_level
 	bird_data[BirdGlobals.BIRD_MOOD_KEY] = bird.get_mood()
 	bird_data[BirdGlobals.BIRD_STATUS_KEY] = bird.get_status()
-	bird_data[BirdGlobals.BIRD_DAILY_EXPERIENCE_KEY] = bird.daily_experience
+	bird_data[BirdGlobals.BIRD_DAILY_EXPERIENCE_KEY] = bird.daily_xp_gained
+	bird_data[BirdGlobals.BIRD_TOTAL_EXPERIENCE_KEY] = bird.total_xp
 	
 	return bird_data
-
-
-func start_bird_day() -> void:
-	bird.start_day()
 
 
 func give_food() -> void:
 	bird.get_food()
 
 
-func end_day() -> void:
-	bird.end_day()
+func add_xp_to_bird(xp_gained: int) -> int:
+	return bird.add_daily_xp(xp_gained)
 
 
 #func give_nest(nest: Nest) -> void:

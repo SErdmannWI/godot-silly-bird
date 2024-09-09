@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://kupl5pu2322o"]
+[gd_scene load_steps=22 format=3 uid="uid://kupl5pu2322o"]
 
 [ext_resource type="Script" path="res://scenes/bird_program/day_ui.gd" id="1_c3l3p"]
 [ext_resource type="Texture2D" uid="uid://8uemwk7qbnv1" path="res://assets/png/background/woodsA.jpg" id="2_cxhx1"]
@@ -9,7 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://dpturqym82la3" path="res://resources/icons/labels/icon_temp_valuables.png" id="5_duw5o"]
 [ext_resource type="Texture2D" uid="uid://bygcjk3wy4suq" path="res://assets/png/birds/mourning_dove.png" id="5_mste3"]
 [ext_resource type="Texture2D" uid="uid://b6ohib6554nlr" path="res://resources/icons/labels/icon_temp_misc.png" id="6_62rnw"]
+[ext_resource type="Texture2D" uid="uid://bd00hmo0vwvbl" path="res://assets/png/icons/climate/sun_shiny.png" id="10_a0fbg"]
 [ext_resource type="PackedScene" uid="uid://bbffhbv62jyxd" path="res://scenes/bird_program/inventory/inventory_ui.tscn" id="10_l5w3s"]
+[ext_resource type="PackedScene" uid="uid://b7m5elcs4gs7p" path="res://scenes/bird_program/clock.tscn" id="10_swchb"]
 [ext_resource type="Script" path="res://scenes/bird_program/item_debug_popup.gd" id="11_7vgt6"]
 [ext_resource type="PackedScene" uid="uid://dln4ukt0fr5j6" path="res://scenes/bird_program/inventory/select_nesting_ui.tscn" id="11_gcyxs"]
 [ext_resource type="Script" path="res://scripts/management/bird_manager.gd" id="13_5kwo3"]
@@ -18,6 +20,7 @@
 [ext_resource type="Script" path="res://scripts/management/inventory_manager.gd" id="16_uhewn"]
 [ext_resource type="PackedScene" uid="uid://c1p4d5lo5t44c" path="res://scenes/bird_program/nest/nest_view_window.tscn" id="17_arolg"]
 [ext_resource type="Script" path="res://scripts/management/day_cycle_manager.gd" id="17_hjrcf"]
+[ext_resource type="Script" path="res://scripts/management/xp_manager.gd" id="21_tkjmm"]
 
 [node name="Day" type="Node2D"]
 
@@ -321,11 +324,11 @@ popup/item_2/id = 2
 popup/item_3/text = "Build Nest"
 popup/item_3/id = 3
 popup/item_4/text = "Lay Eggs"
-popup/item_4/id = 5
+popup/item_4/id = 4
 popup/item_5/text = "Repair Nest"
-popup/item_5/id = 6
+popup/item_5/id = 5
 popup/item_6/text = "Go to Sleep (end day)"
-popup/item_6/id = 9
+popup/item_6/id = 6
 
 [node name="LocationInfoMarginContainer" type="MarginContainer" parent="CanvasLayer"]
 offset_right = 40.0
@@ -511,25 +514,78 @@ autowrap_mode = 2
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -89.0
-offset_right = 69.0
-offset_bottom = 105.0
+offset_left = -290.0
+offset_right = 291.0
+offset_bottom = 269.0
 grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_constants/margin_top = 30
 
-[node name="ButtonHBox" type="HBoxContainer" parent="CanvasLayer/ButtonMarginContainer"]
+[node name="Panel" type="Panel" parent="CanvasLayer/ButtonMarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ButtonMarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="MetersHBox" type="HBoxContainer" parent="CanvasLayer/ButtonMarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_v5pcf")
+alignment = 1
+
+[node name="WeatherVBox" type="VBoxContainer" parent="CanvasLayer/ButtonMarginContainer/VBoxContainer/MetersHBox"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/ButtonMarginContainer/VBoxContainer/MetersHBox/WeatherVBox"]
+layout_mode = 2
+texture = ExtResource("10_a0fbg")
+
+[node name="Label" type="Label" parent="CanvasLayer/ButtonMarginContainer/VBoxContainer/MetersHBox/WeatherVBox"]
+layout_mode = 2
+text = "Sunny"
+horizontal_alignment = 1
+
+[node name="ClockVBox" type="VBoxContainer" parent="CanvasLayer/ButtonMarginContainer/VBoxContainer/MetersHBox"]
+layout_mode = 2
+
+[node name="ClockfaceTextureRect" parent="CanvasLayer/ButtonMarginContainer/VBoxContainer/MetersHBox/ClockVBox" instance=ExtResource("10_swchb")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TimeOfDayLabel" type="Label" parent="CanvasLayer/ButtonMarginContainer/VBoxContainer/MetersHBox/ClockVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Morning"
+horizontal_alignment = 1
+
+[node name="TemperatureVBox" type="VBoxContainer" parent="CanvasLayer/ButtonMarginContainer/VBoxContainer/MetersHBox"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/ButtonMarginContainer/VBoxContainer/MetersHBox/TemperatureVBox"]
+layout_mode = 2
+texture = ExtResource("4_wdxf0")
+
+[node name="Label" type="Label" parent="CanvasLayer/ButtonMarginContainer/VBoxContainer/MetersHBox/TemperatureVBox"]
+layout_mode = 2
+text = "Warm"
+horizontal_alignment = 1
+
+[node name="ButtonHBox" type="HBoxContainer" parent="CanvasLayer/ButtonMarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("3_4sl2f")
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="HideButton" type="Button" parent="CanvasLayer/ButtonMarginContainer/ButtonHBox"]
+[node name="HideButton" type="Button" parent="CanvasLayer/ButtonMarginContainer/VBoxContainer/ButtonHBox"]
 unique_name_in_owner = true
 layout_mode = 2
 toggle_mode = true
 text = "Hide!"
 
-[node name="ViewNestButton" type="Button" parent="CanvasLayer/ButtonMarginContainer/ButtonHBox"]
+[node name="ViewNestButton" type="Button" parent="CanvasLayer/ButtonMarginContainer/VBoxContainer/ButtonHBox"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "View Nest"
@@ -603,23 +659,23 @@ offset_bottom = 40.0
 layout_mode = 2
 text = "Choose an Item to Add:"
 
-[node name="BirdManager" type="Node" parent="CanvasLayer"]
+[node name="BirdManager" type="Node" parent="CanvasLayer" groups=["Managers"]]
 unique_name_in_owner = true
 script = ExtResource("13_5kwo3")
 
-[node name="NestManager" type="Node" parent="CanvasLayer"]
+[node name="NestManager" type="Node" parent="CanvasLayer" groups=["Managers"]]
 unique_name_in_owner = true
 script = ExtResource("14_d0fwl")
 
-[node name="LocationManager" type="Node" parent="CanvasLayer"]
+[node name="LocationManager" type="Node" parent="CanvasLayer" groups=["Managers"]]
 unique_name_in_owner = true
 script = ExtResource("15_5px15")
 
-[node name="InventoryManager" type="Node" parent="CanvasLayer"]
+[node name="InventoryManager" type="Node" parent="CanvasLayer" groups=["Managers"]]
 unique_name_in_owner = true
 script = ExtResource("16_uhewn")
 
-[node name="DayCycleManager" type="Node" parent="CanvasLayer"]
+[node name="DayCycleManager" type="Node" parent="CanvasLayer" groups=["Managers"]]
 unique_name_in_owner = true
 script = ExtResource("17_hjrcf")
 
@@ -627,5 +683,9 @@ script = ExtResource("17_hjrcf")
 unique_name_in_owner = true
 visible = false
 
-[connection signal="pressed" from="CanvasLayer/ButtonMarginContainer/ButtonHBox/ViewNestButton" to="CanvasLayer" method="_on_view_nest_pressed"]
+[node name="XpManager" type="Node" parent="CanvasLayer" groups=["Managers"]]
+unique_name_in_owner = true
+script = ExtResource("21_tkjmm")
+
+[connection signal="pressed" from="CanvasLayer/ButtonMarginContainer/VBoxContainer/ButtonHBox/ViewNestButton" to="CanvasLayer" method="_on_view_nest_pressed"]
 [connection signal="item_selected" from="CanvasLayer/DebugMarginContainer/DebugOptionButton" to="CanvasLayer" method="_on_debug_item_selected"]

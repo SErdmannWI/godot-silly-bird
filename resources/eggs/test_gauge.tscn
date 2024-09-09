@@ -1,0 +1,67 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmqgkjfo8gn6"]
+
+[ext_resource type="Texture2D" uid="uid://b676n4f6n2121" path="res://assets/png/icons/circle.png" id="1_l4lwv"]
+[ext_resource type="Script" path="res://resources/eggs/test_gauge.gd" id="2_kr7d3"]
+[ext_resource type="Texture2D" uid="uid://c4gplk2p0ukla" path="res://assets/png/icons/arrow.png" id="2_swty4"]
+
+[node name="GaugeFace" type="Sprite2D"]
+position = Vector2(408, 168)
+texture = ExtResource("1_l4lwv")
+script = ExtResource("2_kr7d3")
+
+[node name="Arrow" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -2)
+rotation = -6.28319
+scale = Vector2(1, 0.9375)
+texture = ExtResource("2_swty4")
+centered = false
+offset = Vector2(-73, -120)
+
+[node name="ButtonIncrease" type="Button" parent="."]
+unique_name_in_owner = true
+offset_left = 58.0
+offset_top = 91.0
+offset_right = 154.0
+offset_bottom = 122.0
+text = "Increase >>"
+
+[node name="ButtonDecrease" type="Button" parent="."]
+unique_name_in_owner = true
+offset_left = -163.0
+offset_top = 94.0
+offset_right = -83.0
+offset_bottom = 125.0
+text = "<< Decrease
+"
+
+[node name="ValueInput" type="TextEdit" parent="."]
+unique_name_in_owner = true
+offset_left = -160.0
+offset_top = 133.0
+offset_right = -26.0
+offset_bottom = 168.0
+placeholder_text = "<Enter a value>"
+
+[node name="ButtonSubmit" type="Button" parent="."]
+unique_name_in_owner = true
+offset_left = -11.0
+offset_top = 134.0
+offset_right = 88.0
+offset_bottom = 165.0
+text = "Submit
+"
+
+[node name="CurrentRotationLabel" type="Label" parent="."]
+offset_left = -143.0
+offset_top = -118.0
+offset_right = -8.0
+offset_bottom = -95.0
+text = "Current Rotation:"
+
+[node name="CurrentRotation" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = 3.0
+offset_top = -115.0
+offset_right = 43.0
+offset_bottom = -92.0

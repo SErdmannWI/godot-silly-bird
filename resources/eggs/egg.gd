@@ -65,6 +65,14 @@ func stop_incubating() -> void:
 	incubation_timer.stop()
 
 
+func pause_incubation() -> void:
+	incubation_timer.stop()
+
+
+func resume_incubation() -> void:
+	start_incubating()
+
+
 # On each timeout (1 second) subtract from total incubation time and emit progress
 # signal with egg id and time remaining
 func _on_incubation_timer_timeout() -> void:
@@ -78,12 +86,11 @@ func _on_incubation_timer_timeout() -> void:
 		else:
 			incubation_timer.start()
 	
-	progress.emit(_get_simplified_info()) # -> Director
+	progress.emit(get_simplified_info()) # -> Director
 
 
 func hatch_egg() -> void:
-	hatched.emit(_get_egg_info()) # -> NestManager
-	stop_incubating()
+	hatched.emit(egg_id) # -> NestManager
 
 
 ################################################################################
@@ -91,7 +98,7 @@ func hatch_egg() -> void:
 ################################################################################
 
 # Gets all egg info to update UI
-func _get_egg_info() -> Dictionary:
+func get_egg_info() -> Dictionary:
 	var egg_info: Dictionary = {}
 	
 	egg_info[EggGlobals.EGG_INFO_ID] = egg_id
@@ -107,7 +114,7 @@ func _get_egg_info() -> Dictionary:
 
 
 # Gets egg_id and time_remaining to update ProgressBar in UI
-func _get_simplified_info() -> Dictionary:
+func get_simplified_info() -> Dictionary:
 	var egg_info: Dictionary = {}
 	
 	egg_info[EggGlobals.EGG_INFO_ID] = egg_id

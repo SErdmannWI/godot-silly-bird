@@ -8,6 +8,14 @@ func _init():
 	inventory = Inventory.new()
 
 
+func start_new_day() -> void:
+	pass
+
+
+func end_day() -> void:
+	print("Inventory Manager: ending day")
+
+
 func get_inventory() -> Inventory:
 	return inventory
 

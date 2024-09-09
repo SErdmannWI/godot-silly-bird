@@ -106,17 +106,17 @@ func load_nest(nest_info: Dictionary) -> void:
 	progress_bar_nest_health.max_value = nest_info[NestGlobals.NEST_MAX_HP]
 	progress_bar_nest_health.value = nest_info[NestGlobals.NEST_HP]
 	
-	# If nest has eggs, place eggs. Else, clear display of any eggs left from previous loaded nest
-	if nest_info[NestGlobals.NEST_EGGS].size() > 0:
-		print(str(nest_info[NestGlobals.NEST_EGGS].size()))
-		_place_all_eggs(nest_info[NestGlobals.NEST_EGGS])
-	else:
-		for marker in all_markers:
+	# Clear nest of any eggs from previously loaded instance. Populate nest with any eggs from current
+	# loaded instance.
+	for marker in all_markers:
 			for child in marker.get_children():
 				child.queue_free()
 		
-		for child in vbox_egg_progress.get_children():
-			child.queue_free()
+	for child in vbox_egg_progress.get_children():
+		child.queue_free()
+	
+	if nest_info[NestGlobals.NEST_EGGS].size() > 0:
+		_place_all_eggs(nest_info[NestGlobals.NEST_EGGS])
 
 
 func _place_all_eggs(eggs: Array[Dictionary]) -> void:

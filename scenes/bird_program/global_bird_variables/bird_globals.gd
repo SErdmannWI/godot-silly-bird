@@ -9,8 +9,8 @@ const BIRD_LEVEL_KEY: String = "Bird Level"
 const BIRD_FOOD_TYPE_KEY: String = "Bird Food Type"
 const BIRD_STATUS_KEY: String = "Bird Status"
 const BIRD_MOOD_KEY: String = "Bird Mood"
-const BIRD_DAILY_EXPERIENCE_KEY: String = "Daily Exeperience"
-const BIRD_TOTAL_EXPERIENCE_KEY: String = "Total Exerpience"
+const BIRD_DAILY_EXPERIENCE_KEY: String = "Daily XP"
+const BIRD_TOTAL_EXPERIENCE_KEY: String = "Total XP"
 
 
 # Bird Types

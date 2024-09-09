@@ -29,6 +29,11 @@ var bird_data: Dictionary = {}
 @onready var label_inv_valuables: Label = %ValuablesLabel
 @onready var label_inv_misc: Label = %MiscItemsLabel
 
+# Meters
+@onready var clock: TextureRect = %ClockfaceTextureRect
+@onready var label_time_of_day: Label = %TimeOfDayLabel
+
+
 # Bird Meter Progress Bars
 @onready var progress_bar_hunger: ProgressBar = %HungerProgressBar
 @onready var progress_bar_social: ProgressBar = %SocialProgressBar
@@ -65,6 +70,8 @@ var bird_data: Dictionary = {}
 @onready var location_manager: LocationManager = %LocationManager
 @onready var inventory_manager: InventoryManager = %InventoryManager
 @onready var day_cycle_manager: DayCycleManager = %DayCycleManager
+@onready var xp_manager: XpManager = %XpManager
+
 
 # Debug tools
 @onready var debug_option_button: OptionButton = %DebugOptionButton
@@ -83,7 +90,8 @@ func _ready():
 	load_player_bird()
 	_connect_ui_elements()
 	
-	Director.start_day()
+	
+	Director.start_new_day()
 
 
 ################################################################################
@@ -131,6 +139,8 @@ func _populate_location_button() -> void:
 
 # Connects buttons and popups to given functions
 func _connect_ui_elements() -> void:
+	day_cycle_manager.increment_time.connect(_on_cycle_increment)
+	
 	button_interact_bird.connect("item_selected", _on_interact_pressed)
 	button_change_location.connect("item_selected", _on_change_location_pressed)
 	popup_end_day_confirm.connect("confirmed", _on_end_day_confirmed)
@@ -138,6 +148,8 @@ func _connect_ui_elements() -> void:
 	select_nesting_ui.connect("nest_built", _on_nest_built)
 	
 	window_nest_view.lay_eggs_pressed.connect(_on_lay_eggs_pressed)
+	
+	
 
 
 # Gets key press inputs and runs given function
@@ -158,6 +170,7 @@ func _director_setup() -> void:
 	Director.set_nest_manager(nest_manager)
 	Director.set_inventory_manager(inventory_manager)
 	Director.set_day_cycle_manager(day_cycle_manager)
+	Director.set_xp_manager(xp_manager)
 	
 	# General signals
 	Director.location_changed.connect(_on_location_changed)
@@ -223,6 +236,22 @@ func _get_all_observations() -> void:
 ############################## Signal Functions ################################
 ################################################################################
 
+############################## Day Cycle Signals ###############################
+func _on_cycle_increment(cycles: int, time_of_day: int) -> void:
+	clock.on_time_incremented(cycles)
+	
+	match time_of_day:
+		GameGlobals.DayNightCycle.MORNING:
+			label_time_of_day.text = GameGlobals.TIME_TEXT_MORNING
+		GameGlobals.DayNightCycle.DAY:
+			label_time_of_day.text = GameGlobals.TIME_TEXT_DAY
+		GameGlobals.DayNightCycle.EVENING:
+			label_time_of_day.text = GameGlobals.TIME_TEXT_EVENING
+		GameGlobals.DayNightCycle.NIGHT:
+			label_time_of_day.text = GameGlobals.TIME_TEXT_NIGHT
+		_:
+			label_time_of_day.text = "Unknown"
+
 ############################## Message Signals #################################
 
 func _display_observation_message(observation: Observation) -> void:
@@ -262,7 +291,6 @@ func _on_status_changed(status: String) -> void:
 func _on_nest_built():
 	#Manager.location_manager.current_location.has_player_nest = true
 	Director.add_nest()
-	#MainBird.nest = Nest.new(Manager.location_manager.current_location.location_name)
 	label_bird_nest_status.text = "Nest Built"
 	_display_action_message(GlobalMessages.ALERT_ACTION, GlobalMessages.MESSAGE_BUILT_NEST)
 
@@ -310,7 +338,7 @@ func _on_location_changed():
 func _on_end_day_confirmed() -> void:
 	popup_end_day_confirm.visible = false
 	#await MainBird.end_day()
-	Director.end_bird_day()
+	Director.on_end_of_day()
 	_get_updated_bird_data()
 	_end_of_day_summary()
 
@@ -362,8 +390,7 @@ func _on_interact_pressed(item: int) -> void:
 		5:
 			_on_repair_nest_pressed()
 		6:
-			pass
-		9:
+			print("Sleep pressed")
 			_on_sleep_pressed()
 		_:
 			pass
@@ -454,9 +481,8 @@ func get_location_observation():
 
 func _end_of_day_summary() -> void:
 	popup_end_day_summary.visible = true
-	#popup_end_day_summary.title = "Day " + str(MainBird.bird_age) + " Completed"
 	# TODO Check if date is advanced too early
-	popup_end_day_summary.title = "Day " + bird_data[BirdGlobals.BIRD_AGE_KEY] + " Completed"
+	popup_end_day_summary.title = "Day " + str(bird_data[BirdGlobals.BIRD_AGE_KEY]) + " Completed"
 	popup_end_day_summary.dialog_text = _generate_end_of_day_text()
 
 
@@ -473,7 +499,8 @@ func _generate_end_of_day_text() -> String:
 	})
 
 func _start_next_day() -> void:
-	get_tree().reload_current_scene()
+	Director.start_new_day()
+	load_player_bird()
 
 
 ################################################################################

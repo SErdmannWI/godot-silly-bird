@@ -60,7 +60,11 @@ func add_egg(egg_type: String, egg_location: String) -> Egg:
 
 
 # Called by NestManager as result of (hatched, broken)
+# Remove child and then remove stored instance in egg array
 func remove_egg(egg_id: String) -> void:
+	for child: Egg in get_children() :
+		if (child.egg_id == egg_id) :
+			child.queue_free()
 	eggs.erase(egg_id)
 
 
@@ -135,3 +139,13 @@ func nest_at_capacity() -> bool:
 		return true
 	
 	return false
+
+
+func resume_all_incubation() -> void:
+	for egg: Egg in get_children():
+		egg.resume_incubation()
+
+
+func pause_all_incubation() -> void:
+	for egg: Egg in get_children():
+		egg.pause_incubation()
