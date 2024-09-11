@@ -5,22 +5,24 @@
 
 [node name="ThreatMinigame" type="Node2D"]
 
-[node name="CanvasGroup" type="CanvasLayer" parent="."]
-
-[node name="Background" type="TextureRect" parent="CanvasGroup"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Background" type="TextureRect" parent="."]
+offset_right = 1935.0
+offset_bottom = 1086.0
 texture = ExtResource("1_lsy1l")
 
-[node name="Panel" type="Panel" parent="CanvasGroup"]
+[node name="Panel" type="Panel" parent="Background"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TestPlayerAvatar" parent="CanvasGroup" instance=ExtResource("2_unmdy")]
-position = Vector2(908, 786)
+[node name="TestPlayerAvatar" parent="." instance=ExtResource("2_unmdy")]
+position = Vector2(968, 703)
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="Node2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Area2D"]
