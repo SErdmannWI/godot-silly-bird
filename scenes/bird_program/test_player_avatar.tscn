@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxgpawcuuuwkg"]
+
+[ext_resource type="Script" path="res://scenes/bird_program/test_player_avatar.gd" id="1_2owq0"]
+[ext_resource type="Texture2D" uid="uid://c4y8edvnymx68" path="res://icon.svg" id="1_ecldc"]
+
+[node name="TestPlayerAvatar" type="CharacterBody2D"]
+script = ExtResource("1_2owq0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ecldc")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-49, -63, 50, -63, 63, -54, 62, 51, 51, 62, -52, 64, -63, 51, -63, -54)

@@ -1,0 +1,8 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://5ddbxdqxpsx1"]
+
+[ext_resource type="FontFile" uid="uid://bodo74755t1f5" path="res://assets/font/PixelfySans/PixelifySans-Regular.ttf" id="1_mofqs"]
+
+[resource]
+Label/colors/font_color = Color(0, 0.858824, 0.92549, 1)
+Label/font_sizes/font_size = 50
+Label/fonts/font = ExtResource("1_mofqs")

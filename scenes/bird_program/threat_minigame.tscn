@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2t20rlr6seqx"]
+
+[ext_resource type="Texture2D" uid="uid://dbsg24li8a8xf" path="res://assets/png/background/marshA.jpg" id="1_lsy1l"]
+[ext_resource type="PackedScene" uid="uid://bxgpawcuuuwkg" path="res://scenes/bird_program/test_player_avatar.tscn" id="2_unmdy"]
+
+[node name="ThreatMinigame" type="Node2D"]
+
+[node name="CanvasGroup" type="CanvasLayer" parent="."]
+
+[node name="Background" type="TextureRect" parent="CanvasGroup"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_lsy1l")
+
+[node name="Panel" type="Panel" parent="CanvasGroup"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TestPlayerAvatar" parent="CanvasGroup" instance=ExtResource("2_unmdy")]
+position = Vector2(908, 786)

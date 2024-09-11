@@ -1,0 +1,178 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfl4ojxav8p05"]
+
+[ext_resource type="Texture2D" uid="uid://mw7kfjjuhdyt" path="res://assets/png/background/background_birdhouse.jpg" id="1_fdgv8"]
+[ext_resource type="Theme" uid="uid://dr5it8gvg87uo" path="res://themes/bird_menu_button_1.tres" id="2_rw01p"]
+[ext_resource type="Theme" uid="uid://5ddbxdqxpsx1" path="res://themes/bird_level_up_menu.tres" id="2_vny6i"]
+[ext_resource type="Theme" uid="uid://b4pk64xxu7km4" path="res://themes/bird_ui_meter_labels.tres" id="3_pu1dp"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Background" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_fdgv8")
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_rw01p")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_pu1dp")
+text = "Survival:     "
+
+[node name="Button" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Food Storage"
+
+[node name="Button2" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Faster Hiding"
+
+[node name="Button3" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Higher Energy"
+
+[node name="Button4" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Restful Sleep"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme = ExtResource("3_pu1dp")
+text = "Nesting:     "
+
+[node name="Button" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Efficient Building"
+
+[node name="Button2" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Insulated Nests"
+
+[node name="Button3" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Nest Types"
+
+[node name="Button4" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Upgradeable Nests"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("3_pu1dp")
+text = "Migration:"
+
+[node name="Button" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Energy Reserves"
+
+[node name="Button2" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Fast Flight"
+
+[node name="Button3" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Acclimation"
+
+[node name="Button4" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Inventory"
+
+[node name="HeaderMarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+theme = ExtResource("2_vny6i")
+theme_override_constants/margin_top = 20
+
+[node name="HeaderVbox" type="VBoxContainer" parent="CanvasLayer/HeaderMarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/HeaderMarginContainer/HeaderVbox"]
+layout_mode = 2
+text = "You are now level XX!"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="CanvasLayer/HeaderMarginContainer/HeaderVbox"]
+layout_mode = 2
+text = "Choose an option below."
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="CanvasLayer/HeaderMarginContainer/HeaderVbox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="CanvasLayer/HeaderMarginContainer/HeaderVbox"]
+layout_mode = 2
+theme = ExtResource("2_rw01p")
+text = "Choose Upgrade"
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -400.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+theme = ExtResource("2_vny6i")
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Description:"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+text = "WebP is a relatively recent image format known for its efficient compression and high image quality. However, not all web browsers, image viewers and websites currently support this format. If you have an image in WebP format and wish to convert it to the more widely supported JPG format, this tool provides one of the simplest solutions."
+autowrap_mode = 3
