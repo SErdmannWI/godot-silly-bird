@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c4y8edvnymx68" path="res://icon.svg" id="1_ecldc"]
 
 [node name="TestPlayerAvatar" type="CharacterBody2D"]
+collision_mask = 3
 script = ExtResource("1_2owq0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -11,3 +12,19 @@ texture = ExtResource("1_ecldc")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-49, -63, 50, -63, 63, -54, 62, 51, 51, 62, -52, 64, -63, 51, -63, -54)
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="Coyote" type="Timer" parent="Timers"]
+unique_name_in_owner = true
+wait_time = 0.15
+one_shot = true
+
+[node name="JumpBuffer" type="Timer" parent="Timers"]
+unique_name_in_owner = true
+wait_time = 0.25
+one_shot = true
+
+[node name="DashCooldown" type="Timer" parent="Timers"]
+unique_name_in_owner = true
+one_shot = true
