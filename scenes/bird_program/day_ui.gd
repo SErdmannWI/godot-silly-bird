@@ -1,6 +1,5 @@
 # Assigns Managers to Director and updates UI according to signals from Director
 # and responds to Player inputs
-
 extends CanvasLayer
 
 
@@ -12,7 +11,6 @@ var bird_data: Dictionary = {}
 
 # Textures
 @onready var image_player: TextureRect = %PlayerImage
-@onready var bg_texture_rect: TextureRect = %BGTextureRect
 
 # Player Labels
 @onready var label_date_header: Label = %DateHeaderLabel
@@ -36,12 +34,11 @@ var bird_data: Dictionary = {}
 @onready var label_time_of_day: Label = %TimeOfDayLabel
 @onready var temperature_label: Label = %TemperatureLabel
 
-
-
 # Bird Meter Progress Bars
 @onready var progress_bar_hunger: ProgressBar = %HungerProgressBar
 @onready var progress_bar_social: ProgressBar = %SocialProgressBar
 @onready var progress_bar_energy: ProgressBar = %EnergyProgressBar
+@onready var progress_bar_hover_meter: ProgressBar = %HoverMeter
 
 # Current Location Labels
 @onready var label_location_name: Label = %BirdLocation
@@ -138,7 +135,6 @@ func _director_setup() -> void:
 func _load_location() -> void:
 	var current_location: Location = Director.get_current_location()
 	
-	bg_texture_rect.texture = current_location.background
 	label_location_name.text = current_location.location_name
 	label_location_threat_level.text = current_location.threat_level
 	
@@ -268,6 +264,10 @@ func _on_mood_changed(mood: String) -> void:
 
 func _on_status_changed(status: String) -> void:
 	label_bird_status.text = status
+
+
+func update_hover_meter(amount: int) -> void:
+	progress_bar_hover_meter.set_value_no_signal(amount)
 
 
 ################################################################################

@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bxgpawcuuuwkg"]
+[gd_scene load_steps=4 format=3 uid="uid://bxgpawcuuuwkg"]
 
 [ext_resource type="Script" path="res://scenes/bird_program/test_player_avatar.gd" id="1_2owq0"]
 [ext_resource type="Texture2D" uid="uid://bygcjk3wy4suq" path="res://assets/png/birds/mourning_dove.png" id="2_gw6o7"]
-[ext_resource type="PackedScene" uid="uid://kdkbw4nykxs5" path="res://scenes/bird_program/bird_ui.tscn" id="3_yy4r1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hkr22"]
 radius = 23.0
@@ -24,11 +23,14 @@ shape = SubResource("CircleShape2D_hkr22")
 unique_name_in_owner = true
 zoom = Vector2(2, 2)
 
-[node name="BirdUI" parent="Camera2D" instance=ExtResource("3_yy4r1")]
-
 [node name="Timers" type="Node" parent="."]
 
 [node name="FlapCooldown" type="Timer" parent="Timers"]
 unique_name_in_owner = true
 wait_time = 0.1
+one_shot = true
+
+[node name="HoverCooldown" type="Timer" parent="Timers"]
+unique_name_in_owner = true
+wait_time = 3.0
 one_shot = true

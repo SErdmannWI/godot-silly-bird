@@ -1,0 +1,176 @@
+[gd_scene load_steps=6 format=3 uid="uid://kdkbw4nykxs5"]
+
+[ext_resource type="Script" path="res://scenes/bird_program/bird_ui.gd" id="1_qn4q5"]
+[ext_resource type="Theme" uid="uid://b4pk64xxu7km4" path="res://themes/bird_ui_meter_labels.tres" id="1_y7sd0"]
+[ext_resource type="Texture2D" uid="uid://cwmoy7iplycv7" path="res://assets/png/icons/climate/sunny_icon.png" id="2_2ssym"]
+[ext_resource type="PackedScene" uid="uid://b7m5elcs4gs7p" path="res://scenes/bird_program/clock.tscn" id="2_eyhjx"]
+[ext_resource type="PackedScene" uid="uid://dm4env55t3ljj" path="res://scenes/bird_program/thermometer.tscn" id="3_o74u4"]
+
+[node name="BirdUI" type="Node2D"]
+script = ExtResource("1_qn4q5")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TimeWeatherMarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -264.0
+offset_right = 264.0
+offset_bottom = 253.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_top = 30
+
+[node name="Panel" type="Panel" parent="CanvasLayer/TimeWeatherMarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/TimeWeatherMarginContainer"]
+layout_mode = 2
+theme = ExtResource("1_y7sd0")
+alignment = 1
+
+[node name="WeatherVBox" type="VBoxContainer" parent="CanvasLayer/TimeWeatherMarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/TimeWeatherMarginContainer/HBoxContainer/WeatherVBox"]
+layout_mode = 2
+texture = ExtResource("2_2ssym")
+
+[node name="Label" type="Label" parent="CanvasLayer/TimeWeatherMarginContainer/HBoxContainer/WeatherVBox"]
+layout_mode = 2
+text = "Sunny"
+horizontal_alignment = 1
+
+[node name="ClockVBox" type="VBoxContainer" parent="CanvasLayer/TimeWeatherMarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="ClockfaceTextureRect" parent="CanvasLayer/TimeWeatherMarginContainer/HBoxContainer/ClockVBox" instance=ExtResource("2_eyhjx")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TimeOfDayLabel" type="Label" parent="CanvasLayer/TimeWeatherMarginContainer/HBoxContainer/ClockVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Morning"
+horizontal_alignment = 1
+
+[node name="TemperatureVBox" type="VBoxContainer" parent="CanvasLayer/TimeWeatherMarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Thermometer" parent="CanvasLayer/TimeWeatherMarginContainer/HBoxContainer/TemperatureVBox" instance=ExtResource("3_o74u4")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="TemperatureLabel" type="Label" parent="CanvasLayer/TimeWeatherMarginContainer/HBoxContainer/TemperatureVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "-F"
+horizontal_alignment = 1
+
+[node name="BirdMeterMarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -594.0
+offset_bottom = 433.0
+grow_horizontal = 0
+size_flags_vertical = 3
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 20
+
+[node name="Panel" type="Panel" parent="CanvasLayer/BirdMeterMarginContainer"]
+layout_mode = 2
+
+[node name="BirdMeterInnerMarginContainer" type="MarginContainer" parent="CanvasLayer/BirdMeterMarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="BirdMeterVBox" type="VBoxContainer" parent="CanvasLayer/BirdMeterMarginContainer/BirdMeterInnerMarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("1_y7sd0")
+
+[node name="HungerLabel" type="Label" parent="CanvasLayer/BirdMeterMarginContainer/BirdMeterInnerMarginContainer/BirdMeterVBox"]
+layout_mode = 2
+text = "Bird Hunger"
+horizontal_alignment = 1
+
+[node name="HungerProgressBar" type="ProgressBar" parent="CanvasLayer/BirdMeterMarginContainer/BirdMeterInnerMarginContainer/BirdMeterVBox"]
+layout_mode = 2
+value = 100.0
+
+[node name="SocialLabel" type="Label" parent="CanvasLayer/BirdMeterMarginContainer/BirdMeterInnerMarginContainer/BirdMeterVBox"]
+layout_mode = 2
+text = "Bird Social
+"
+horizontal_alignment = 1
+
+[node name="SocialProgressBar" type="ProgressBar" parent="CanvasLayer/BirdMeterMarginContainer/BirdMeterInnerMarginContainer/BirdMeterVBox"]
+layout_mode = 2
+value = 100.0
+
+[node name="EnergyLabel" type="Label" parent="CanvasLayer/BirdMeterMarginContainer/BirdMeterInnerMarginContainer/BirdMeterVBox"]
+layout_mode = 2
+text = "Bird Energy
+"
+horizontal_alignment = 1
+
+[node name="EnergyProgressBar" type="ProgressBar" parent="CanvasLayer/BirdMeterMarginContainer/BirdMeterInnerMarginContainer/BirdMeterVBox"]
+layout_mode = 2
+value = 100.0
+
+[node name="HoverLabel" type="Label" parent="CanvasLayer/BirdMeterMarginContainer/BirdMeterInnerMarginContainer/BirdMeterVBox"]
+layout_mode = 2
+text = "Hover Meter
+"
+horizontal_alignment = 1
+
+[node name="HoverMeter" type="ProgressBar" parent="CanvasLayer/BirdMeterMarginContainer/BirdMeterInnerMarginContainer/BirdMeterVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+value = 100.0
+
+[node name="MessageMarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -960.0
+offset_top = -80.0
+offset_right = 960.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="CanvasLayer/MessageMarginContainer"]
+layout_mode = 2
+
+[node name="MessageInnerMarginContainer" type="MarginContainer" parent="CanvasLayer/MessageMarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MessageMarginContainer/MessageInnerMarginContainer"]
+layout_mode = 2
+theme = ExtResource("1_y7sd0")
+
+[node name="MessageTypeLabel" type="Label" parent="CanvasLayer/MessageMarginContainer/MessageInnerMarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Message:"
+
+[node name="MessageLabel" type="Label" parent="CanvasLayer/MessageMarginContainer/MessageInnerMarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "This contains dynamic info about the environment."
+autowrap_mode = 2
