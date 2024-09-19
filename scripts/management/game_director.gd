@@ -32,6 +32,19 @@ var current_location_name: String
 
 func _init() -> void:
 	current_location_name = Locations.NAME_MEADOW
+	
+	bird_manager = BirdManager.new()
+	inventory_manager = InventoryManager.new()
+	location_manager = LocationManager.new()
+	nest_manager = NestManager.new()
+	day_cycle_manager = DayCycleManager.new()
+	xp_manager = XpManager.new()
+	
+	_connect_nest_manager()
+	_connect_day_cycle_manager()
+	_connect_location_manager()
+	_connect_xp_manager()
+	_connect_inventory_manager()
 
 
 ################################################################################
@@ -54,10 +67,12 @@ func on_end_of_day() -> void:
 ############################ Bird Manager Functions ############################
 ################################################################################
 
-# Called by UI._director_setup
-func set_bird_manager(manager: BirdManager) -> void:
-	bird_manager = manager
-	connect_to_bird()
+## Called by UI._director_setup
+#func set_bird_manager(manager: BirdManager) -> void:
+	#bird_manager = manager
+	#connect_to_bird()
+
+# TODO- run connect_to_bird() when Player's bird is ready
 
 
 func get_bird_data() -> Dictionary:
@@ -101,10 +116,6 @@ func _on_mood_changed(mood: String) -> void:
 
 func _on_status_changed(status: String) -> void:
 	update_status.emit(status)
-
-# TODO move to InventoryManager
-func _on_inventory_update() -> void:
-	pass
 
 
 ################################################################################
@@ -167,11 +178,9 @@ func repair_nest(amount: int) -> String:
 
 ############# Nest Info Functions #############
 
-# Called by UI._director_setup
-func set_nest_manager(manager: NestManager) -> void:
-	nest_manager = manager
-	manager.egg_hatched.connect(_on_egg_hatched)
-	manager.egg_broken.connect(_on_egg_broken)
+func _connect_nest_manager() -> void:
+	nest_manager.egg_hatched.connect(_on_egg_hatched)
+	nest_manager.egg_broken.connect(_on_egg_broken)
 
 func has_nest() -> bool:
 	return nest_manager.location_has_nest(current_location_name)
@@ -233,8 +242,7 @@ func _on_egg_broken(nest_info: Dictionary) -> void:
 ########################## Location Manager Functions ##########################
 ################################################################################
 
-func set_location_manager(manager: LocationManager) -> void:
-	location_manager = manager
+func _connect_location_manager() -> void:
 	location_manager.location_changed.connect(_on_new_location)
 
 
@@ -267,8 +275,9 @@ func _on_new_location(location: Location) -> void:
 ########################## Inventory Manager Functions #########################
 ################################################################################
 
-func set_inventory_manager(manager: InventoryManager) -> void:
-	inventory_manager = manager
+# No function, currently
+func _connect_inventory_manager() -> void:
+	pass
 
 
 func get_bird_inventory() -> Inventory:
@@ -301,8 +310,9 @@ func on_items_used(items_used: Array) -> void:
 ############################# XP Manager Functions #############################
 ################################################################################
 
-func set_xp_manager(manager: XpManager) -> void:
-	xp_manager = manager
+# No function, currently
+func _connect_xp_manager() -> void:
+	pass
 
 func _check_level() -> void:
 	pass
@@ -316,8 +326,7 @@ func _xp_added(xp_code: int) -> void:
 ######################### Day Cycle Manager Functions ##########################
 ################################################################################
 
-func set_day_cycle_manager(manager: DayCycleManager) -> void:
-	day_cycle_manager = manager
+func _connect_day_cycle_manager() -> void:
 	day_cycle_manager.temperature_changed.connect(_temperature_changed)
 
 
