@@ -32,3 +32,4 @@ const RESOURCE_EGG_CARDINAL: String = "res://resources/eggs/egg_type_cardinal.tr
 
 const SCENE_NEST_EGG: String = "res://scenes/bird_program/nest/egg_texture_rect.tscn"
 const SCENE_NEST_EGG_PROGRESS: String = "res://scenes/bird_program/nest/egg_progress_v_box.tscn"
+const SCENE_FOOD_SEED: String = "res://scenes/bird_program/food/seeds.tscn"

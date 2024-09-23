@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://c80ocg2rf0m0a"]
+
+[ext_resource type="Texture2D" uid="uid://c3vlakacumej3" path="res://assets/tileset/tilemap.png" id="1_1w05u"]
+[ext_resource type="Script" path="res://scenes/bird_program/food/seeds.gd" id="1_72fma"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sygmv"]
+size = Vector2(12, 12)
+
+[node name="Seeds" type="Node2D"]
+script = ExtResource("1_72fma")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_1w05u")
+region_enabled = true
+region_rect = Rect2(210.78, 135.126, 14.0197, 13.7011)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_sygmv")
+
+[node name="ButtonPromptLabel" type="Label" parent="."]
+unique_name_in_owner = true
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+offset_bottom = -17.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+text = "E"
+horizontal_alignment = 1
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_player_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_player_body_exited"]

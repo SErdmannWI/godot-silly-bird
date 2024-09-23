@@ -7,6 +7,8 @@ const GROUP_METHOD_START_DAY: String = "start_new_day"
 const GROUP_METHOD_END_DAY: String = "end_day"
 
 # Code Enums
+# Layer Enums
+
 # Used to communicate from Director to UI on what to do with info
 enum ResponseCode {NO_NEST = -1, NEST_FULL = -2}
 
