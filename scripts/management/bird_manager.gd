@@ -46,8 +46,8 @@ func get_bird_data() -> Dictionary:
 	return bird_data
 
 
-func give_food() -> void:
-	bird.get_food()
+func feed_bird(amount: int) -> void:
+	bird.eat(amount)
 
 
 func add_xp_to_bird(xp_gained: int) -> int:

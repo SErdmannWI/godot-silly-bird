@@ -1,3 +1,5 @@
+## OBSOLETE- use for reference only. This no longer has a function within the game
+
 # Assigns Managers to Director and updates UI according to signals from Director
 # and responds to Player inputs
 extends CanvasLayer

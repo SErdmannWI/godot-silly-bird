@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://im8n8mtfgsdu"]
+
+[ext_resource type="PackedScene" uid="uid://c80ocg2rf0m0a" path="res://scenes/bird_program/food/seeds.tscn" id="1_cbn8q"]
+[ext_resource type="Script" path="res://resources/items/item.gd" id="1_rlyns"]
+[ext_resource type="Resource" uid="uid://ckgri2auaiu68" path="res://resources/item_types/food_item.tres" id="1_y577w"]
+
+[resource]
+script = ExtResource("1_rlyns")
+item_name = "Medium Seed Cluster"
+item_id = "SeedMed"
+item_scene = ExtResource("1_cbn8q")
+item_type = ExtResource("1_y577w")
+item_desc = "A medium sized cluster of seeds. Recovers 25 hunger"
+item_amount = 25
+item_value = 25

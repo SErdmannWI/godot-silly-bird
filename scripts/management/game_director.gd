@@ -27,8 +27,10 @@ var location_manager: LocationManager
 var nest_manager: NestManager
 var day_cycle_manager: DayCycleManager
 var xp_manager: XpManager
+var action_manager: ActionManager
 
 var current_location_name: String
+var action_queue: Array = []
 
 func _init() -> void:
 	current_location_name = Locations.NAME_MEADOW
@@ -39,6 +41,7 @@ func _init() -> void:
 	nest_manager = NestManager.new()
 	day_cycle_manager = DayCycleManager.new()
 	xp_manager = XpManager.new()
+	action_manager = ActionManager.new()
 	
 	_connect_nest_manager()
 	_connect_day_cycle_manager()
@@ -79,8 +82,8 @@ func get_bird_data() -> Dictionary:
 	return bird_manager.get_bird_data()
 
 
-func give_bird_food() -> void:
-	bird_manager.give_food()
+func give_bird_food(amount: int) -> void:
+	bird_manager.feed_bird(amount)
 
 
 func end_bird_day() -> void:
@@ -339,3 +342,36 @@ func get_current_temperature() -> int:
 func _temperature_changed(current_temp: int) -> void:
 	temperature_changed.emit(current_temp)
 
+
+################################################################################
+########################### Action Manager Functions ###########################
+################################################################################
+
+func _connect_action_manager() -> void:
+	action_manager.feed_bird.connect(_on_food_action)
+
+
+func perform_next_action() -> void:
+	var response: ManagerResponse = action_manager.perform_next_action()
+
+
+# Action queue for bird if action is pressed
+func add_to_action_queue(action: Action) -> void:
+	action_manager.add_action(action)
+
+
+func remove_from_action_queue(action_id: String) -> void:
+	action_manager.remove_action(action_id)
+
+
+func _on_food_action(amount) -> void:
+	give_bird_food(amount)
+
+
+func _match_response_function(response: ManagerResponse) -> void:
+	match response.response_code:
+		ResponseCodes.ActionResponse.FEED_BIRD:
+			var food_amount = response.body
+			_on_food_action(food_amount)
+		_:
+			return

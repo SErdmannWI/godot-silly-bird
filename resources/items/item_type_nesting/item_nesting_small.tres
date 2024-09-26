@@ -7,6 +7,7 @@
 [resource]
 script = ExtResource("1_e6jpq")
 item_name = "Nesting Material (small)"
+item_id = "nest_sm_01"
 item_icon = ExtResource("1_xc4sg")
 item_type = ExtResource("2_6rfav")
 item_desc = "A single bit of nesting material"

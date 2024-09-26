@@ -1,0 +1,6 @@
+extends Node
+
+enum ActionResponse {NO_ADDITIONAL_ACTIONS = 0,
+FEED_BIRD = 11, FEED_BIRD_WITH_MESSAGE = 12,
+ADD_ITEM = 21,
+DISPLAY_MESSAGE = 31}

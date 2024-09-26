@@ -1,6 +1,7 @@
 # Flying physics for bird
-
 extends CharacterBody2D
+
+signal action_pressed
 
 # UI- CanvasLayer assigned as child to camera node
 var ui
@@ -31,6 +32,9 @@ var glide: bool = false
 var can_hover: bool = true
 var hover: bool = false
 var hover_meter: int = 100
+
+# Environment Interactions
+var near_item: bool = false
 
 
 @onready var player_sprite: Sprite2D = %Sprite2D
@@ -85,6 +89,9 @@ func get_input(delta) -> void:
 	
 	if Input.is_action_just_released("hover"):
 		hover = false
+	
+	if Input.is_action_just_pressed("action"):
+		perform_action()
 
 
 func apply_movement(delta) -> void:
@@ -123,3 +130,8 @@ func restore_meters() -> void:
 		can_hover = true
 	
 	ui.update_hover_meter(hover_meter)
+
+
+func perform_action() -> void:
+	Director.perform_next_action()
+

@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="ItemType" load_steps=2 format=3 uid="uid://ckgri2auaiu68"]
+
+[ext_resource type="Script" path="res://resources/item_types/item_type.gd" id="1_5owks"]
+
+[resource]
+script = ExtResource("1_5owks")
+type_name = "Food"

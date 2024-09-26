@@ -4,6 +4,7 @@ extends Node
 # Dictionary to store loaded item resources
 var item_templates: Dictionary = {}
 var path_array: Array[String] = [
+	"res://resources/items/item_type_food/",
 	"res://resources/items/item_type_nesting/",
 	"res://resources/items/item_type_valuables/",
 	]
@@ -22,15 +23,15 @@ func load_item_templates():
 			
 			while file_name != "" and !dir.current_is_dir():
 				var item = load(path + file_name) as Item
-				item_templates[item.item_name] = item
+				item_templates[item.item_id] = item
 				file_name = dir.get_next()
 		else:
 			print("Error!")
 
 
-func create_item(item_name: String) -> Item:
-	if item_templates.has(item_name):
-		var item = item_templates[item_name].duplicate()
+func create_item(item_id: String) -> Item:
+	if item_templates.has(item_id):
+		var item = item_templates[item_id].duplicate()
 		return item
 	
 	return null

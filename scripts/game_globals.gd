@@ -16,6 +16,8 @@ enum StatusCode{EGG_HATCHED = 1, EGG_BROKEN = 2}
 
 enum XpCodes{NEST_BUILT = 1, DISCOVERY_MADE = 2, EGG_HATCHED = 3}
 
+enum ActionType{ITEM = 1, FOOD = 2, OBSERVATION = 3}
+
 # Day/ Night Cycle
 
 enum DayNightCycle {NIGHT = 0, MORNING = 1, DAY = 2, EVENING = 3}
@@ -97,4 +99,22 @@ const TEMPERATURE_DICTIONARY: Dictionary = {
 	WEATHER_SUNNY: SUNNY_TEMPERATURE_DICTIONARY,
 
 }
+
+static func generate_uuid() -> String:
+	var uuid = PackedByteArray()
+	for i in range(16):
+		uuid.append(randi() % 256)
+		
+	# Set the verions to 4 (randomly generated UUID)
+	uuid[6] = (uuid[6] & 0x0f) | 0x40
+	# Set the variant to DCE1.1, ITU-T X.667
+	uuid[8] = (uuid[8] & 0x3F) | 0x80
+	# Conver to String format
+	var str_uuid = ""
+	for i in range(16):
+		str_uuid += "%02x" % uuid[i]
+		if i == 3 or i == 5 or i == 7 or i == 9:
+			str_uuid += "-"
+	
+	return str_uuid
 

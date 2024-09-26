@@ -1,7 +1,5 @@
 extends Node2D
 
-var seed_scene: PackedScene = preload(FilePaths.SCENE_FOOD_SEED)
-
 var ground: Array[Vector2] = []
 var x_min: float = -58
 var x_max: float = 61
@@ -18,6 +16,11 @@ func _ready():
 	#var coords2: Vector2 = Vector2(19, 30)
 	#print(terrain.get_cell_tile_data(0, coords).get_custom_data("TopLayer"))
 	#print(terrain.get_cell_tile_data(0, coords2).get_custom_data("TopLayer"))
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
 
 
 func _get_continuous_groud() -> Array[Vector2]:
@@ -57,8 +60,3 @@ func _place_seeds() -> void:
 			if (ground_coord.x == seed_coords[i]):
 				# Add seeds
 				terrain.set_cell(0, Vector2(ground_coord.x, ground_coord. y - 1), 1, Vector2i.ZERO, 1)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass

@@ -23,6 +23,7 @@ var food_type: FoodType
 
 # Bird needs
 var hunger: int
+var hunger_max: int = 100
 var energy: int
 var social: int
 var mood: String
@@ -92,26 +93,17 @@ func get_mood() -> String:
 
 
 # Action functions
-# TODO in future, energy cost will be calculated from environment/ bird abilities
-func get_food() -> void:
-	if is_hidden:
-		# TODO Send signal for UI message
-		print("Cannot get food while hidden.")
-		return
-	
-	if energy >= 10:
-		energy -= 10
-		hunger += 10
-		
-		hunger_changed.emit(hunger)
-		energy_changed.emit(energy)
-		
-		_hunger_mood_check()
-		_mood_check()
-		
+
+func eat(amount: int) -> void:
+	if hunger + amount >= hunger_max:
+		hunger = hunger_max
 	else:
-		# TODO Send signal for UI message
-		print("Not enough energy")
+		hunger += amount
+	
+	hunger_changed.emit(hunger)
+	
+	_hunger_mood_check()
+	_mood_check()
 
 
 # TODO In future, get social interactions from environment/ bird abilities

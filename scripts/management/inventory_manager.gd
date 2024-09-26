@@ -20,8 +20,8 @@ func get_inventory() -> Inventory:
 	return inventory
 
 
-func add_item(item_name: String) -> void:
-	inventory.add_item(ITEM_FACTORY.create_item(item_name))
+func add_item(item_id: String) -> void:
+	inventory.add_item(ITEM_FACTORY.create_item(item_id))
 
 
 func use_items(items_used: Array[Item]) -> void:
