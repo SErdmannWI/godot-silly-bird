@@ -31,7 +31,6 @@ BirdGlobals="*res://scenes/bird_program/global_bird_variables/bird_globals.gd"
 ITEM_FACTORY="*res://resources/items/item_factory.gd"
 ItemGlobals="*res://resources/items/item_globals.gd"
 GlobalMessages="*res://scripts/global_messages.gd"
-Director="*res://scripts/management/game_director.gd"
 Locations="*res://resources/locations/location_globals.gd"
 FilePaths="*res://scripts/file_paths.gd"
 EggFactory="*res://resources/eggs/egg_factory.gd"
@@ -39,6 +38,7 @@ EggGlobals="*res://resources/eggs/egg_globals.gd"
 NestGlobals="*res://scenes/bird_program/nest/nest_globals.gd"
 GameGlobals="*res://scripts/game_globals.gd"
 ResponseCodes="*res://scripts/management/response_codes.gd"
+Director="*res://scenes/bird_program/director.tscn"
 
 [display]
 

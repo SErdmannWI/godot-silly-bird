@@ -49,9 +49,7 @@ var is_bored: bool
 func _init():
 	# Replace this with load player bird once implemented
 	_apply_default_properties()
-
-
-func _ready():
+	
 	hunger_timer = Timer.new()
 	social_timer = Timer.new()
 	add_child(hunger_timer)
@@ -59,7 +57,9 @@ func _ready():
 	
 	hunger_timer.timeout.connect(_on_hunger_timer_timeout)
 	social_timer.timeout.connect(_on_social_timer_timeout)
-	
+
+
+func _ready():
 	_set_timers()
 	_mood_check()
 	_emit_all()
@@ -244,6 +244,7 @@ func _set_timers() -> void:
 
 
 func _start_timers() -> void:
+	print(self)
 	hunger_timer.start()
 	social_timer.start()
 

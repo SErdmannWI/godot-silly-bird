@@ -19,7 +19,8 @@ signal current_nest_info_changed(nest_info: Dictionary)
 signal egg_info_changed(egg_info: Dictionary, total_eggs: int)
 signal egg_added(egg_info: Dictionary, total_eggs: int)
 signal egg_progressed(egg_info: Dictionary)
-signal temperature_changed(current_temp: int)
+signal update_temp(current_temp: int)
+signal update_time(cycles: int, time_of_day: int)
 
 var bird_manager: BirdManager
 var inventory_manager: InventoryManager
@@ -29,10 +30,12 @@ var day_cycle_manager: DayCycleManager
 var xp_manager: XpManager
 var action_manager: ActionManager
 
+var managers: Array = []
+
 var current_location_name: String
 var action_queue: Array = []
 
-func _init() -> void:
+func _ready() -> void:
 	current_location_name = Locations.NAME_MEADOW
 	
 	bird_manager = BirdManager.new()
@@ -42,6 +45,12 @@ func _init() -> void:
 	day_cycle_manager = DayCycleManager.new()
 	xp_manager = XpManager.new()
 	action_manager = ActionManager.new()
+	
+	managers = [bird_manager, inventory_manager, location_manager, nest_manager, day_cycle_manager,
+	xp_manager, action_manager]
+	
+	for manager in managers:
+		add_child(manager)
 	
 	_connect_nest_manager()
 	_connect_day_cycle_manager()
@@ -55,7 +64,11 @@ func _init() -> void:
 ################################################################################
 
 func start_new_day() -> void:
-	get_tree().call_group(GameGlobals.GROUP_NAME_MANAGERS, GameGlobals.GROUP_METHOD_START_DAY)
+	for manager in managers:
+		if manager.has_method("start_new_day"):
+			manager.start_new_day()
+	
+	#get_tree().call_group(GameGlobals.GROUP_NAME_MANAGERS, GameGlobals.GROUP_METHOD_START_DAY)
 
 
 # Get Daily XP, add to Bird
@@ -331,16 +344,20 @@ func _xp_added(xp_code: int) -> void:
 
 func _connect_day_cycle_manager() -> void:
 	day_cycle_manager.temperature_changed.connect(_temperature_changed)
+	day_cycle_manager.increment_time.connect(_on_time_change)
 
 
 func get_current_temperature() -> int:
 	var current_temp = day_cycle_manager.get_current_temp()
-	
 	return current_temp
 
 
 func _temperature_changed(current_temp: int) -> void:
-	temperature_changed.emit(current_temp)
+	update_temp.emit(current_temp)
+
+
+func _on_time_change(cycles: int, time_of_day: int) -> void:
+	update_time.emit(cycles, time_of_day)
 
 
 ################################################################################

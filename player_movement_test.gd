@@ -1,5 +1,7 @@
 extends Node2D
 
+var seed_scene: PackedScene = preload("res://scenes/bird_program/food/seeds.tscn")
+
 var ground: Array[Vector2] = []
 var x_min: float = -58
 var x_max: float = 61
@@ -12,11 +14,8 @@ var y_max: float = 40
 func _ready():
 	ground = _get_continuous_groud()
 	_place_seeds()
-	#var coords: Vector2 = Vector2(4, 33)
-	#var coords2: Vector2 = Vector2(19, 30)
-	#print(terrain.get_cell_tile_data(0, coords).get_custom_data("TopLayer"))
-	#print(terrain.get_cell_tile_data(0, coords2).get_custom_data("TopLayer"))
-
+	
+	Director.start_new_day()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

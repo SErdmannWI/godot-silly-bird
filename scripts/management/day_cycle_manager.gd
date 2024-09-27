@@ -14,20 +14,25 @@ var temperature: int
 var temperature_fluctuation: float = 4.0
 
 
+func _init() -> void:
+	pass
+
+
 func _ready() -> void:
-	add_child(timer)
 	timer.stop()
+	timer.one_shot = false
 	timer.timeout.connect(_on_timer_timeout)
 	time_of_day = GameGlobals.DayNightCycle.MORNING
+	add_child(timer)
 
 
 func start_new_day() -> void:
 	cycles = 0
 	timer.start(GameGlobals.TIME_CYCLE_INCREMENT)
+	_calculate_temperature()
 
 
 func end_day() -> void:
-	print("Day Cycle Manager: ending day.")
 	timer.stop()
 
 
@@ -62,8 +67,6 @@ func get_current_temp() -> int:
 
 func _calculate_temperature() -> void:
 	temperature = _get_interpolated_temperature(cycles)
-	print(str(temperature))
-	
 	temperature_changed.emit(get_current_temp())
 
 

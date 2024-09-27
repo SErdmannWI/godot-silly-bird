@@ -84,6 +84,12 @@ layout_mode = 2
 theme = ExtResource("5_e8upw")
 text = "Test Program"
 
+[node name="BirdTestLevelButton" type="Button" parent="CanvasLayer/OptionsCenterContainer/OptionsVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("5_e8upw")
+text = "Bird Test Level"
+
 [node name="SettingsButton" type="Button" parent="CanvasLayer/OptionsCenterContainer/OptionsVBox"]
 unique_name_in_owner = true
 layout_mode = 2

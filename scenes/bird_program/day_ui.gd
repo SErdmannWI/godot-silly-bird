@@ -276,7 +276,7 @@ func update_hover_meter(amount: int) -> void:
 ############################# Day Cycle Functions ##############################
 ################################################################################
 
-func _on_cycle_increment(cycles: int, time_of_day: int) -> void:
+func _on_time_cycle_increment(cycles: int, time_of_day: int) -> void:
 	clock.on_time_incremented(cycles)
 	
 	match time_of_day:
@@ -390,7 +390,7 @@ func _on_look_for_food_pressed() -> void:
 	label_message_type.text = "Action: "
 	label_message.text = "Got some food!"
 	#MainBird.get_food()
-	Director.give_bird_food()
+	#Director.give_bird_food()
 
 
 # Gets interaction from interaction button

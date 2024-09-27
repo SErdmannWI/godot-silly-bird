@@ -9,7 +9,6 @@ var _xp_daily_running_total: int
 
 
 func start_new_day() -> void:
-	print("XP Manager: starting new day")
 	_reset_xp()
 
 

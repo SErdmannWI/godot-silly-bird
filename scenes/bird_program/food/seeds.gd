@@ -2,8 +2,6 @@ extends Node2D
 
 signal player_nearby(item_id)
 
-var item_scene: PackedScene = preload(FilePaths.SCENE_FOOD_SEED)
-
 var action: Action
 
 var item_id: String = "SeedMed"

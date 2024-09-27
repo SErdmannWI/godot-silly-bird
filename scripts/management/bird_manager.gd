@@ -12,11 +12,12 @@ var bird : PlayerBird
 	#bird = PlayerBird.new()
 
 
-func _ready():
+func _init():
 	_create_bird()
 
 
 func start_new_day() -> void:
+	get_bird_data()
 	bird.start_day()
 
 
@@ -27,7 +28,6 @@ func end_day() -> void:
 
 func _create_bird():
 	bird = PlayerBird.new()
-	add_child(bird)
 
 # Gets key/value for each property of the bird and returns
 func get_bird_data() -> Dictionary:
