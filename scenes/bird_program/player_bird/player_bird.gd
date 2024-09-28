@@ -244,7 +244,6 @@ func _set_timers() -> void:
 
 
 func _start_timers() -> void:
-	print(self)
 	hunger_timer.start()
 	social_timer.start()
 

@@ -14,6 +14,13 @@ extends Node2D
 @onready var energy_progress_bar: ProgressBar = %EnergyProgressBar
 @onready var hover_meter: ProgressBar = %HoverMeter
 
+# Message Center
+@onready var hp_label: Label = %DynamicLabel
+@onready var mood_label: Label = %DynamicLabel2
+@onready var message_type_label: Label = %MessageTypeLabel
+@onready var message_label: Label = %MessageLabel
+
+
 
 func _ready() -> void:
 	_connect_to_director()
@@ -69,13 +76,40 @@ func update_hover_meter(amount: int) -> void:
 	hover_meter.value = amount
 
 
-# Update Bird Status- currently unused
+func _on_hp_changed(hp: int) -> void:
+	var color: Color
+	if hp >= 85:
+		color = GameGlobals.COLOR_TEXT_BLUE
+	elif hp < 85 and hp >= 70:
+		color = GameGlobals.COLOR_TEXT_GREEN
+	elif hp < 70 and hp >= 30:
+		color = GameGlobals.COLOR_TEXT_YELLOW
+	else:
+		color = GameGlobals.COLOR_TEXT_RED
+	
+	hp_label.update_text(hp, color)
+
+
 func _on_mood_changed(mood: String) -> void:
-	print("Bird mood: %d" % mood)
+	var color: Color
+	
+	match(mood):
+		BirdGlobals.MOOD_HAPPY:
+			color = GameGlobals.COLOR_TEXT_GREEN
+		BirdGlobals.MOOD_HUNGRY:
+			color = GameGlobals.COLOR_TEXT_YELLOW
+		BirdGlobals.MOOD_ANGRY:
+			color = GameGlobals.COLOR_TEXT_RED
+		BirdGlobals.MOOD_LONELY:
+			color = GameGlobals.COLOR_TEXT_BLUE
+		_:
+			color = GameGlobals.COLOR_TEXT_GREEN
+	
+	mood_label.update_text(mood, color)
 
 
 func _on_status_changed(status: String) -> void:
-	print("Bird status: %d" % status)
+	pass
 
 
 # TODO Update Nest

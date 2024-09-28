@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://brkr61mmtfrvc"]
+
+[ext_resource type="Script" path="res://scenes/bird_program/ui/dynamic_label.gd" id="1_bpb4u"]
+
+[node name="DynamicLabel" type="Label"]
+theme_override_colors/font_color = Color(0, 0.858824, 0, 1)
+text = "99/99"
+script = ExtResource("1_bpb4u")

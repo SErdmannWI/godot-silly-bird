@@ -1,6 +1,41 @@
-[gd_scene load_steps=2 format=3 uid="uid://wi37agmiroy8"]
+[gd_scene load_steps=9 format=3 uid="uid://wi37agmiroy8"]
 
 [ext_resource type="Script" path="res://Director.gd" id="1_oxucr"]
+[ext_resource type="Script" path="res://scripts/management/day_cycle_manager.gd" id="2_dykky"]
+[ext_resource type="Script" path="res://scripts/management/inventory_manager.gd" id="3_toduy"]
+[ext_resource type="Script" path="res://scripts/management/location_manager.gd" id="4_mfecv"]
+[ext_resource type="Script" path="res://scripts/management/nest_manager.gd" id="5_el6n7"]
+[ext_resource type="Script" path="res://scripts/management/xp_manager.gd" id="6_gtsfd"]
+[ext_resource type="Script" path="res://scripts/management/bird_manager.gd" id="7_a42qo"]
+[ext_resource type="Script" path="res://scripts/management/action_manager.gd" id="8_w18jf"]
 
 [node name="Director" type="Node2D"]
 script = ExtResource("1_oxucr")
+
+[node name="DayCycleManager" type="Node" parent="." groups=["Managers"]]
+unique_name_in_owner = true
+script = ExtResource("2_dykky")
+
+[node name="InventoryManager" type="Node" parent="." groups=["Managers"]]
+unique_name_in_owner = true
+script = ExtResource("3_toduy")
+
+[node name="LocationManager" type="Node" parent="." groups=["Managers"]]
+unique_name_in_owner = true
+script = ExtResource("4_mfecv")
+
+[node name="NestManager" type="Node" parent="." groups=["Managers"]]
+unique_name_in_owner = true
+script = ExtResource("5_el6n7")
+
+[node name="XpManager" type="Node" parent="." groups=["Managers"]]
+unique_name_in_owner = true
+script = ExtResource("6_gtsfd")
+
+[node name="BirdManager" type="Node" parent="." groups=["Managers"]]
+unique_name_in_owner = true
+script = ExtResource("7_a42qo")
+
+[node name="ActionManager" type="Node" parent="." groups=["Managers"]]
+unique_name_in_owner = true
+script = ExtResource("8_w18jf")

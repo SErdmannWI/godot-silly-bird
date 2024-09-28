@@ -5,14 +5,10 @@
 class_name BirdManager
 extends Node
 
-var bird : PlayerBird
-
-#func _init():
-	## TODO Replace assignment to actual Player bird when implemented
-	#bird = PlayerBird.new()
+var bird: PlayerBird
 
 
-func _init():
+func _ready():
 	_create_bird()
 
 
@@ -28,6 +24,8 @@ func end_day() -> void:
 
 func _create_bird():
 	bird = PlayerBird.new()
+	add_child(bird)
+	
 
 # Gets key/value for each property of the bird and returns
 func get_bird_data() -> Dictionary:

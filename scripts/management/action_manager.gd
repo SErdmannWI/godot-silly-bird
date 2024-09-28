@@ -42,7 +42,6 @@ func perform_next_action() -> ManagerResponse:
 
 func _perform_food_action(action: FoodAction) -> ManagerResponse:
 	var food_amount: int = action.food_item.item_amount
-	
 	var response: ManagerResponse = ManagerResponse.new(ResponseCodes.ActionResponse.FEED_BIRD, "Feeding Bird", food_amount)
 	
 	remove_action(action.action_id)

@@ -22,41 +22,27 @@ signal egg_progressed(egg_info: Dictionary)
 signal update_temp(current_temp: int)
 signal update_time(cycles: int, time_of_day: int)
 
-var bird_manager: BirdManager
-var inventory_manager: InventoryManager
-var location_manager: LocationManager
-var nest_manager: NestManager
-var day_cycle_manager: DayCycleManager
-var xp_manager: XpManager
-var action_manager: ActionManager
-
-var managers: Array = []
-
 var current_location_name: String
 var action_queue: Array = []
 
+@onready var day_cycle_manager: DayCycleManager = %DayCycleManager
+@onready var inventory_manager: InventoryManager = %InventoryManager
+@onready var location_manager: LocationManager = %LocationManager
+@onready var nest_manager: NestManager = %NestManager
+@onready var xp_manager: XpManager = %XpManager
+@onready var bird_manager: BirdManager = %BirdManager
+@onready var action_manager: ActionManager = %ActionManager
+
+
 func _ready() -> void:
 	current_location_name = Locations.NAME_MEADOW
-	
-	bird_manager = BirdManager.new()
-	inventory_manager = InventoryManager.new()
-	location_manager = LocationManager.new()
-	nest_manager = NestManager.new()
-	day_cycle_manager = DayCycleManager.new()
-	xp_manager = XpManager.new()
-	action_manager = ActionManager.new()
-	
-	managers = [bird_manager, inventory_manager, location_manager, nest_manager, day_cycle_manager,
-	xp_manager, action_manager]
-	
-	for manager in managers:
-		add_child(manager)
 	
 	_connect_nest_manager()
 	_connect_day_cycle_manager()
 	_connect_location_manager()
 	_connect_xp_manager()
 	_connect_inventory_manager()
+	_connect_to_bird()
 
 
 ################################################################################
@@ -64,11 +50,7 @@ func _ready() -> void:
 ################################################################################
 
 func start_new_day() -> void:
-	for manager in managers:
-		if manager.has_method("start_new_day"):
-			manager.start_new_day()
-	
-	#get_tree().call_group(GameGlobals.GROUP_NAME_MANAGERS, GameGlobals.GROUP_METHOD_START_DAY)
+	get_tree().call_group(GameGlobals.GROUP_NAME_MANAGERS, GameGlobals.GROUP_METHOD_START_DAY)
 
 
 # Get Daily XP, add to Bird
@@ -83,12 +65,14 @@ func on_end_of_day() -> void:
 ############################ Bird Manager Functions ############################
 ################################################################################
 
-## Called by UI._director_setup
-#func set_bird_manager(manager: BirdManager) -> void:
-	#bird_manager = manager
-	#connect_to_bird()
+############# Bird Signal Functions #############
 
-# TODO- run connect_to_bird() when Player's bird is ready
+func _connect_to_bird() -> void:
+	bird_manager.bird.hunger_changed.connect(_on_hunger_changed)
+	bird_manager.bird.social_changed.connect(_on_social_changed)
+	bird_manager.bird.energy_changed.connect(_on_energy_changed)
+	bird_manager.bird.mood_changed.connect(_on_mood_changed)
+	bird_manager.bird.status_changed.connect(_on_status_changed)
 
 
 func get_bird_data() -> Dictionary:
@@ -101,17 +85,6 @@ func give_bird_food(amount: int) -> void:
 
 func end_bird_day() -> void:
 	bird_manager.end_day()
-
-
-############# Bird Signal Functions #############
-
-func connect_to_bird() -> void:
-	bird_manager.bird.hunger_changed.connect(_on_hunger_changed)
-	bird_manager.bird.social_changed.connect(_on_social_changed)
-	bird_manager.bird.energy_changed.connect(_on_energy_changed)
-	bird_manager.bird.mood_changed.connect(_on_mood_changed)
-	bird_manager.bird.status_changed.connect(_on_status_changed)
-	#bird_manager.bird.inventory.change_to_ui.connect(_on_inventory_update)
 
 
 func _on_hunger_changed(hunger: int) -> void:
@@ -364,12 +337,11 @@ func _on_time_change(cycles: int, time_of_day: int) -> void:
 ########################### Action Manager Functions ###########################
 ################################################################################
 
-func _connect_action_manager() -> void:
-	action_manager.feed_bird.connect(_on_food_action)
-
-
 func perform_next_action() -> void:
 	var response: ManagerResponse = action_manager.perform_next_action()
+	
+	if response:
+		_match_response_function(response)
 
 
 # Action queue for bird if action is pressed
@@ -379,6 +351,10 @@ func add_to_action_queue(action: Action) -> void:
 
 func remove_from_action_queue(action_id: String) -> void:
 	action_manager.remove_action(action_id)
+
+
+func _connect_action_manager() -> void:
+	action_manager.feed_bird.connect(_on_food_action)
 
 
 func _on_food_action(amount) -> void:

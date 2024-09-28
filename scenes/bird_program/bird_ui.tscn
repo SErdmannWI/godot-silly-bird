@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://kdkbw4nykxs5"]
+[gd_scene load_steps=8 format=3 uid="uid://kdkbw4nykxs5"]
 
 [ext_resource type="Script" path="res://scenes/bird_program/bird_ui.gd" id="1_qn4q5"]
 [ext_resource type="Theme" uid="uid://b4pk64xxu7km4" path="res://themes/bird_ui_meter_labels.tres" id="1_y7sd0"]
 [ext_resource type="Texture2D" uid="uid://cwmoy7iplycv7" path="res://assets/png/icons/climate/sunny_icon.png" id="2_2ssym"]
 [ext_resource type="PackedScene" uid="uid://b7m5elcs4gs7p" path="res://scenes/bird_program/clock.tscn" id="2_eyhjx"]
 [ext_resource type="PackedScene" uid="uid://dm4env55t3ljj" path="res://scenes/bird_program/thermometer.tscn" id="3_o74u4"]
+[ext_resource type="PackedScene" uid="uid://brkr61mmtfrvc" path="res://scenes/bird_program/ui/dynamic_label.tscn" id="6_hm101"]
 [ext_resource type="PackedScene" uid="uid://bbffhbv62jyxd" path="res://scenes/bird_program/inventory/inventory_ui.tscn" id="6_j2c5y"]
 
 [node name="BirdUI" type="Node2D"]
@@ -162,16 +163,41 @@ layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MessageMarginContainer/MessageInnerMarginContainer"]
+[node name="MessagesVBox" type="VBoxContainer" parent="CanvasLayer/MessageMarginContainer/MessageInnerMarginContainer"]
 layout_mode = 2
 theme = ExtResource("1_y7sd0")
 
-[node name="MessageTypeLabel" type="Label" parent="CanvasLayer/MessageMarginContainer/MessageInnerMarginContainer/HBoxContainer"]
+[node name="UpperMessageHBox" type="HBoxContainer" parent="CanvasLayer/MessageMarginContainer/MessageInnerMarginContainer/MessagesVBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="HPLabel" type="Label" parent="CanvasLayer/MessageMarginContainer/MessageInnerMarginContainer/MessagesVBox/UpperMessageHBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.384314, 0.470588, 1, 1)
+text = "HP:"
+
+[node name="DynamicLabel" parent="CanvasLayer/MessageMarginContainer/MessageInnerMarginContainer/MessagesVBox/UpperMessageHBox" instance=ExtResource("6_hm101")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="BirdMoodLabel" type="Label" parent="CanvasLayer/MessageMarginContainer/MessageInnerMarginContainer/MessagesVBox/UpperMessageHBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.384314, 0.470588, 1, 1)
+text = "Bird Mood:"
+
+[node name="DynamicLabel2" parent="CanvasLayer/MessageMarginContainer/MessageInnerMarginContainer/MessagesVBox/UpperMessageHBox" instance=ExtResource("6_hm101")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="LowerMessageHBox" type="HBoxContainer" parent="CanvasLayer/MessageMarginContainer/MessageInnerMarginContainer/MessagesVBox"]
+layout_mode = 2
+
+[node name="MessageTypeLabel" type="Label" parent="CanvasLayer/MessageMarginContainer/MessageInnerMarginContainer/MessagesVBox/LowerMessageHBox"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Message:"
 
-[node name="MessageLabel" type="Label" parent="CanvasLayer/MessageMarginContainer/MessageInnerMarginContainer/HBoxContainer"]
+[node name="MessageLabel" type="Label" parent="CanvasLayer/MessageMarginContainer/MessageInnerMarginContainer/MessagesVBox/LowerMessageHBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
