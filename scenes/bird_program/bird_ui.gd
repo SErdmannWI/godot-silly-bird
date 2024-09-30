@@ -2,6 +2,7 @@ extends Node2D
 
 # Labels
 @onready var temperature_label: Label = %TemperatureLabel
+@onready var prompt_label: Label = %PromptLabel
 
 
 # Environment Meters
@@ -24,6 +25,7 @@ extends Node2D
 
 func _ready() -> void:
 	_connect_to_director()
+	prompt_label.position = Vector2(800,440)
 
 
 func _process(delta) -> void:
@@ -47,6 +49,17 @@ func _connect_to_director() -> void:
 	# Day Cycle/ Weather signals
 	Director.update_temp.connect(_on_temperature_changed)
 	Director.update_time.connect(_on_time_cycle_increment)
+
+
+# Player prompts
+func update_player_prompt(prompt: String) -> void:
+	prompt_label.text = prompt
+	prompt_label.visible = true
+
+
+func hide_player_prompt() -> void:
+	prompt_label.text = ""
+	prompt_label.visible = false
 
 
 # Update Environment Meters

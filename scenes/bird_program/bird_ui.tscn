@@ -216,3 +216,11 @@ offset_left = -64.5
 offset_top = -17.5
 offset_right = 64.5
 offset_bottom = 17.5
+
+[node name="PromptLabel" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("1_y7sd0")
+text = "Action Prompt"

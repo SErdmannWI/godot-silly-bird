@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bxgpawcuuuwkg"]
+[gd_scene load_steps=6 format=3 uid="uid://bxgpawcuuuwkg"]
 
 [ext_resource type="Script" path="res://scenes/bird_program/test_player_avatar.gd" id="1_2owq0"]
 [ext_resource type="Texture2D" uid="uid://bygcjk3wy4suq" path="res://assets/png/birds/mourning_dove.png" id="2_gw6o7"]
@@ -6,6 +6,9 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hkr22"]
 radius = 23.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_th3vb"]
+size = Vector2(24, 6)
 
 [node name="TestPlayerAvatar" type="CharacterBody2D"]
 collision_mask = 15
@@ -17,6 +20,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_gw6o7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-6, -3)
 shape = SubResource("CircleShape2D_hkr22")
 
@@ -25,6 +29,7 @@ unique_name_in_owner = true
 zoom = Vector2(2, 2)
 
 [node name="BirdUI" parent="Camera2D" instance=ExtResource("3_yy4r1")]
+unique_name_in_owner = true
 
 [node name="Timers" type="Node" parent="."]
 
@@ -32,3 +37,15 @@ zoom = Vector2(2, 2)
 unique_name_in_owner = true
 wait_time = 0.1
 one_shot = true
+
+[node name="LandedCooldown" type="Timer" parent="Timers"]
+unique_name_in_owner = true
+one_shot = true
+
+[node name="NonPhysicsArea2D" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NonPhysicsArea2D"]
+position = Vector2(-3, 16)
+shape = SubResource("RectangleShape2D_th3vb")
