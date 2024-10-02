@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://kdkbw4nykxs5"]
+[gd_scene load_steps=9 format=3 uid="uid://kdkbw4nykxs5"]
 
 [ext_resource type="Script" path="res://scenes/bird_program/bird_ui.gd" id="1_qn4q5"]
 [ext_resource type="Theme" uid="uid://b4pk64xxu7km4" path="res://themes/bird_ui_meter_labels.tres" id="1_y7sd0"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dm4env55t3ljj" path="res://scenes/bird_program/thermometer.tscn" id="3_o74u4"]
 [ext_resource type="PackedScene" uid="uid://brkr61mmtfrvc" path="res://scenes/bird_program/ui/dynamic_label.tscn" id="6_hm101"]
 [ext_resource type="PackedScene" uid="uid://bbffhbv62jyxd" path="res://scenes/bird_program/inventory/inventory_ui.tscn" id="6_j2c5y"]
+[ext_resource type="Script" path="res://scenes/bird_program/fps_counter.gd" id="8_0554y"]
 
 [node name="BirdUI" type="Node2D"]
 script = ExtResource("1_qn4q5")
@@ -224,3 +225,11 @@ offset_right = 40.0
 offset_bottom = 23.0
 theme = ExtResource("1_y7sd0")
 text = "Action Prompt"
+
+[node name="FPSContainer" type="MarginContainer" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="FPSCounterLabel" type="Label" parent="CanvasLayer/FPSContainer"]
+layout_mode = 2
+script = ExtResource("8_0554y")

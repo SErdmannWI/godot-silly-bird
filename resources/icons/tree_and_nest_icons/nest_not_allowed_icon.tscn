@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://rble16bgf8qw"]
+
+[ext_resource type="Texture2D" uid="uid://ffc8vgu3obel" path="res://resources/icons/tree_and_nest_icons/nest_not_allowed.png" id="1_yx5pb"]
+
+[node name="NestNotAllowedIcon" type="Node2D"]
+
+[node name="NestSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_yx5pb")

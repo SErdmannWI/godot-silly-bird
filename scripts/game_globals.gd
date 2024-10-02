@@ -107,6 +107,13 @@ const COLOR_TEXT_BLUE: Color = Color(0.384, 0.471, 1)
 const COLOR_TEXT_YELLOW: Color = Color(1, 0.859, 0)
 const COLOR_TEXT_RED: Color = Color(0.945, 0, 0)
 
+
+# Physics Globals
+const PHYSICS_GRAVITY: int = 1000
+const PHYSICS_BASE_SPEED: int = 300
+const PHYSICS_BASE_ACCELERATION: int = 600
+const PHYSICS_BASE_FRICTION: int = 2
+
 static func generate_uuid() -> String:
 	var uuid = PackedByteArray()
 	for i in range(16):

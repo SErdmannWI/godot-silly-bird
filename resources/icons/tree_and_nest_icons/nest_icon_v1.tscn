@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvo3smqeumrlt"]
+
+[ext_resource type="Texture2D" uid="uid://b0o2ncvr2idom" path="res://assets/png/nests/stick_nest_v1.png" id="1_6ubyy"]
+
+[node name="NestV1" type="Node2D"]
+
+[node name="NestSprite" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.392157)
+texture = ExtResource("1_6ubyy")

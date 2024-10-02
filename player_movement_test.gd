@@ -18,7 +18,6 @@ func _ready():
 	ground = _get_continuous_groud()
 	_place_seeds()
 	_identify_trees()
-	print(str(tree_clusters))
 	
 	Director.start_new_day()
 

@@ -1,0 +1,111 @@
+[gd_scene load_steps=15 format=3 uid="uid://bh2w4t7khs6hw"]
+
+[ext_resource type="Script" path="res://scenes/bird_program/test_player_avatar.gd" id="1_jlax0"]
+[ext_resource type="Texture2D" uid="uid://bygcjk3wy4suq" path="res://assets/png/birds/mourning_dove.png" id="2_8cd05"]
+[ext_resource type="PackedScene" uid="uid://kdkbw4nykxs5" path="res://scenes/bird_program/bird_ui.tscn" id="3_bo0pr"]
+[ext_resource type="Script" path="res://scenes/bird_program/player_bird/player_state_machine.gd" id="4_rux6p"]
+[ext_resource type="Script" path="res://scenes/bird_program/player_bird/falling_state.gd" id="5_jqyv2"]
+[ext_resource type="Script" path="res://scenes/bird_program/player_bird/flapping_state.gd" id="6_mv8e0"]
+[ext_resource type="Script" path="res://scenes/bird_program/player_bird/idle_state.gd" id="7_w3ueh"]
+[ext_resource type="Script" path="res://scenes/bird_program/player_bird/walking_state.gd" id="8_irydw"]
+[ext_resource type="Script" path="res://scenes/bird_program/player_bird/gliding_state.gd" id="9_6vno1"]
+[ext_resource type="Script" path="res://scenes/bird_program/player_bird/hovering_state.gd" id="10_td4e6"]
+[ext_resource type="Script" path="res://scenes/bird_program/player_bird/landing_state.gd" id="11_l5vp3"]
+[ext_resource type="Script" path="res://scenes/bird_program/player_bird/landed_state.gd" id="12_i6g62"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hkr22"]
+radius = 23.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_th3vb"]
+size = Vector2(24, 6)
+
+[node name="TestPlayerAvatar" type="CharacterBody2D"]
+collision_mask = 15
+script = ExtResource("1_jlax0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_8cd05")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-6, -3)
+shape = SubResource("CircleShape2D_hkr22")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+unique_name_in_owner = true
+zoom = Vector2(2, 2)
+
+[node name="BirdUI" parent="Camera2D" instance=ExtResource("3_bo0pr")]
+unique_name_in_owner = true
+
+[node name="NonPhysicsArea2D" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NonPhysicsArea2D"]
+position = Vector2(-3, 16)
+shape = SubResource("RectangleShape2D_th3vb")
+
+[node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
+unique_name_in_owner = true
+script = ExtResource("4_rux6p")
+starting_state = NodePath("Falling")
+
+[node name="Falling" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("flapping_state", "idle_state", "gliding_state", "hovering_state", "landing_state")]
+script = ExtResource("5_jqyv2")
+flapping_state = NodePath("../Flapping")
+idle_state = NodePath("../Idle")
+gliding_state = NodePath("../Gliding")
+hovering_state = NodePath("../Hovering")
+landing_state = NodePath("../Landing")
+
+[node name="Flapping" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("falling_state")]
+script = ExtResource("6_mv8e0")
+falling_state = NodePath("../Falling")
+
+[node name="FlapCooldown" type="Timer" parent="PlayerStateMachine/Flapping"]
+unique_name_in_owner = true
+wait_time = 0.1
+one_shot = true
+
+[node name="Idle" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("flapping_state", "walking_state", "falling_state")]
+script = ExtResource("7_w3ueh")
+flapping_state = NodePath("../Flapping")
+walking_state = NodePath("../Walking")
+falling_state = NodePath("../Falling")
+
+[node name="Walking" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("idle_state", "falling_state", "flapping_state")]
+script = ExtResource("8_irydw")
+idle_state = NodePath("../Idle")
+falling_state = NodePath("../Falling")
+flapping_state = NodePath("../Flapping")
+
+[node name="Gliding" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("falling_state", "flapping_state", "hovering_state", "landing_state", "idle_state")]
+script = ExtResource("9_6vno1")
+falling_state = NodePath("../Falling")
+flapping_state = NodePath("../Flapping")
+hovering_state = NodePath("../Hovering")
+landing_state = NodePath("../Landing")
+idle_state = NodePath("../Idle")
+
+[node name="Hovering" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("falling_state", "flapping_state", "landing_state", "idle_state")]
+script = ExtResource("10_td4e6")
+falling_state = NodePath("../Falling")
+flapping_state = NodePath("../Flapping")
+landing_state = NodePath("../Landing")
+idle_state = NodePath("../Idle")
+
+[node name="Landing" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("falling_state", "landed_state")]
+script = ExtResource("11_l5vp3")
+falling_state = NodePath("../Falling")
+landed_state = NodePath("../Landed")
+
+[node name="Landed" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("flapping_state")]
+script = ExtResource("12_i6g62")
+flapping_state = NodePath("../Flapping")
+
+[node name="LandedCooldown" type="Timer" parent="PlayerStateMachine/Landed"]
+unique_name_in_owner = true
+one_shot = true
